@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechFix Informática — Vendas e Assistência Técnica</title>
+<meta name="description" content="Vendas e manutenção de computadores, notebooks, impressoras, periféricos e peças. Diagnóstico transparente, garantia e atendimento rápido.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   1) DESIGN TOKENS — troque as cores/tipos aqui se quiser
+   ========================================================= */
+:root{
+  --bg:#f6f7f5;
+  --bg-alt:#eef0eb;
+  --surface:#ffffff;
+  --surface-2:#f1f3ef;
+  --text:#10171a;
+  --text-muted:#55636a;
+  --line:rgba(16,23,26,.12);
+  --line-strong:rgba(16,23,26,.22);
+  --accent:#e08a1e;
+  --accent-ink:#3a2405;
+  --accent-2:#0f8f8a;
+  --led-green:#1fae62;
+  --led-red:#e0473f;
+  --shadow: 0 10px 30px rgba(16,23,26,.08);
+  --radius:14px;
+  --notch:12px;
+  --font-mono:'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-body:'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --maxw:1180px;
+  --dur:.5s;
+}
+[data-theme="dark"]{
+  --bg:#0b0f10;
+  --bg-alt:#0e1415;
+  --surface:#141a1b;
+  --surface-2:#182022;
+  --text:#edf2f2;
+  --text-muted:#93a3a5;
+  --line:rgba(237,242,242,.12);
+  --line-strong:rgba(237,242,242,.24);
+  --accent:#ffb020;
+  --accent-ink:#1a1204;
+  --accent-2:#2fd6c9;
+  --led-green:#35d07f;
+  --led-red:#ff5c53;
+  --shadow: 0 10px 40px rgba(0,0,0,.45);
+}
+
+/* =========================================================
+   2) RESET
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  transition:background var(--dur) ease, color var(--dur) ease;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4{margin:0;font-family:var(--font-mono);font-weight:600;letter-spacing:-.01em;}
+p{margin:0;}
+button{font-family:inherit;cursor:pointer;}
+input,select,textarea{font-family:inherit;font-size:1rem;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+
+.skip-link{
+  position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--accent-ink);
+  padding:.75rem 1.25rem;z-index:200;font-family:var(--font-mono);font-size:.85rem;border-radius:0 0 8px 0;
+}
+.skip-link:focus{left:0;}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+.section{padding:96px 0;position:relative;}
+@media(max-width:720px){.section{padding:64px 0;}}
+
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:.78rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent-2);
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;
+}
+.eyebrow::before{
+  content:"";width:8px;height:8px;border-radius:2px;background:var(--accent-2);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--accent-2) 20%, transparent);
+}
+.section-head{max-width:640px;margin-bottom:52px;}
+.section-head h2{font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.15;}
+.section-head p{margin-top:14px;color:var(--text-muted);font-size:1.05rem;}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--font-mono);font-size:.85rem;letter-spacing:.02em;
+  padding:14px 24px;border-radius:9px;border:1px solid transparent;
+  transition:transform .18s ease, background .2s ease, border-color .2s ease, color .2s ease;
+  white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:var(--accent);color:var(--accent-ink);font-weight:600;}
+.btn-primary:hover{background:color-mix(in srgb, var(--accent) 88%, white 12%);}
+.btn-ghost{border-color:var(--line-strong);color:var(--text);}
+.btn-ghost:hover{border-color:var(--accent-2);color:var(--accent-2);}
+.btn-block{width:100%;}
+
+/* connector-notch card corners — elemento de assinatura do template */
+.chip{
+  clip-path:polygon(
+    var(--notch) 0, 100% 0, 100% calc(100% - var(--notch)),
+    calc(100% - var(--notch)) 100%, 0 100%, 0 var(--notch)
+  );
+}
+
+/* =========================================================
+   3) HEADER
+   ========================================================= */
+.site-header{
+  position:sticky;top:0;z-index:100;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 0;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-weight:700;font-size:1.05rem;letter-spacing:-.02em;
+}
+.logo-mark{
+  width:34px;height:34px;border-radius:8px;background:var(--accent);
+  display:flex;align-items:center;justify-content:center;color:var(--accent-ink);
+  flex-shrink:0;
+}
+.logo-mark svg{width:18px;height:18px;}
+
+.nav{display:flex;align-items:center;gap:36px;}
+.nav-links{display:flex;gap:28px;font-size:.93rem;}
+.nav-links a{color:var(--text-muted);transition:color .2s ease;position:relative;}
+.nav-links a:hover{color:var(--text);}
+.nav-actions{display:flex;align-items:center;gap:12px;}
+
+.theme-toggle{
+  width:42px;height:42px;border-radius:9px;border:1px solid var(--line-strong);
+  background:var(--surface);display:flex;align-items:center;justify-content:center;
+  color:var(--text);transition:border-color .2s ease;flex-shrink:0;
+}
+.theme-toggle:hover{border-color:var(--accent-2);}
+.theme-toggle svg{width:19px;height:19px;}
+.theme-toggle .icon-moon{display:none;}
+[data-theme="dark"] .theme-toggle .icon-sun{display:none;}
+[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
+
+.nav-toggle{
+  display:none;width:42px;height:42px;border-radius:9px;border:1px solid var(--line-strong);
+  background:var(--surface);align-items:center;justify-content:center;color:var(--text);
+}
+.nav-toggle svg{width:20px;height:20px;}
+
+@media(max-width:900px){
+  .nav-links{
+    position:fixed;inset:69px 0 0 0;background:var(--bg);
+    flex-direction:column;padding:32px 24px;gap:0;
+    transform:translateY(-8px);opacity:0;pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    border-top:1px solid var(--line);
+  }
+  .nav-links.open{opacity:1;transform:translateY(0);pointer-events:auto;}
+  .nav-links a{padding:16px 4px;border-bottom:1px solid var(--line);font-size:1.05rem;}
+  .nav-toggle{display:flex;}
+  .nav-cta{display:none;}
+}
+
+/* =========================================================
+   4) HERO + PAINEL DE STATUS (elemento de assinatura)
+   ========================================================= */
+.hero{padding:80px 0 100px;overflow:hidden;}
+.hero-grid{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;
+}
+@media(max-width:980px){.hero-grid{grid-template-columns:1fr;gap:48px;}}
+
+.hero h1{
+  font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1.08;letter-spacing:-.02em;
+  margin-bottom:20px;
+}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero p.lead{font-size:1.12rem;color:var(--text-muted);max-width:520px;margin-bottom:32px;font-family:var(--font-body);}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px;}
+
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap;}
+.hero-stats div{border-left:2px solid var(--accent-2);padding-left:12px;}
+.hero-stats strong{display:block;font-family:var(--font-mono);font-size:1.35rem;}
+.hero-stats span{font-size:.82rem;color:var(--text-muted);}
+
+/* console/boot panel */
+.console{
+  background:#0b0f10;border-radius:var(--radius);border:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--shadow);overflow:hidden;font-family:var(--font-mono);
+}
+.console-bar{
+  display:flex;align-items:center;gap:8px;padding:12px 16px;
+  background:#12191a;border-bottom:1px solid rgba(255,255,255,.06);
+}
+.console-bar span{width:9px;height:9px;border-radius:50%;background:#3a4547;}
+.console-bar .label{margin-left:8px;color:#8a9a9c;font-size:.75rem;letter-spacing:.05em;}
+.console-body{padding:22px 20px;min-height:230px;}
+.console-line{color:#8fe3c7;font-size:.85rem;margin-bottom:8px;opacity:0;white-space:pre-wrap;}
+.console-line .dim{color:#5f7375;}
+.console-line .ok{color:#3fd88a;}
+.console-status{
+  margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;
+  opacity:0;
+}
+.console-status .row{
+  display:flex;align-items:center;gap:9px;font-size:.8rem;color:#c7d5d6;
+  padding:9px 10px;border:1px solid rgba(255,255,255,.07);border-radius:7px;background:rgba(255,255,255,.02);
+}
+.led{width:8px;height:8px;border-radius:50%;background:var(--led-green);flex-shrink:0;
+  box-shadow:0 0 0 3px rgba(53,208,127,.18);animation:blink 2.4s ease-in-out infinite;}
+.led:nth-child(1){animation-delay:.1s;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.35;}}
+@media (prefers-reduced-motion: reduce){.led{animation:none;}}
+
+/* PCB trace divider */
+.trace{width:100%;height:34px;display:block;color:var(--line-strong);margin:0;}
+
+/* =========================================================
+   5) SERVICES
+   ========================================================= */
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:980px){.services-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.services-grid{grid-template-columns:1fr;}}
+
+.card{
+  background:var(--surface);border:1px solid var(--line);padding:28px 24px;
+  transition:border-color .2s ease, transform .2s ease;
+}
+.card:hover{border-color:var(--accent-2);transform:translateY(-3px);}
+.card-icon{
+  width:46px;height:46px;border-radius:10px;background:var(--surface-2);
+  display:flex;align-items:center;justify-content:center;margin-bottom:18px;color:var(--accent-2);
+}
+.card-icon svg{width:22px;height:22px;}
+.card h3{font-size:1.02rem;margin-bottom:8px;}
+.card p{color:var(--text-muted);font-size:.92rem;}
+.card-status{
+  display:inline-flex;align-items:center;gap:7px;margin-top:16px;
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;color:var(--led-green);
+  text-transform:uppercase;
+}
+.card-status .led{animation-duration:2.8s;}
+
+/* =========================================================
+   6) LOJA / CATEGORIAS
+   ========================================================= */
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:900px){.shop-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.shop-grid{grid-template-columns:1fr;}}
+.shop-card{
+  background:var(--surface);border:1px solid var(--line);padding:26px;
+  display:flex;flex-direction:column;gap:14px;transition:border-color .2s ease, transform .2s ease;
+}
+.shop-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+.shop-card .top{display:flex;align-items:center;justify-content:space-between;}
+.shop-card .top .tag{font-family:var(--font-mono);font-size:.68rem;color:var(--text-muted);letter-spacing:.08em;}
+.shop-card .icon{width:40px;height:40px;color:var(--accent);}
+.shop-card h3{font-size:1rem;}
+.shop-card p{font-size:.88rem;color:var(--text-muted);}
+.shop-card a.more{margin-top:auto;font-family:var(--font-mono);font-size:.8rem;color:var(--accent-2);display:inline-flex;align-items:center;gap:6px;}
+.shop-card a.more svg{width:13px;height:13px;transition:transform .2s ease;}
+.shop-card:hover a.more svg{transform:translateX(3px);}
+
+/* =========================================================
+   7) COMO FUNCIONA (pinout numerado — sequência real)
+   ========================================================= */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+@media(max-width:900px){.steps{grid-template-columns:1fr 1fr;gap:32px 20px;}}
+@media(max-width:560px){.steps{grid-template-columns:1fr;gap:28px;}}
+.step{position:relative;padding:0 20px 0 0;}
+.step .pin{
+  font-family:var(--font-mono);font-size:.78rem;color:var(--accent-ink);
+  width:34px;height:34px;border-radius:50%;background:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:18px;
+}
+.step h3{font-size:1rem;margin-bottom:8px;}
+.step p{font-size:.9rem;color:var(--text-muted);}
+.step-line{
+  position:absolute;top:17px;left:34px;right:-20px;height:2px;
+  background:repeating-linear-gradient(90deg, var(--line-strong) 0 6px, transparent 6px 12px);
+}
+.step:last-child .step-line, .steps>.step:nth-child(4n) .step-line{display:none;}
+@media(max-width:900px){.step-line{display:none !important;}}
+
+/* =========================================================
+   8) DIFERENCIAIS
+   ========================================================= */
+.diff-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+@media(max-width:900px){.diff-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.diff-grid{grid-template-columns:1fr;}}
+.diff{display:flex;flex-direction:column;gap:12px;}
+.diff .icon{width:38px;height:38px;color:var(--led-green);}
+.diff h3{font-size:.98rem;}
+.diff p{font-size:.88rem;color:var(--text-muted);}
+
+/* =========================================================
+   9) DEPOIMENTOS
+   ========================================================= */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:900px){.testi-grid{grid-template-columns:1fr;}}
+.testi{
+  background:var(--surface);border:1px solid var(--line);padding:26px;
+  display:flex;flex-direction:column;gap:16px;
+}
+.testi .stars{color:var(--accent);letter-spacing:2px;font-size:.9rem;}
+.testi p.quote{font-size:.95rem;color:var(--text);}
+.testi .who{display:flex;align-items:center;gap:10px;margin-top:auto;}
+.testi .avatar{
+  width:36px;height:36px;border-radius:50%;background:var(--surface-2);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.8rem;color:var(--accent-2);
+}
+.testi .who strong{display:block;font-size:.86rem;}
+.testi .who span{font-size:.78rem;color:var(--text-muted);}
+
+/* =========================================================
+   10) CTA BANNER
+   ========================================================= */
+.cta-banner{
+  background:var(--surface-2);border:1px solid var(--line);
+  padding:56px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+}
+.cta-banner h2{font-size:clamp(1.4rem,2.6vw,1.9rem);max-width:520px;}
+.cta-banner p{color:var(--text-muted);margin-top:10px;}
+
+/* =========================================================
+   11) CONTATO
+   ========================================================= */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr;gap:40px;}}
+
+.contact-info-list{display:flex;flex-direction:column;gap:22px;margin-top:28px;}
+.contact-info-list li{display:flex;gap:14px;align-items:flex-start;}
+.contact-info-list .ic{
+  width:38px;height:38px;border-radius:9px;background:var(--surface);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;color:var(--accent-2);flex-shrink:0;
+}
+.contact-info-list .ic svg{width:17px;height:17px;}
+.contact-info-list strong{display:block;font-size:.92rem;margin-bottom:2px;}
+.contact-info-list span, .contact-info-list a{font-size:.9rem;color:var(--text-muted);}
+.contact-info-list a:hover{color:var(--accent-2);}
+
+.map-frame{
+  margin-top:28px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+  height:220px;
+}
+.map-frame iframe{width:100%;height:100%;border:0;filter:grayscale(.15);}
+
+.form-card{
+  background:var(--surface);border:1px solid var(--line);padding:32px;border-radius:var(--radius);
+}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:.82rem;font-family:var(--font-mono);margin-bottom:8px;color:var(--text-muted);}
+.field input, .field select, .field textarea{
+  width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--line-strong);
+  background:var(--bg);color:var(--text);transition:border-color .2s ease;
+}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--accent-2);outline:none;}
+.field textarea{resize:vertical;min-height:100px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:560px){.form-row{grid-template-columns:1fr;}}
+.form-note{font-size:.78rem;color:var(--text-muted);margin-top:12px;text-align:center;}
+
+/* =========================================================
+   12) FOOTER
+   ========================================================= */
+.site-footer{border-top:1px solid var(--line);padding:56px 0 28px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.footer-grid{grid-template-columns:1fr;}}
+.footer-grid h4{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.footer-grid ul{display:flex;flex-direction:column;gap:10px;}
+.footer-grid a{font-size:.9rem;color:var(--text-muted);}
+.footer-grid a:hover{color:var(--accent-2);}
+.footer-about p{color:var(--text-muted);font-size:.9rem;margin-top:14px;max-width:280px;}
+.footer-social{display:flex;gap:10px;margin-top:18px;}
+.footer-social a{
+  width:36px;height:36px;border-radius:8px;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;color:var(--text-muted);
+}
+.footer-social a:hover{color:var(--accent-2);border-color:var(--accent-2);}
+.footer-social svg{width:16px;height:16px;}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  padding-top:24px;border-top:1px solid var(--line);
+  font-size:.8rem;color:var(--text-muted);font-family:var(--font-mono);
+}
+
+/* whatsapp floating button */
+.fab{
+  position:fixed;right:22px;bottom:22px;z-index:120;
+  width:56px;height:56px;border-radius:50%;background:var(--led-green);color:#08210f;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);
+  transition:transform .2s ease;
+}
+.fab:hover{transform:scale(1.06);}
+.fab svg{width:26px;height:26px;}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
+      </span>
+      <span data-cfg="name">TechFix Informática</span>
+    </a>
+
+    <nav class="nav">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#loja">Loja</a></li>
+        <li><a href="#como-funciona">Como funciona</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Alternar modo claro/escuro" type="button">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+        </button>
+        <a href="#contato" class="btn btn-primary nav-cta">Orçamento</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="reveal in">
+        <p class="eyebrow">Venda &amp; assistência técnica</p>
+        <h1>Diagnóstico de precisão para <em>cada</em> equipamento que entra na loja.</h1>
+        <p class="lead">Vendemos e consertamos notebooks, desktops, impressoras e periféricos. Orçamento claro, peças de qualidade e prazo que a gente cumpre.</p>
+        <div class="hero-ctas">
+          <a href="#contato" class="btn btn-primary" id="heroWhats">Solicitar orçamento</a>
+          <a href="#servicos" class="btn btn-ghost">Ver serviços</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong data-count="12400">0</strong><span>reparos concluídos</span></div>
+          <div><strong>90</strong><span>dias de garantia</span></div>
+          <div><strong data-count="15">0</strong><span>anos de bancada</span></div>
+        </div>
+      </div>
+
+      <div class="reveal in">
+        <div class="console" role="img" aria-label="Painel ilustrativo de status do sistema">
+          <div class="console-bar">
+            <span></span><span></span><span></span>
+            <span class="label">bancada@loja — diagnóstico</span>
+          </div>
+          <div class="console-body" id="consoleBody">
+            <div class="console-line" id="cl1">&gt; iniciando verificação de setor...</div>
+            <div class="console-line" id="cl2">&gt; testando memória <span class="dim">[RAM]</span> <span class="ok">OK</span></div>
+            <div class="console-line" id="cl3">&gt; testando armazenamento <span class="dim">[SSD/HD]</span> <span class="ok">OK</span></div>
+            <div class="console-line" id="cl4">&gt; checando fontes de alimentação <span class="ok">OK</span></div>
+            <div class="console-status" id="consoleStatus">
+              <div class="row"><span class="led"></span>Vendas — online</div>
+              <div class="row"><span class="led"></span>Manutenção — online</div>
+              <div class="row"><span class="led"></span>Peças &amp; upgrades — online</div>
+              <div class="row"><span class="led"></span>Suporte técnico — online</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <svg class="trace wrap" viewBox="0 0 1180 34" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 17 H480 M520 17 H1180" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    <circle cx="500" cy="17" r="4" fill="currentColor"/>
+  </svg>
+
+  <!-- SERVIÇOS -->
+  <section class="section" id="servicos">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">O que fazemos</p>
+        <h2>Quatro frentes, um único balcão.</h2>
+        <p>Da venda ao suporte pós-reparo, cada etapa é tratada como um módulo próprio da operação — com responsável e prazo definidos.</p>
+      </div>
+      <div class="services-grid">
+        <div class="card reveal">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M2 20h20M9 20l.5-4M15 20l-.5-4"/></svg></div>
+          <h3>Venda de equipamentos</h3>
+          <p>Notebooks, desktops e impressoras novos e recondicionados, com garantia e nota fiscal.</p>
+          <div class="card-status"><span class="led"></span>Disponível</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14.5 3.5l6 6L9 21l-6 2 2-6z"/><path d="M12.5 5.5l6 6"/></svg></div>
+          <h3>Manutenção &amp; reparo</h3>
+          <p>Diagnóstico gratuito, troca de peças, limpeza interna e formatação com backup.</p>
+          <div class="card-status"><span class="led"></span>Disponível</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
+          <h3>Peças &amp; upgrades</h3>
+          <p>Memória, SSD, placas de vídeo e fontes — venda avulsa ou instalação na hora.</p>
+          <div class="card-status"><span class="led"></span>Disponível</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20v-2a4 4 0 0 1 4-4h1M20 20v-2a4 4 0 0 0-4-4h-1M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM15 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg></div>
+          <h3>Suporte técnico</h3>
+          <p>Atendimento remoto ou presencial para dúvidas, redes e configuração de sistemas.</p>
+          <div class="card-status"><span class="led"></span>Disponível</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOJA -->
+  <section class="section" id="loja" style="background:var(--bg-alt);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Catálogo</p>
+        <h2>O que você encontra na loja.</h2>
+        <p>Categorias organizadas para facilitar sua busca — fale com a gente para ver o estoque atualizado e condições de pagamento.</p>
+      </div>
+      <div class="shop-grid">
+        <div class="shop-card chip reveal">
+          <div class="top"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M2 20h20"/></svg><span class="tag">NOTEBOOKS</span></div>
+          <h3>Notebooks</h3>
+          <p>Para trabalho, estudo ou jogos — novos e recondicionados com garantia.</p>
+          <a href="#contato" class="more">Consultar disponibilidade <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="shop-card chip reveal">
+          <div class="top"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M9 20h6M12 15v5"/></svg><span class="tag">DESKTOPS</span></div>
+          <h3>Computadores de mesa</h3>
+          <p>Montagem sob medida ou modelos prontos para uso doméstico e profissional.</p>
+          <a href="#contato" class="more">Consultar disponibilidade <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="shop-card chip reveal">
+          <div class="top"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="7" rx="1.5"/><path d="M6 10v4h12v-4M8 18h8M9 14v4M15 14v4"/></svg><span class="tag">IMPRESSORAS</span></div>
+          <h3>Impressoras</h3>
+          <p>Jato de tinta, laser e multifuncionais, com toners e cartuchos em estoque.</p>
+          <a href="#contato" class="more">Consultar disponibilidade <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="shop-card chip reveal">
+          <div class="top"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="3" width="12" height="18" rx="6"/><path d="M12 3v6"/></svg><span class="tag">PERIFÉRICOS</span></div>
+          <h3>Periféricos</h3>
+          <p>Teclados, mouses, headsets, webcams e monitores de diversas marcas.</p>
+          <a href="#contato" class="more">Consultar disponibilidade <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="shop-card chip reveal">
+          <div class="top"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg><span class="tag">PEÇAS</span></div>
+          <h3>Peças &amp; upgrades</h3>
+          <p>SSDs, memórias RAM, placas de vídeo, fontes e coolers para o seu upgrade.</p>
+          <a href="#contato" class="more">Consultar disponibilidade <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="shop-card chip reveal">
+          <div class="top"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M4 12a8 8 0 0 1 8-8M20 12a8 8 0 0 1-8 8"/><circle cx="4" cy="12" r="1.4"/><circle cx="20" cy="12" r="1.4"/></svg><span class="tag">REDES</span></div>
+          <h3>Redes &amp; conectividade</h3>
+          <p>Roteadores, cabeamento estruturado e configuração de Wi-Fi para casa e empresa.</p>
+          <a href="#contato" class="more">Consultar disponibilidade <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="section" id="como-funciona">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Fluxo do reparo</p>
+        <h2>Do check-in à entrega, em 4 etapas.</h2>
+        <p>Você acompanha cada passo — sem letras miúdas e sem surpresa na hora de pagar.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><div class="pin">1</div><div class="step-line"></div><h3>Diagnóstico</h3><p>Avaliamos o equipamento e identificamos a causa do problema, sem custo.</p></div>
+        <div class="step reveal"><div class="pin">2</div><div class="step-line"></div><h3>Orçamento</h3><p>Você recebe o valor e o prazo antes de autorizar qualquer serviço.</p></div>
+        <div class="step reveal"><div class="pin">3</div><div class="step-line"></div><h3>Reparo</h3><p>Executamos o conserto com peças de procedência e testes de qualidade.</p></div>
+        <div class="step reveal"><div class="pin">4</div><h3>Entrega &amp; garantia</h3><p>Devolução testada, nota fiscal e garantia de 90 dias no serviço.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <svg class="trace wrap" viewBox="0 0 1180 34" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 17 H680 M720 17 H1180" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    <circle cx="700" cy="17" r="4" fill="currentColor"/>
+  </svg>
+
+  <!-- DIFERENCIAIS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Por que a gente</p>
+        <h2>Confiança construída na bancada.</h2>
+      </div>
+      <div class="diff-grid">
+        <div class="diff reveal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          <h3>Garantia real</h3>
+          <p>90 dias em todos os serviços de manutenção, com nota fiscal.</p>
+        </div>
+        <div class="diff reveal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12h8M12 8v8"/></svg>
+          <h3>Peças originais</h3>
+          <p>Componentes de procedência, com nota e garantia de fábrica.</p>
+        </div>
+        <div class="diff reveal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <h3>Prazo cumprido</h3>
+          <p>Você recebe o prazo real na hora do orçamento — e a gente cumpre.</p>
+        </div>
+        <div class="diff reveal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v12H7l-3 3z"/></svg>
+          <h3>Atendimento direto</h3>
+          <p>Fale com quem está consertando o seu equipamento, sem intermediário.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="section" id="depoimentos" style="background:var(--bg-alt);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Depoimentos</p>
+        <h2>Quem já passou pela bancada.</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi reveal">
+          <div class="stars">★★★★★</div>
+          <p class="quote">Levei meu notebook achando que era a placa-mãe. Era só a memória. Economizei e ainda ganhei uma limpeza completa.</p>
+          <div class="who"><div class="avatar">MC</div><div><strong>Marina C.</strong><span>Cliente — manutenção</span></div></div>
+        </div>
+        <div class="testi reveal">
+          <div class="stars">★★★★★</div>
+          <p class="quote">Comprei um desktop montado sob medida para edição de vídeo. Chegou testado e com nota fiscal, sem dor de cabeça.</p>
+          <div class="who"><div class="avatar">RP</div><div><strong>Rafael P.</strong><span>Cliente — venda</span></div></div>
+        </div>
+        <div class="testi reveal">
+          <div class="stars">★★★★★</div>
+          <p class="quote">Impressora da minha empresa parou do nada. Vieram no mesmo dia, resolveram e ainda deixaram um contato direto para emergências.</p>
+          <div class="who"><div class="avatar">DS</div><div><strong>Daniela S.</strong><span>Cliente — suporte técnico</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-banner chip reveal">
+        <div>
+          <h2>Seu equipamento merece um diagnóstico de verdade.</h2>
+          <p>Fale com a gente agora pelo WhatsApp e receba o orçamento sem compromisso.</p>
+        </div>
+        <a href="#" class="btn btn-primary" id="ctaWhats">Chamar no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="section" id="contato">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Contato</p>
+        <h2>Vamos resolver o que precisar.</h2>
+        <p>Preencha o formulário ou fale direto pelos canais abaixo — respondemos rápido.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="reveal">
+          <ul class="contact-info-list">
+            <li>
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <div><strong>Endereço</strong><span data-cfg="addressLine">Rua Exemplo, 123 — Centro, Sua Cidade/UF</span></div>
+            </li>
+            <li>
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 14l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 7a2 2 0 0 1 2-2z"/></svg></span>
+              <div><strong>Telefone / WhatsApp</strong><a href="#" data-cfg="phoneDisplay" id="phoneLink">(11) 4444-5555</a></div>
+            </li>
+            <li>
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+              <div><strong>E-mail</strong><a href="#" data-cfg="emailDisplay" id="emailLink">contato@suaempresa.com.br</a></div>
+            </li>
+            <li>
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+              <div><strong>Horário de atendimento</strong><span data-cfg="hours">Seg a Sex, 9h–18h · Sáb, 9h–13h</span></div>
+            </li>
+          </ul>
+
+          <div class="map-frame">
+            <iframe
+              id="mapFrame"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Rua+Exemplo+123&output=embed"
+              title="Mapa de localização da loja"></iframe>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <form class="form-card" id="quoteForm">
+            <div class="form-row">
+              <div class="field">
+                <label for="fname">Nome</label>
+                <input type="text" id="fname" name="fname" required placeholder="Seu nome">
+              </div>
+              <div class="field">
+                <label for="fphone">Telefone</label>
+                <input type="tel" id="fphone" name="fphone" required placeholder="(11) 90000-0000">
+              </div>
+            </div>
+            <div class="field">
+              <label for="fservice">Tipo de serviço</label>
+              <select id="fservice" name="fservice">
+                <option>Manutenção de notebook</option>
+                <option>Manutenção de desktop</option>
+                <option>Reparo de impressora</option>
+                <option>Compra de equipamento</option>
+                <option>Peças e upgrades</option>
+                <option>Suporte técnico</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="fmsg">Mensagem</label>
+              <textarea id="fmsg" name="fmsg" placeholder="Descreva o problema ou o que você precisa..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Enviar via WhatsApp</button>
+            <p class="form-note">Ao enviar, você será redirecionado ao WhatsApp com sua mensagem já preenchida.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="#top" class="logo">
+          <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></span>
+          <span data-cfg="name">TechFix Informática</span>
+        </a>
+        <p data-cfg="footerText">Assistência técnica e loja de informática com diagnóstico transparente e garantia em todos os serviços.</p>
+        <div class="footer-social">
+          <a href="#" data-cfg="instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+          <a href="#" data-cfg="facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 9h3V6h-3a4 4 0 0 0-4 4v2H7v3h3v6h3v-6h3l1-3h-4v-2a1 1 0 0 1 1-1z"/></svg></a>
+          <a href="#" id="waSocial" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20l1.4-4.2A8 8 0 1 1 9 18.6z"/><path d="M8.5 9.5c0 3 2.5 5.5 5.5 5.5.6 0 1.1-.4 1.1-1v-.8l-2-1-.6.9a5 5 0 0 1-3.1-3.1l.9-.6-1-2h-.8c-.6 0-1 .5-1 1.1z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#loja">Loja</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Serviços</h4>
+        <ul>
+          <li><a href="#servicos">Venda de equipamentos</a></li>
+          <li><a href="#servicos">Manutenção &amp; reparo</a></li>
+          <li><a href="#servicos">Peças &amp; upgrades</a></li>
+          <li><a href="#servicos">Suporte técnico</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="#" data-cfg="phoneDisplay">(11) 4444-5555</a></li>
+          <li><a href="#" data-cfg="emailDisplay">contato@suaempresa.com.br</a></li>
+          <li><span data-cfg="addressLine">Rua Exemplo, 123 — Centro</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-cfg="footerLegal">© <span id="year"></span> TechFix Informática. Todos os direitos reservados.</span>
+      <span>Template desenvolvido para lojas de informática</span>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="fab" id="fabWhats" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20l1.4-4.2A8 8 0 1 1 9 18.6z"/><path d="M8.5 9.5c0 3 2.5 5.5 5.5 5.5.6 0 1.1-.4 1.1-1v-.8l-2-1-.6.9a5 5 0 0 1-3.1-3.1l.9-.6-1-2h-.8c-.6 0-1 .5-1 1.1z"/></svg>
+</a>
+
+<script>
+/* =========================================================================
+   CONFIGURAÇÃO DO SITE — EDITE SOMENTE ESTE BLOCO PARA PERSONALIZAR
+   Troque nome, telefone, e-mail, endereço e redes sociais de cada empresa
+   que for usar este template. O resto do site é preenchido automaticamente.
+   ========================================================================= */
+const SITE_CONFIG = {
+  name: "TechFix Informática",
+  footerText: "Assistência técnica e loja de informática com diagnóstico transparente e garantia em todos os serviços.",
+  footerLegal: "Todos os direitos reservados.",
+
+  // Telefone/WhatsApp — whatsappNumber deve ter só números, com DDI+DDD (ex: 55 11 90000-0000 -> "5511900000000")
+  phoneDisplay: "(11) 4444-5555",
+  whatsappNumber: "5511900000000",
+  whatsappDefaultMessage: "Olá! Vim pelo site e gostaria de um orçamento.",
+
+  email: "contato@suaempresa.com.br",
+
+  addressLine: "Rua Exemplo, 123 — Centro, Sua Cidade/UF",
+  // Para o mapa: substitua pela busca do endereço real (Google Maps > Compartilhar > Incorporar mapa)
+  mapEmbedSrc: "https://www.google.com/maps?q=Rua+Exemplo+123&output=embed",
+
+  hours: "Seg a Sex, 9h–18h · Sáb, 9h–13h",
+
+  instagramUrl: "https://instagram.com/",
+  facebookUrl: "https://facebook.com/"
+};
+
+/* ================= Aplica a configuração no HTML ================= */
+(function applyConfig(){
+  document.querySelectorAll('[data-cfg="name"]').forEach(el => el.textContent = SITE_CONFIG.name);
+  document.querySelectorAll('[data-cfg="footerText"]').forEach(el => el.textContent = SITE_CONFIG.footerText);
+  document.querySelectorAll('[data-cfg="addressLine"]').forEach(el => el.textContent = SITE_CONFIG.addressLine);
+  document.querySelectorAll('[data-cfg="hours"]').forEach(el => el.textContent = SITE_CONFIG.hours);
+
+  document.querySelectorAll('[data-cfg="phoneDisplay"]').forEach(el => {
+    el.textContent = SITE_CONFIG.phoneDisplay;
+    el.href = "https://wa.me/" + SITE_CONFIG.whatsappNumber;
+    el.target = "_blank"; el.rel = "noopener";
+  });
+  document.querySelectorAll('[data-cfg="emailDisplay"]').forEach(el => {
+    el.textContent = SITE_CONFIG.email;
+    el.href = "mailto:" + SITE_CONFIG.email;
+  });
+
+  document.title = SITE_CONFIG.name + " — Vendas e Assistência Técnica";
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const waUrl = (msg) => "https://wa.me/" + SITE_CONFIG.whatsappNumber + "?text=" + encodeURIComponent(msg);
+  ["heroWhats","ctaWhats","fabWhats","waSocial"].forEach(id => {
+    const el = document.getElementById(id);
+    if(el){ el.href = waUrl(SITE_CONFIG.whatsappDefaultMessage); el.target = "_blank"; el.rel = "noopener"; }
+  });
+
+  const ig = document.querySelector('[data-cfg="instagram"]');
+  if(ig){ ig.href = SITE_CONFIG.instagramUrl; ig.target = "_blank"; ig.rel = "noopener"; }
+  const fb = document.querySelector('[data-cfg="facebook"]');
+  if(fb){ fb.href = SITE_CONFIG.facebookUrl; fb.target = "_blank"; fb.rel = "noopener"; }
+
+  const map = document.getElementById("mapFrame");
+  if(map) map.src = SITE_CONFIG.mapEmbedSrc;
+})();
+
+/* ================= Modo claro / escuro ================= */
+(function themeInit(){
+  const root = document.documentElement;
+  const stored = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  root.setAttribute("data-theme", stored || (prefersDark ? "dark" : "light"));
+
+  document.getElementById("themeToggle").addEventListener("click", () => {
+    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
+})();
+
+/* ================= Menu mobile ================= */
+(function navInit(){
+  const btn = document.getElementById("navToggle");
+  const links = document.getElementById("navLinks");
+  btn.addEventListener("click", () => {
+    const isOpen = links.classList.toggle("open");
+    btn.setAttribute("aria-expanded", isOpen);
+  });
+  links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+    links.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+  }));
+})();
+
+/* ================= Animação do console (hero) ================= */
+(function consoleInit(){
+  const lines = ["cl1","cl2","cl3","cl4"].map(id => document.getElementById(id));
+  const status = document.getElementById("consoleStatus");
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if(reduced){
+    lines.forEach(l => l.style.opacity = 1);
+    status.style.opacity = 1;
+    return;
+  }
+  lines.forEach((line, i) => {
+    setTimeout(() => { line.style.transition = "opacity .4s ease"; line.style.opacity = 1; }, 350 * (i + 1));
+  });
+  setTimeout(() => { status.style.transition = "opacity .5s ease"; status.style.opacity = 1; }, 350 * (lines.length + 1));
+})();
+
+/* ================= Contador simples nas estatísticas ================= */
+(function countersInit(){
+  const els = document.querySelectorAll("[data-count]");
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const run = (el) => {
+    const target = parseInt(el.getAttribute("data-count"), 10);
+    if(reduced){ el.textContent = target.toLocaleString("pt-BR"); return; }
+    let cur = 0;
+    const step = Math.max(1, Math.round(target / 60));
+    const tick = () => {
+      cur = Math.min(target, cur + step);
+      el.textContent = cur.toLocaleString("pt-BR");
+      if(cur < target) requestAnimationFrame(tick);
+    };
+    tick();
+  };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if(entry.isIntersecting){ run(entry.target); io.unobserve(entry.target); } });
+  }, { threshold: .6 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ================= Revelação ao rolar ================= */
+(function revealInit(){
+  const items = document.querySelectorAll(".reveal");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add("in"); io.unobserve(entry.target); } });
+  }, { threshold: .12 });
+  items.forEach(el => io.observe(el));
+})();
+
+/* ================= Formulário -> WhatsApp ================= */
+(function formInit(){
+  const form = document.getElementById("quoteForm");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("fname").value.trim();
+    const phone = document.getElementById("fphone").value.trim();
+    const service = document.getElementById("fservice").value;
+    const msg = document.getElementById("fmsg").value.trim();
+
+    const text =
+      "Olá! Meu nome é " + name +
+      ". Telefone: " + phone +
+      ". Serviço de interesse: " + service +
+      (msg ? ". Mensagem: " + msg : "");
+
+    window.open("https://wa.me/" + SITE_CONFIG.whatsappNumber + "?text=" + encodeURIComponent(text), "_blank");
+  });
+})();
+</script>
+</body>
+</html>
