@@ -81,3 +81,36 @@ describe('Task 2: conteúdo e copy', () => {
     assert.ok(!/garantia vitalícia|garantia de \d+ anos/g.test(text), 'não deve inventar garantias');
   });
 });
+
+describe('Task 3: estilo visual tech flat e responsivo', () => {
+  it('carrega fonte do Google Fonts', () => {
+    const index = load('index.html');
+    const sobre = load('saiba-mais.html');
+    assert.ok(index.includes('fonts.googleapis.com') || index.includes('fonts.gstatic.com'), 'index deve referenciar Google Fonts');
+    assert.ok(sobre.includes('fonts.googleapis.com') || sobre.includes('fonts.gstatic.com'), 'saiba-mais deve referenciar Google Fonts');
+  });
+
+  it('possui viewport meta para mobile', () => {
+    const index = load('index.html');
+    assert.ok(/<meta[^>]*name=["\']viewport["\'][^>]*content=["\']width=device-width,\s*initial-scale=1/.test(index), 'deve ter viewport meta');
+  });
+
+  it('CSS não usa gradientes nem sombras decorativas', () => {
+    const css = load('css/style.css');
+    assert.ok(!/gradient\(/.test(css), 'não deve usar gradientes');
+    assert.ok(!/box-shadow:/.test(css), 'não deve usar box-shadow');
+    assert.ok(!/backdrop-filter:/.test(css), 'não deve usar glass/backdrop-filter');
+  });
+
+  it('seções usam layout não baseado em cards idênticos de ícone', () => {
+    const css = load('css/style.css');
+    const html = load('index.html');
+    assert.ok(!html.includes('class="icon"'), 'não deve haver elementos de ícone genéricos');
+    assert.ok(!/\.services-list\s*\{[^}]*display:\s*grid[^}]*\}/s.test(css) || /repeat\(auto-fit/.test(css), 'services podem usar grid, mas não três cards idênticos de ícone');
+  });
+
+  it('faixa de personalização começa oculta', () => {
+    const html = load('index.html');
+    assert.ok(html.includes('personalize-strip') && html.includes('hidden'), 'faixa deve começar oculta');
+  });
+});
