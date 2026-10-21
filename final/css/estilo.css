@@ -44,8 +44,10 @@
 }
 
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-/* Troca de tema: o navegador só esmaece um "print" da tela (leve) */
-::view-transition-old(root),::view-transition-new(root){animation-duration:.3s;animation-timing-function:ease}
+/* Troca de tema: uma camada da cor de fundo cobre a tela, o tema troca por baixo e a camada some.
+   Só a transparência de um elemento é animada, o que é leve até em computadores mais simples. */
+.cortina-tema{position:fixed;inset:0;z-index:100;pointer-events:none;background:var(--fundo);opacity:0;transition:opacity .16s ease;will-change:opacity}
+.cortina-tema.visivel{opacity:1}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{margin:0;background:var(--fundo);color:var(--texto);font-family:var(--fonte-texto);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit}

@@ -38,14 +38,16 @@ const numeroComDoisDigitos = numero => String(numero).padStart(2, '0');
 /* ---------- Cor de destaque ---------- */
 const estiloDaCor = document.createElement('style');
 document.head.appendChild(estiloDaCor);
-const aplicarCor = (corClara, corEscura) => {
-  estiloDaCor.textContent = `:root{--destaque:${corClara}}
+// textoSobre (opcional): cor das letras em cima da cor de destaque no tema claro.
+// Cores claras como o amarelo precisam de letra escura; sem ele, a letra é branca.
+const aplicarCor = (corClara, corEscura, textoSobre) => {
+  estiloDaCor.textContent = `:root{--destaque:${corClara}${textoSobre ? `;--sobre-destaque:${textoSobre}` : ''}}
   @media (prefers-color-scheme: dark){:root:not([data-tema="claro"]){--destaque:${corEscura}}}
   :root[data-tema="escuro"]{--destaque:${corEscura}}`;
 };
 let corSalva = null;
 if (LOJA.seletorCores) { try { corSalva = JSON.parse(localStorage.getItem('cor')); } catch (erro) {} }
-aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : LOJA.corEscuro);
+aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : LOJA.corEscuro, corSalva && corSalva.textoSobre);
 
 /* ---------- Seletor de cores (para testes) ---------- */
 // Cada opção tem a versão para o tema claro (cor) e para o escuro (corEscuro)
@@ -61,7 +63,7 @@ aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : L
     { nome: 'Vermelho', cor: '#DC2626', corEscuro: '#EF4444' },
     { nome: 'Rosa',     cor: '#DB2777', corEscuro: '#F472B6' },
     { nome: 'Ciano',    cor: '#0E7490', corEscuro: '#22D3EE' },
-    { nome: 'Grafite',  cor: '#475569', corEscuro: '#CBD5E1' }
+    { nome: 'Amarelo',  cor: '#CA8A04', corEscuro: '#FACC15', textoSobre: '#1F1A05' }
   ].filter((opcao, posicao, lista) => lista.findIndex(outra => outra.cor.toLowerCase() === opcao.cor.toLowerCase()) === posicao);
 
   const corAtual = (corSalva ? corSalva.cor : LOJA.cor).toLowerCase();
@@ -74,7 +76,7 @@ aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : L
     const escolhida = evento.target.closest('.cor-opcao');
     if (!escolhida) return;
     const opcao = opcoes[escolhida.dataset.posicao];
-    aplicarCor(opcao.cor, opcao.corEscuro);
+    aplicarCor(opcao.cor, opcao.corEscuro, opcao.textoSobre);
     grade.querySelectorAll('.cor-opcao').forEach(outra => outra.setAttribute('aria-pressed', outra === escolhida));
     try {
       if (escolhida.dataset.posicao === '0') localStorage.removeItem('cor');
@@ -233,16 +235,35 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWha
 })();
 
 /* ---------- Modo claro / escuro ---------- */
-pegar('botaoTema').addEventListener('click', () => {
+(function () {
   const raiz = document.documentElement;
-  const estaEscuro = raiz.dataset.tema ? raiz.dataset.tema === 'escuro' : matchMedia('(prefers-color-scheme: dark)').matches;
-  const novoTema = estaEscuro ? 'claro' : 'escuro';
-  const trocarTema = () => { raiz.dataset.tema = novoTema; };
-  // Esmaecimento leve feito pelo navegador; sem suporte (ou com "reduzir movimento"), troca na hora
-  if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.startViewTransition(trocarTema);
-  else trocarTema();
-  try { localStorage.setItem('tema', novoTema); } catch (erro) {}
-});
+  const cortina = document.createElement('div');
+  cortina.className = 'cortina-tema';
+  document.body.appendChild(cortina);
+  let trocando = false;
+
+  pegar('botaoTema').addEventListener('click', () => {
+    if (trocando) return;
+    const estaEscuro = raiz.dataset.tema ? raiz.dataset.tema === 'escuro' : matchMedia('(prefers-color-scheme: dark)').matches;
+    const novoTema = estaEscuro ? 'claro' : 'escuro';
+    const trocarTema = () => { raiz.dataset.tema = novoTema; };
+    try { localStorage.setItem('tema', novoTema); } catch (erro) {}
+
+    // Com "reduzir movimento" ligado, troca na hora
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { trocarTema(); return; }
+
+    // 1) cobre a tela  2) troca o tema escondido  3) descobre a tela já com o tema novo
+    trocando = true;
+    cortina.classList.add('visivel');
+    setTimeout(() => {
+      trocarTema();
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        cortina.classList.remove('visivel');
+        setTimeout(() => { trocando = false; }, 170);
+      }));
+    }, 170);
+  });
+})();
 
 /* ---------- Botão de voltar ao topo ---------- */
 (function () {
