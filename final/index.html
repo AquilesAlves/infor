@@ -58,7 +58,7 @@ try { const t = localStorage.getItem('tema'); if (t) document.documentElement.da
   color-scheme:dark;
 }
 
-*{box-sizing:border-box}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit}
@@ -162,13 +162,14 @@ img{max-width:100%}
 
 /* Marcas */
 .brands{border-bottom:1px solid var(--line)}
-.brands .wrap{display:flex;align-items:center;gap:20px 56px;padding-block:32px}
+.brands .wrap{display:flex;align-items:center;gap:16px 40px;padding-block:32px}
 .brands-label{font:500 12px/1.5 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);max-width:170px;flex:none}
-.brands-list{display:flex;flex:1;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px 36px;min-width:0}
-.brand{font:800 25px/1 var(--f-display);font-stretch:112%;letter-spacing:-.02em;color:var(--muted);opacity:.8;transition:color .2s ease,opacity .2s ease;white-space:nowrap}
+.brands-track{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.brands-list{display:flex;align-items:center;width:max-content;animation:marquee var(--dur,30s) linear infinite}
+.brand{flex:none;padding-inline:32px;font:800 25px/1 var(--f-display);font-stretch:112%;letter-spacing:-.02em;color:var(--muted);opacity:.8;white-space:nowrap}
 .brand.fino{font-weight:500;letter-spacing:.14em;font-stretch:125%}
-.brand:hover{color:var(--ink);opacity:1}
-@media (max-width:760px){.brands .wrap{flex-direction:column;align-items:flex-start}.brands-list{justify-content:flex-start;gap:16px 28px}.brand{font-size:21px}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (max-width:760px){.brands .wrap{flex-direction:column;align-items:stretch}.brands-track{width:100%}.brand{font-size:21px;padding-inline:22px}}
 
 /* Seções */
 .section{padding-block:96px}
@@ -285,9 +286,8 @@ img{max-width:100%}
 
 /* Rodapé */
 .footer{background:var(--surface);border-top:1px solid var(--line);padding-top:64px;font-size:15px;color:var(--muted)}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:48px}
-@media (max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.footer-grid{grid-template-columns:1fr;gap:32px}}
+.footer-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:40px;padding-bottom:48px}
+@media (max-width:640px){.footer-grid{grid-template-columns:1fr;gap:32px}}
 .footer-about{display:flex;flex-direction:column;gap:16px;min-width:0}
 .footer-about .logo{color:var(--ink)}
 .footer-about p{max-width:300px}
@@ -303,10 +303,15 @@ img{max-width:100%}
 .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;padding-block:24px calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);font-size:13.5px}
 
 /* Botão flutuante */
-.fab{position:fixed;z-index:70;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;padding:14px 20px 14px 16px;border-radius:999px;background:var(--accent);color:var(--on-accent);text-decoration:none;font:600 15px/1 var(--f-body);box-shadow:0 14px 30px -10px rgba(0,0,0,.45);transition:transform .15s ease}
+.floats{position:fixed;z-index:70;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.fab{display:flex;align-items:center;gap:10px;padding:14px 20px 14px 16px;border-radius:999px;background:var(--accent);color:var(--on-accent);text-decoration:none;font:600 15px/1 var(--f-body);box-shadow:0 14px 30px -10px rgba(0,0,0,.45);transition:transform .15s ease}
 .fab svg{width:22px;height:22px}
 .fab:hover{transform:translateY(-2px)}
-@media (max-width:520px){.fab span{display:none}.fab{padding:16px}}
+.to-top{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0;box-shadow:0 10px 24px -12px rgba(0,0,0,.4);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease,visibility .2s}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--accent);color:var(--accent)}
+.to-top svg{width:20px;height:20px}
+@media (max-width:520px){.fab span{display:none}.fab{padding:16px}.floats{align-items:center}.footer-bottom{padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))}}
 
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -447,7 +452,7 @@ img{max-width:100%}
   <section class="brands" id="marcasSec" aria-label="Marcas">
     <div class="wrap">
       <span class="brands-label">Trabalhamos com as melhores marcas</span>
-      <div class="brands-list" id="marcas"></div>
+      <div class="brands-track"><div class="brands-list" id="marcas"></div></div>
     </div>
   </section>
 
@@ -608,20 +613,6 @@ img{max-width:100%}
         </div>
       </div>
       <div>
-        <h4>Navegação</h4>
-        <ul>
-          <li><a href="#produtos">Produtos</a></li>
-          <li><a href="#servicos">Assistência técnica</a></li>
-          <li><a href="#depoimentos">Depoimentos</a></li>
-          <li><a href="#duvidas">Dúvidas</a></li>
-          <li><a href="#loja">Onde estamos</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Serviços</h4>
-        <ul id="footerSvcs"></ul>
-      </div>
-      <div>
         <h4>Contato</h4>
         <ul>
           <li><a data-wa href="#" target="_blank" rel="noopener" data-loja="whatsappExibicao"></a></li>
@@ -637,10 +628,15 @@ img{max-width:100%}
   </div>
 </footer>
 
+<div class="floats">
 <a class="fab" data-wa href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M9 10.5h.01M12 10.5h.01M15 10.5h.01"/></svg>
   <span>WhatsApp</span>
 </a>
+<button class="to-top" id="topoBtn" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+</button>
+</div>
 
 <script>
 /* =====================================================================
@@ -790,11 +786,18 @@ $('facts').innerHTML = LOJA.destaques.map(d => {
 }).join('');
 
 // Marcas
+// Carrossel: a lista é repetida até encher a faixa e depois duplicada,
+// assim a animação volta ao início sem "pulo"
 if (LOJA.marcas.length) {
-  $('marcas').innerHTML = LOJA.marcas.map(m => {
+  const item = m => {
     const o = typeof m === 'string' ? { nome: m } : m;
     return `<span class="brand${o.fino ? ' fino' : ''}">${esc(o.nome)}</span>`;
-  }).join('');
+  };
+  const vezes = Math.max(2, Math.ceil(10 / LOJA.marcas.length));
+  const metade = Array.from({ length: vezes }, () => LOJA.marcas.map(item).join('')).join('');
+  const lista = $('marcas');
+  lista.innerHTML = metade + `<span style="display:contents" aria-hidden="true">${metade}</span>`;
+  lista.style.setProperty('--dur', (LOJA.marcas.length * vezes * 3) + 's'); // velocidade constante
 } else $('marcasSec').hidden = true;
 
 // Produtos
@@ -822,7 +825,6 @@ $('svcs').innerHTML = LOJA.servicos.map((s, i) => `
       <a class="svc-cta" data-wa data-msg="${esc('Olá! Quero um orçamento de ' + s.titulo.toLowerCase() + '.')}" href="#" target="_blank" rel="noopener">Orçamento ${SETA}</a>
     </div>
   </article>`).join('');
-$('footerSvcs').innerHTML = LOJA.servicos.slice(0, 5).map(s => `<li><a href="#servicos">${esc(s.titulo)}</a></li>`).join('');
 
 // Depoimentos
 const iniciais = n => n.split(/\s+/).filter(Boolean).slice(0, 2).map(p => p[0]).join('').toUpperCase();
@@ -876,6 +878,14 @@ $('temaBtn').addEventListener('click', () => {
   root.dataset.theme = novo;
   try { localStorage.setItem('tema', novo); } catch (e) {}
 });
+
+// Voltar ao topo
+(function(){
+  const b = $('topoBtn');
+  const ver = () => b.classList.toggle('show', scrollY > 600);
+  addEventListener('scroll', ver, { passive: true }); ver();
+  b.addEventListener('click', () => scrollTo({ top: 0 }));
+})();
 
 // Menu mobile
 (function(){
