@@ -264,26 +264,24 @@ img{max-width:100%}
 .cta-grid{position:absolute;inset:0;background-image:radial-gradient(var(--board-line) 1.2px,transparent 1.2px);background-size:22px 22px;opacity:.6;mask-image:linear-gradient(90deg,transparent 30%,#000);-webkit-mask-image:linear-gradient(90deg,transparent 30%,#000)}
 
 /* A loja + localização */
-.about{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
-.about-copy{display:flex;flex-direction:column;gap:20px;min-width:0}
-.about-copy h2{font-size:clamp(30px,4.4vw,48px);font-weight:800}
-.about-copy p{color:var(--muted);font-size:17px;max-width:58ch}
-.about-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;display:flex;flex-direction:column;gap:22px;box-shadow:var(--shadow);min-width:0}
+.about-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.section-head > .about-ctas{flex-direction:row;align-items:center;max-width:none}
+@media (min-width:720px){.about-ctas{flex-shrink:0}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:16px;box-shadow:var(--shadow);min-width:0}
 .info-row{display:grid;grid-template-columns:22px 1fr;gap:14px;align-items:start}
 .info-row svg{width:20px;height:20px;color:var(--accent);margin-top:2px}
 .info-row small{display:block;font:500 11.5px/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 .info-row a{text-decoration:none;font-weight:500;overflow-wrap:anywhere}
 .info-row a:hover{color:var(--accent)}
 .hours{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
-.hours td{padding:7px 0;border-bottom:1px dashed var(--line)}
+.hours td{padding:5px 0;border-bottom:1px dashed var(--line)}
 .hours td:last-child{text-align:right;font-family:var(--f-mono);font-size:14px}
 .hours tr:last-child td{border-bottom:0}
 .hours tr.hoje td{color:var(--accent);font-weight:600}
-.local-row{display:grid;grid-template-columns:1.1fr .9fr;gap:24px 48px;margin-top:32px;align-items:stretch}
+.local-row{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:stretch}
 .map-frame{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;min-height:300px;background:var(--surface-2);box-shadow:var(--shadow)}
 .map-frame iframe{display:block;width:100%;height:100%;min-height:300px;border:0}
-@media (max-width:900px){.about{grid-template-columns:1fr;gap:36px}.local-row{grid-template-columns:1fr;margin-top:24px}.local-row .map-frame{order:2}.map-frame,.map-frame iframe{min-height:260px}}
+@media (max-width:900px){.local-row{grid-template-columns:1fr}.local-row .map-frame{order:2}.map-frame,.map-frame iframe{min-height:260px}}
 
 /* Rodapé */
 .footer{background:var(--surface);border-top:1px solid var(--line);padding-top:64px;font-size:15px;color:var(--muted)}
@@ -553,19 +551,23 @@ img{max-width:100%}
   <!-- A LOJA + MAPA -->
   <section class="section" id="loja">
     <div class="wrap">
-      <div class="about">
-        <div class="about-copy">
+      <div class="section-head">
+        <div>
           <span class="eyebrow">Onde estamos</span>
-          <h2 data-loja="sobreTitulo">Informática de bairro, com atendimento de especialista</h2>
-          <p data-loja="sobreTexto1"></p>
-          <p data-loja="sobreTexto2"></p>
-          <div class="about-ctas">
-            <a class="btn btn-primary" id="mapaBtn" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-              Como chegar
-            </a>
-            <a class="btn btn-ghost" data-wa href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
-          </div>
+          <h2 data-loja="sobreTitulo">Venha até a loja</h2>
+          <p data-loja="sobreTexto"></p>
+        </div>
+        <div class="about-ctas">
+          <a class="btn btn-primary" id="mapaBtn" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            Como chegar
+          </a>
+          <a class="btn btn-ghost" data-wa href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
+      </div>
+      <div class="local-row">
+        <div class="map-frame">
+          <iframe id="mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de localização da loja"></iframe>
         </div>
         <div class="card">
           <div class="info-row">
@@ -584,13 +586,6 @@ img{max-width:100%}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17 7h.01"/></svg>
             <div><small>Instagram</small><a data-insta href="#" target="_blank" rel="noopener" data-loja="instagram"></a></div>
           </div>
-        </div>
-      </div>
-      <div class="local-row">
-        <div class="map-frame">
-          <iframe id="mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de localização da loja"></iframe>
-        </div>
-        <div class="card">
           <div class="info-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
             <div style="min-width:0"><small>Horário de funcionamento</small><table class="hours" id="hours"></table></div>
@@ -671,9 +666,8 @@ const LOJA = {
 
   titulo: 'Seu computador em <em>boas mãos</em>, do upgrade ao conserto.',
   subtitulo: "Notebooks, computadores, peças e acessórios, com assistência técnica própria. Conte o que você precisa e a gente indica a melhor opção.",
-  sobreTitulo: "Informática de bairro, com atendimento de especialista",
-  sobreTexto1: "Começamos consertando computadores de vizinhos e hoje atendemos famílias, estudantes, escritórios e gamers de toda a região.",
-  sobreTexto2: "Aqui você fala com quem entende do assunto. Explicamos sem complicar e indicamos só o que você realmente precisa.",
+  sobreTitulo: "Venha até a loja",
+  sobreTexto: "Atendimento de especialista, perto de você.",
   rodapeTexto: "Loja de informática e assistência técnica com diagnóstico transparente e garantia em todos os serviços.",
 
   // Horários: domingo a sábado. null = fechado
