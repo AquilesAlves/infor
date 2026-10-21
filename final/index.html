@@ -280,9 +280,10 @@ img{max-width:100%}
 .hours td:last-child{text-align:right;font-family:var(--f-mono);font-size:14px}
 .hours tr:last-child td{border-bottom:0}
 .hours tr.hoje td{color:var(--accent);font-weight:600}
-.map-frame{margin-top:40px;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;height:420px;background:var(--surface-2);box-shadow:var(--shadow)}
-.map-frame iframe{display:block;width:100%;height:100%;border:0}
-@media (max-width:900px){.about{grid-template-columns:1fr;gap:36px}.map-frame{height:320px;margin-top:28px}}
+.local-row{display:grid;grid-template-columns:1.1fr .9fr;gap:24px 48px;margin-top:32px;align-items:stretch}
+.map-frame{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;min-height:300px;background:var(--surface-2);box-shadow:var(--shadow)}
+.map-frame iframe{display:block;width:100%;height:100%;min-height:300px;border:0}
+@media (max-width:900px){.about{grid-template-columns:1fr;gap:36px}.local-row{grid-template-columns:1fr;margin-top:24px}.local-row .map-frame{order:2}.map-frame,.map-frame iframe{min-height:260px}}
 
 /* Rodapé */
 .footer{background:var(--surface);border-top:1px solid var(--line);padding-top:64px;font-size:15px;color:var(--muted)}
@@ -307,10 +308,10 @@ img{max-width:100%}
 .fab{display:flex;align-items:center;gap:10px;padding:14px 20px 14px 16px;border-radius:999px;background:var(--accent);color:var(--on-accent);text-decoration:none;font:600 15px/1 var(--f-body);box-shadow:0 14px 30px -10px rgba(0,0,0,.45);transition:transform .15s ease}
 .fab svg{width:22px;height:22px}
 .fab:hover{transform:translateY(-2px)}
-.to-top{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0;box-shadow:0 10px 24px -12px rgba(0,0,0,.4);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease,visibility .2s}
+.to-top{width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);background:var(--ink);color:var(--bg);display:grid;place-items:center;cursor:pointer;padding:0;box-shadow:0 10px 24px -12px rgba(0,0,0,.4);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease,visibility .2s}
 .to-top.show{opacity:1;visibility:visible;transform:none}
-.to-top:hover{border-color:var(--accent);color:var(--accent)}
-.to-top svg{width:20px;height:20px}
+.to-top:hover{background:var(--accent);color:var(--on-accent)}
+.to-top svg{width:22px;height:22px}
 @media (max-width:520px){.fab span{display:none}.fab{padding:16px}.floats{align-items:center}.footer-bottom{padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))}}
 
 @media (prefers-reduced-motion:reduce){
@@ -583,14 +584,18 @@ img{max-width:100%}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17 7h.01"/></svg>
             <div><small>Instagram</small><a data-insta href="#" target="_blank" rel="noopener" data-loja="instagram"></a></div>
           </div>
+        </div>
+      </div>
+      <div class="local-row">
+        <div class="map-frame">
+          <iframe id="mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de localização da loja"></iframe>
+        </div>
+        <div class="card">
           <div class="info-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
             <div style="min-width:0"><small>Horário de funcionamento</small><table class="hours" id="hours"></table></div>
           </div>
         </div>
-      </div>
-      <div class="map-frame">
-        <iframe id="mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de localização da loja"></iframe>
       </div>
     </div>
   </section>
@@ -634,7 +639,7 @@ img{max-width:100%}
   <span>WhatsApp</span>
 </a>
 <button class="to-top" id="topoBtn" aria-label="Voltar ao topo">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6" stroke-width="2.6"/></svg>
 </button>
 </div>
 
