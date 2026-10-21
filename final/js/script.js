@@ -179,7 +179,7 @@ pegar('listaDepoimentos').innerHTML = LOJA.depoimentos.map(depoimento => {
 /* ---------- Perguntas frequentes ---------- */
 pegar('listaPerguntas').innerHTML = LOJA.faq.map((item, posicao) => `
   <div class="pergunta${posicao === 0 ? ' aberto' : ''}">
-    <button class="pergunta-botao" aria-expanded="${posicao === 0}" aria-controls="resposta-${posicao}">${protegerTexto(item.p)}<span class="mais">${ICONE_MAIS}</span></button>
+    <button class="pergunta-botao" aria-expanded="${posicao === 0}" aria-controls="resposta-${posicao}"><span class="pergunta-numero">${numeroComDoisDigitos(posicao + 1)}</span><span class="pergunta-texto">${protegerTexto(item.p)}</span><span class="mais">${ICONE_MAIS}</span></button>
     <div class="pergunta-resposta" id="resposta-${posicao}" role="region"><div><p>${protegerTexto(item.r)}</p></div></div>
   </div>`).join('');
 // Abre uma pergunta e fecha as outras
