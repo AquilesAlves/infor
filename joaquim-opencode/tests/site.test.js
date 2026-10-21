@@ -129,3 +129,26 @@ describe('Task 4: ilustração e recursos visuais', () => {
     assert.ok(svg.includes('#2d62ff') || svg.includes('#1c1d21') || svg.includes('#f6f5f2'), 'deve usar cores da paleta');
   });
 });
+
+describe('Task 5: comportamentos leves e finalização', () => {
+  it('README existe com instruções de personalização e deploy', () => {
+    assert.ok(existsSync('README.md'), 'README.md deve existir');
+    const readme = load('README.md').toLowerCase();
+    assert.ok(readme.includes('personalizar') || readme.includes('editar'), 'deve explicar como personalizar');
+    assert.ok(readme.includes('github pages'), 'deve explicar deploy no GitHub Pages');
+    assert.ok(readme.includes('whatsapp'), 'deve mencionar WhatsApp');
+  });
+
+  it('script controla a faixa de personalização por scroll', () => {
+    const js = load('js/main.js');
+    assert.ok(js.includes('personalizar'), 'deve referenciar elemento personalizar');
+    assert.ok(js.includes('scroll') || js.includes('scrollY'), 'deve reagir a scroll');
+    assert.ok(js.includes('hidden'), 'deve controlar visibilidade');
+  });
+
+  it('links de WhatsApp usam placeholders editáveis', () => {
+    const html = load('index.html') + load('saiba-mais.html');
+    assert.ok(html.includes('wa.me/'), 'deve ter links do WhatsApp');
+    assert.ok(html.includes('5500000000000'), 'deve usar número placeholder');
+  });
+});
