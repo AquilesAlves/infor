@@ -3,121 +3,272 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechBase — Loja de Informática</title>
+  <title>Setor Técnico — Informática e assistência técnica</title>
+  <meta name="description" content="Assistência técnica, conserto de computadores, notebooks e venda de peças. Atendimento simples, diagnóstico antes de qualquer serviço.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <a href="index.html" class="logo">TechBase</a>
-    <nav aria-label="Principal">
-      <a href="index.html">Home</a>
-      <a href="saiba-mais.html">Saiba Mais</a>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">ST</span>
+      <span class="logo-text">Setor Técnico</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#servicos">Serviços</a>
+      <a href="#pecas">Peças</a>
+      <a href="#como">Como funciona</a>
+      <a href="#contato">Contato</a>
     </nav>
-  </header>
-
-  <main>
-    <section class="hero" id="inicio">
-      <div class="hero-content">
-        <h1>Consertar, melhorar ou encontrar a peça certa.</h1>
-        <p>Assistência técnica, peças e equipamentos para quem quer que a tecnologia volte a funcionar sem complicação.</p>
-        <a href="#contato" class="btn-primary">Falar com a loja</a>
-      </div>
-      <div class="hero-visual">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none" aria-labelledby="illustrationTitle">
-          <title id="illustrationTitle">Bancada de informática com notebook, peças e ferramentas</title>
-
-          <!-- fundo da bancada -->
-          <rect x="60" y="80" width="680" height="440" rx="8" fill="var(--color-wash)"/>
-
-          <!-- notebook aberto -->
-          <g transform="translate(180, 160)">
-            <rect x="0" y="0" width="280" height="180" rx="10" fill="var(--color-ink)"/>
-            <rect x="16" y="14" width="248" height="152" rx="4" fill="var(--color-accent)" opacity="0.15"/>
-            <rect x="40" y="42" width="120" height="10" rx="2" fill="var(--color-surface)" opacity="0.9"/>
-            <rect x="40" y="64" width="180" height="8" rx="2" fill="var(--color-surface)" opacity="0.5"/>
-            <rect x="40" y="82" width="140" height="8" rx="2" fill="var(--color-surface)" opacity="0.5"/>
-            <path d="M-10 180 L290 180 L300 260 L-20 260 Z" fill="var(--color-accent)" opacity="0.12"/>
-            <rect x="-10" y="180" width="300" height="12" rx="3" fill="var(--color-ink)"/>
-            <rect x="20" y="210" width="240" height="6" rx="1" fill="var(--color-ink)" opacity="0.25"/>
-            <rect x="20" y="224" width="200" height="6" rx="1" fill="var(--color-ink)" opacity="0.25"/>
-            <rect x="20" y="238" width="160" height="6" rx="1" fill="var(--color-ink)" opacity="0.18"/>
-          </g>
-
-          <!-- placa de vídeo / componente -->
-          <g transform="translate(520, 260)">
-            <rect x="0" y="0" width="160" height="90" rx="6" fill="var(--color-ink)"/>
-            <rect x="12" y="12" width="136" height="8" rx="2" fill="var(--color-accent)" opacity="0.8"/>
-            <rect x="12" y="28" width="100" height="6" rx="1" fill="var(--color-muted)" opacity="0.5"/>
-            <rect x="12" y="40" width="120" height="6" rx="1" fill="var(--color-muted)" opacity="0.5"/>
-            <circle cx="130" cy="66" r="10" fill="var(--color-accent)" opacity="0.2"/>
-            <circle cx="130" cy="66" r="5" fill="var(--color-accent)"/>
-          </g>
-
-          <!-- chave de fenda -->
-          <g transform="translate(580, 130) rotate(45)">
-            <rect x="0" y="0" width="120" height="14" rx="7" fill="var(--color-muted)"/>
-            <rect x="120" y="2" width="70" height="10" rx="2" fill="var(--color-ink)" opacity="0.3"/>
-          </g>
-
-          <!-- parafusos / detalhes -->
-          <circle cx="130" cy="440" r="6" fill="var(--color-muted)" opacity="0.4"/>
-          <circle cx="160" cy="460" r="5" fill="var(--color-muted)" opacity="0.3"/>
-          <circle cx="640" cy="440" r="5" fill="var(--color-accent)" opacity="0.3"/>
-
-          <!-- linha de conexão sutil -->
-          <path d="M460 300 Q540 300 520 305" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
-        </svg>
-      </div>
-    </section>
-
-    <section class="services" id="servicos">
-      <h2>O que fazemos</h2>
-      <div class="services-list">
-        <article>
-          <h3>Conserto e diagnóstico</h3>
-          <p>Notebook, computador ou periférico com problema? Avaliamos o que aconteceu e apresentamos as opções.</p>
-        </article>
-        <article>
-          <h3>Peças e upgrades</h3>
-          <p>Memória, placa de vídeo, SSD e outros componentes para melhorar o que você já tem.</p>
-        </article>
-        <article>
-          <h3>Assistência técnica</h3>
-          <p>Suporte para configurar, limpar, instalar ou tirar dúvidas do seu equipamento.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="trust" id="confianca">
-      <h2>Como cuidamos do seu equipamento</h2>
-      <ol class="process">
-        <li><strong>Diagnóstico</strong> — entendemos o que está acontecendo antes de propor qualquer solução.</li>
-        <li><strong>Orçamento claro</strong> — explicamos as opções e só seguimos com a sua aprovação.</li>
-        <li><strong>Teste final</strong> — verificamos o equipamento antes da entrega para garantir que está funcionando.</li>
-      </ol>
-    </section>
-
-    <section class="cta" id="contato">
-      <h2>Precisa de ajuda com algum equipamento?</h2>
-      <p>Envie uma mensagem e tire suas dúvidas sobre conserto, peças ou orçamento.</p>
-      <a href="https://wa.me/5500000000000?text=Olá,%20vi%20o%20site%20e%20gostaria%20de%20ajuda." class="btn-primary" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p><strong>TechBase</strong> — Rua Exemplo, 123, Centro</p>
-    <p>Segunda a sexta, 9h às 18h</p>
-    <p class="template-note">Esta é uma demonstração de template. <a href="#personalizar">Personalize para sua loja</a>.</p>
-  </footer>
-
-  <div class="personalize-strip" id="personalizar" hidden>
-    <p>Este modelo é uma base — adaptamos marca e conteúdo para sua loja.</p>
-    <a href="https://wa.me/5500000000000?text=Olá,%20gostaria%20de%20personalizar%20o%20template%20para%20minha%20loja." target="_blank" rel="noopener">Quero personalizar</a>
+    <a class="btn btn-primary" href="https://wa.me/5511999990000?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20ajuda." target="_blank" rel="noopener">
+      WhatsApp
+    </a>
   </div>
+</header>
 
-  <script src="js/main.js"></script>
+<main>
+  <section class="hero" id="inicio">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="hero-tag mono">Assistência técnica e peças em Campinas/SP.</p>
+        <h1>Conserto de computador e notebook, sem enrolação.</h1>
+        <p class="hero-lead">A gente olha o problema, explica o que aconteceu e só faz o serviço se você aprovar o orçamento.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://wa.me/5511999990000?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20ajuda." target="_blank" rel="noopener">Falar no WhatsApp</a>
+          <a class="btn btn-secondary" href="#servicos">Ver serviços</a>
+        </div>
+      </div>
+      <div class="hero-ticket" aria-hidden="true">
+        <div class="service-ticket" id="serviceTicket">
+          <div class="ticket-header">
+            <span>Ordem de serviço</span>
+            <span>nº 042</span>
+          </div>
+          <div class="ticket-row">
+            <span>Equipamento</span>
+            <span>Notebook / computador</span>
+          </div>
+          <div class="ticket-row">
+            <span>Problema</span>
+            <span>Você descreve no WhatsApp</span>
+          </div>
+          <div class="ticket-stage">
+            <span class="ticket-check checked" aria-hidden="true">✓</span>
+            <span>Diagnóstico sem custo</span>
+          </div>
+          <div class="ticket-stage">
+            <span class="ticket-check" aria-hidden="true"></span>
+            <span>Você aprova o orçamento</span>
+          </div>
+          <div class="ticket-stage">
+            <span class="ticket-check" aria-hidden="true"></span>
+            <span>Serviço + teste final</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="servicos">
+    <div class="container">
+      <div class="section-header">
+        <h2>O que a gente resolve</h2>
+        <p class="section-lead">Trabalhamos na bancada. Não mandamos o equipamento para nenhum outro lugar.</p>
+      </div>
+      <div class="service-list">
+        <article class="service-item">
+          <h3 class="service-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9M12 3v4M12 3l3-3M21 12h-4"/><circle cx="12" cy="12" r="3"/></svg>
+            Diagnóstico
+          </h3>
+          <p>Notebook ou computador lento, travando ou não liga? A gente encontra a causa e te diz o que precisa ser feito.</p>
+        </article>
+        <article class="service-item">
+          <h3 class="service-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M9 9h.01M12 9h.01M15 9h.01"/></svg>
+            Formatação e backup
+          </h3>
+          <p>Sistema limpo, arquivos salvos e programas essenciais instalados. Você recebe tudo funcionando.</p>
+        </article>
+        <article class="service-item">
+          <h3 class="service-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M9 21V9M15 21V9"/></svg>
+            Upgrade de memória e SSD
+          </h3>
+          <p>A forma mais barata de deixar uma máquina antiga rápida de novo. A gente indica a peça certa e instala.</p>
+        </article>
+        <article class="service-item">
+          <h3 class="service-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/></svg>
+            Rede e Wi-Fi
+          </h3>
+          <p>Roteador, repetidor, cabeamento e configuração de rede para casa ou pequeno escritório.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted" id="pecas">
+    <div class="container">
+      <div class="section-header">
+        <h2>O que a gente vende</h2>
+        <p class="section-lead">Produtos que usamos e recomendamos. Se não tiver em estoque, a gente encomenda.</p>
+      </div>
+      <div class="parts-bin">
+        <article class="parts-cell">
+          <h3>Notebooks</h3>
+          <p>Para trabalho, estudo e uso básico. Ajudamos a escolher pelo orçamento.</p>
+        </article>
+        <article class="parts-cell">
+          <h3>Computadores</h3>
+          <p>Montamos na medida: home office, edição de vídeo ou jogos.</p>
+        </article>
+        <article class="parts-cell">
+          <h3>SSD e memória RAM</h3>
+          <p>Peças para dar uma sobrevida na máquina que você já tem.</p>
+        </article>
+        <article class="parts-cell">
+          <h3>Periféricos</h3>
+          <p>Teclado, mouse, monitor, cabos e acessórios do dia a dia.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="como">
+    <div class="container">
+      <div class="section-header">
+        <h2>Três passos, sem complicação</h2>
+        <p class="section-lead">Do primeiro contato à entrega, você sabe o que está acontecendo.</p>
+      </div>
+      <div class="how-inner">
+        <ol class="checklist">
+          <li>
+            <span class="step-marker">1</span>
+            <div>
+              <h3>Você conta o problema</h3>
+              <p>Manda uma mensagem no WhatsApp ou traz o equipamento na loja.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-marker">2</span>
+            <div>
+              <h3>A gente avalia e orça</h3>
+              <p>Diagnóstico sem custo. Você recebe o valor antes de qualquer serviço.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-marker">3</span>
+            <div>
+              <h3>Resolvemos e entregamos</h3>
+              <p>Só começamos com a sua aprovação. Testamos antes de devolver.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="how-visual" aria-hidden="true">
+          <svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+            <rect width="480" height="360" rx="10" fill="#E3E7EB"/>
+            <!-- bancada -->
+            <rect x="40" y="200" width="400" height="120" rx="6" fill="#D2D8DE"/>
+            <rect x="40" y="200" width="400" height="14" rx="3" fill="#BFC8D0"/>
+            <!-- monitor -->
+            <rect x="280" y="80" width="140" height="100" rx="6" fill="#1F2429"/>
+            <rect x="292" y="92" width="116" height="76" rx="2" fill="#F7F7F5"/>
+            <rect x="308" y="110" width="84" height="8" rx="2" fill="#1F2429" opacity="0.15"/>
+            <rect x="308" y="126" width="60" height="6" rx="2" fill="#1F2429" opacity="0.1"/>
+            <rect x="308" y="140" width="72" height="6" rx="2" fill="#1F2429" opacity="0.1"/>
+            <rect x="342" y="180" width="16" height="24" fill="#3D4752"/>
+            <rect x="320" y="204" width="60" height="6" rx="2" fill="#3D4752"/>
+            <!-- notebook -->
+            <rect x="80" y="120" width="140" height="90" rx="8" fill="#3D4752"/>
+            <rect x="90" y="130" width="120" height="70" rx="4" fill="#F7F7F5"/>
+            <rect x="100" y="144" width="60" height="6" rx="2" fill="#1F2429" opacity="0.12"/>
+            <rect x="100" y="158" width="80" height="4" rx="1" fill="#1F2429" opacity="0.08"/>
+            <rect x="100" y="168" width="70" height="4" rx="1" fill="#1F2429" opacity="0.08"/>
+            <path d="M70 210 L230 210 L240 232 L60 232 Z" fill="#3D4752"/>
+            <!-- ferramentas -->
+            <rect x="360" y="236" width="56" height="8" rx="4" fill="#5A626B" transform="rotate(-30 388 240)"/>
+            <rect x="396" y="224" width="28" height="6" rx="2" fill="#3D4752" transform="rotate(-30 410 227)"/>
+            <circle cx="120" cy="260" r="5" fill="#5A626B"/>
+            <circle cx="140" cy="268" r="4" fill="#5A626B"/>
+            <!-- caixa de peças -->
+            <rect x="190" y="232" width="90" height="44" rx="4" fill="#BFC8D0"/>
+            <rect x="198" y="240" width="74" height="28" rx="2" fill="#D2D8DE"/>
+            <rect x="210" y="248" width="50" height="4" rx="1" fill="#1F2429" opacity="0.12"/>
+            <rect x="210" y="256" width="36" height="4" rx="1" fill="#1F2429" opacity="0.08"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted" id="contato">
+    <div class="container">
+      <div class="split">
+        <div>
+          <h2>Venha na loja ou mande uma mensagem</h2>
+          <p class="section-lead">Atendemos de segunda a sexta, das 9h às 18h, e aos sábados das 9h às 13h.</p>
+          <div class="contact-list">
+            <div class="contact-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <div>
+                <strong>Endereço</strong>
+                <p>Rua das Palmeiras, 240, Centro<br>Campinas — SP</p>
+              </div>
+            </div>
+            <div class="contact-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>
+              <div>
+                <strong>WhatsApp</strong>
+                <p><a href="https://wa.me/5511999990000?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20ajuda." target="_blank" rel="noopener">(11) 99999-0000</a></p>
+              </div>
+            </div>
+            <div class="contact-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <div>
+                <strong>E-mail</strong>
+                <p><a href="mailto:contato@setortecnico.com.br">contato@setortecnico.com.br</a></p>
+              </div>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="https://wa.me/5511999990000?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20gostaria%20de%20ajuda." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        </div>
+        <div class="map">
+          <iframe
+            src="https://www.google.com/maps?q=Rua+das+Palmeiras,+240,+Centro,+Campinas,+SP&output=embed"
+            width="100%" height="100%" style="border:0" allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="Mapa da loja"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>
+      <a href="#" class="logo">
+        <span class="logo-mark">ST</span>
+        <span class="logo-text">Setor Técnico</span>
+      </a>
+      <p>Assistência técnica e informática em Campinas/SP.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#servicos">Serviços</a>
+      <a href="#pecas">Peças</a>
+      <a href="#como">Como funciona</a>
+      <a href="#contato">Contato</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© 2026 Setor Técnico. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
 </body>
 </html>

@@ -1,30 +1,40 @@
-// Comportamentos leves do template.
-// - Mostra a faixa de personalização após scrollar além do hero.
-// - Reserva espaço no body para que a faixa fixa não cubra o conteúdo.
+// Setor Técnico — comportamentos leves
 
 (function () {
   'use strict';
 
-  const strip = document.getElementById('personalizar');
-  if (!strip) return;
+  // Destaca link do menu ativo ao rolar
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav a[href^="#"]');
 
-  function updateStrip() {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
+  function onScroll() {
+    let current = '';
+    const scrollPos = window.scrollY + 100;
 
-    const threshold = hero.offsetTop + hero.offsetHeight;
-    const shouldShow = window.scrollY > threshold;
+    sections.forEach((section) => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      if (scrollPos >= top && scrollPos < top + height) {
+        current = section.getAttribute('id');
+      }
+    });
 
-    if (shouldShow) {
-      strip.hidden = false;
-      document.body.style.paddingBottom = strip.offsetHeight + 'px';
-    } else {
-      strip.hidden = true;
-      document.body.style.paddingBottom = '';
-    }
+    navLinks.forEach((link) => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
   }
 
-  window.addEventListener('scroll', updateStrip, { passive: true });
-  window.addEventListener('resize', updateStrip, { passive: true });
-  updateStrip();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Dispara a entrada suave do ticket de ordem de serviço no hero
+  const ticket = document.getElementById('serviceTicket');
+  if (ticket) {
+    window.addEventListener('load', () => {
+      ticket.classList.add('is-loaded');
+    });
+  }
 })();
