@@ -179,6 +179,13 @@ address {
   justify-content: center;
   background-color: var(--color-wash);
   border-radius: var(--radius);
+  padding: var(--space-md);
+}
+
+.hero-visual img {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
 }
 
 .services-list {

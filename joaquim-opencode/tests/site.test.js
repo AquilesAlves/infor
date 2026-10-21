@@ -114,3 +114,18 @@ describe('Task 3: estilo visual tech flat e responsivo', () => {
     assert.ok(html.includes('personalize-strip') && html.includes('hidden'), 'faixa deve começar oculta');
   });
 });
+
+describe('Task 4: ilustração e recursos visuais', () => {
+  it('ilustração SVG existe e é referenciada na Home', () => {
+    assert.ok(existsSync('assets/hero-illustration.svg'), 'assets/hero-illustration.svg deve existir');
+    const html = load('index.html');
+    assert.ok(html.includes('assets/hero-illustration.svg'), 'Home deve referenciar a ilustração');
+  });
+
+  it('ilustração é SVG válido e usa cores da paleta', () => {
+    const svg = load('assets/hero-illustration.svg');
+    assert.ok(svg.startsWith('<svg'), 'deve começar com <svg');
+    assert.ok(svg.includes('viewBox'), 'deve ter viewBox');
+    assert.ok(svg.includes('#2d62ff') || svg.includes('#1c1d21') || svg.includes('#f6f5f2'), 'deve usar cores da paleta');
+  });
+});
