@@ -253,6 +253,39 @@ pegar('botaoTema').addEventListener('click', () => {
   botao.addEventListener('click', () => scrollTo({ top: 0 }));
 })();
 
+/* ---------- Menu: destaca a seção que está na tela ---------- */
+(function () {
+  const links = [...document.querySelectorAll('#menu a[href^="#"]')];
+  const secoes = links.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+  const marcarAtivo = id => links.forEach(link => {
+    const ativo = link.getAttribute('href') === '#' + id;
+    link.classList.toggle('ativo', ativo);
+    if (ativo) link.setAttribute('aria-current', 'true'); else link.removeAttribute('aria-current');
+  });
+  // Ao clicar, marca o link na hora e ignora as seções do caminho até a rolagem terminar
+  let rolandoPorClique = false, esperaRolagem;
+  const liberar = () => { rolandoPorClique = false; };
+  links.forEach(link => link.addEventListener('click', () => {
+    marcarAtivo(link.getAttribute('href').slice(1));
+    rolandoPorClique = true;
+    clearTimeout(esperaRolagem);
+    esperaRolagem = setTimeout(liberar, 1500); // para navegadores sem o evento "scrollend"
+  }));
+  addEventListener('scrollend', liberar);
+  // Considera ativa a seção que passa pelo meio da tela
+  const observador = new IntersectionObserver(entradas => {
+    if (rolandoPorClique) return;
+    entradas.forEach(entrada => { if (entrada.isIntersecting) marcarAtivo(entrada.target.id); });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  secoes.forEach(secao => observador.observe(secao));
+  // No topo da página (abertura) nenhum fica marcado; no fim, marca a última seção
+  addEventListener('scroll', () => {
+    if (rolandoPorClique) return;
+    if (scrollY < 200) marcarAtivo('');
+    else if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) marcarAtivo(secoes[secoes.length - 1].id);
+  }, { passive: true });
+})();
+
 /* ---------- Menu no celular ---------- */
 (function () {
   const botao = pegar('botaoMenu'), menu = pegar('menu');
