@@ -7,7 +7,7 @@
 <meta name="description" content="Loja de informática: notebooks, computadores, periféricos e assistência técnica. Atendimento pelo WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="css/estilo.css">
 <!-- Aplica o tema salvo antes de desenhar a página (evita "piscar") -->
 <script src="js/tema-inicial.js"></script>
@@ -159,7 +159,7 @@
     <div class="conteudo">
       <div class="secao-topo">
         <div>
-          <span class="sobretitulo">Produtos</span>
+          <span class="prompt"><b>&gt;</b>ls produtos/</span>
           <h2>O que você encontra na loja</h2>
           <p>Escolha uma categoria e fale direto com um atendente. A gente confirma o que tem em estoque e indica o modelo certo para o seu uso.</p>
         </div>
@@ -173,30 +173,30 @@
     <div class="conteudo">
       <div class="secao-topo">
         <div>
-          <span class="sobretitulo">Assistência técnica</span>
+          <span class="prompt"><b>&gt;</b>ls servicos/</span>
           <h2>Bancada própria, técnico de verdade</h2>
           <p>Seu equipamento é avaliado aqui na loja. Você recebe o diagnóstico antes de qualquer serviço e só aprova se fizer sentido.</p>
         </div>
         <a class="botao botao-contorno" data-whatsapp data-mensagem="Olá! Preciso de assistência técnica." href="#" target="_blank" rel="noopener">Pedir orçamento</a>
       </div>
-      <div class="selos" id="selos"></div>
+      <ul class="selos" id="selos"></ul>
       <div class="servicos-grade" id="listaServicos"></div>
     </div>
   </section>
 
   <!-- COMO FUNCIONA -->
-  <section class="secao">
+  <section class="secao" id="como-funciona">
     <div class="conteudo">
       <div class="secao-topo">
         <div>
-          <span class="sobretitulo">Como funciona</span>
+          <span class="prompt"><b>&gt;</b>./atendimento --etapas</span>
           <h2>Do primeiro contato até a retirada</h2>
         </div>
       </div>
       <div class="passos">
-        <div class="passo"><span class="passo-numero">1</span><h3>Conte o que precisa</h3><p>Mande uma mensagem no WhatsApp dizendo o produto que procura ou o problema do seu equipamento.</p></div>
-        <div class="passo"><span class="passo-numero">2</span><h3>Receba a indicação</h3><p>Respondemos com as opções disponíveis ou com o diagnóstico e o orçamento, sem compromisso.</p></div>
-        <div class="passo"><span class="passo-numero">3</span><h3>Retire ou receba</h3><p>Combine a retirada na loja ou a entrega. No serviço técnico, avisamos assim que estiver pronto.</p></div>
+        <div class="passo"><span class="passo-numero">1/3</span><h3>Conte o que precisa</h3><p>Mande uma mensagem no WhatsApp dizendo o produto que procura ou o problema do seu equipamento.</p></div>
+        <div class="passo"><span class="passo-numero">2/3</span><h3>Receba a indicação</h3><p>Respondemos com as opções disponíveis ou com o diagnóstico e o orçamento, sem compromisso.</p></div>
+        <div class="passo"><span class="passo-numero">3/3</span><h3>Retire ou receba</h3><p>Combine a retirada na loja ou a entrega. No serviço técnico, avisamos assim que estiver pronto.</p></div>
       </div>
     </div>
   </section>
@@ -206,7 +206,7 @@
     <div class="conteudo">
       <div class="secao-topo">
         <div>
-          <span class="sobretitulo">Depoimentos</span>
+          <span class="prompt"><b>&gt;</b>cat depoimentos.txt</span>
           <h2>Quem já passou pela bancada</h2>
           <p>O que nossos clientes dizem depois de comprar ou consertar com a gente.</p>
         </div>
@@ -220,7 +220,7 @@
     <div class="conteudo perguntas">
       <div class="secao-topo" style="margin:0;align-items:flex-start">
         <div>
-          <span class="sobretitulo">Dúvidas</span>
+          <span class="prompt"><b>&gt;</b>help</span>
           <h2>Perguntas frequentes</h2>
           <p>Não achou sua resposta? Chame a gente no WhatsApp.</p>
         </div>
@@ -234,7 +234,7 @@
     <div class="conteudo">
       <div class="secao-topo">
         <div>
-          <span class="sobretitulo">Onde estamos</span>
+          <span class="prompt"><b>&gt;</b>ping loja</span>
           <h2 data-loja="sobreTitulo">Venha até a loja</h2>
           <p data-loja="sobreTexto"></p>
         </div>
@@ -302,6 +302,7 @@
       </div>
     </div>
     <div class="rodape-base">
+      <span class="saida"><b>&gt;</b>exit</span>
       <span>© <span id="ano">2026</span> <span data-loja="nome">Nexo Informática</span>. Todos os direitos reservados.<span id="cnpj"></span></span>
       <span id="credito"></span>
     </div>
