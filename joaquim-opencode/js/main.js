@@ -1,5 +1,6 @@
 // Comportamentos leves do template.
-// Este arquivo pode ser expandido conforme necessário.
+// - Mostra a faixa de personalização após scrollar além do hero.
+// - Reserva espaço no body para que a faixa fixa não cubra o conteúdo.
 
 (function () {
   'use strict';
@@ -10,14 +11,20 @@
   function updateStrip() {
     const hero = document.querySelector('.hero');
     if (!hero) return;
+
     const threshold = hero.offsetTop + hero.offsetHeight;
-    if (window.scrollY > threshold) {
+    const shouldShow = window.scrollY > threshold;
+
+    if (shouldShow) {
       strip.hidden = false;
+      document.body.style.paddingBottom = strip.offsetHeight + 'px';
     } else {
       strip.hidden = true;
+      document.body.style.paddingBottom = '';
     }
   }
 
   window.addEventListener('scroll', updateStrip, { passive: true });
+  window.addEventListener('resize', updateStrip, { passive: true });
   updateStrip();
 })();

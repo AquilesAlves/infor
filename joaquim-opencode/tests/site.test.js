@@ -1,17 +1,26 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = process.cwd();
+const root = dirname(fileURLToPath(import.meta.url));
+
+function resolveFile(file) {
+  return join(root, '..', file);
+}
 
 function load(file) {
-  return readFileSync(join(root, file), 'utf8');
+  return readFileSync(resolveFile(file), 'utf8');
+}
+
+function exists(file) {
+  return existsSync(resolveFile(file));
 }
 
 describe('Task 1: estrutura base', () => {
   it('index.html existe e linka os recursos corretos', () => {
-    assert.ok(existsSync('index.html'), 'index.html deve existir');
+    assert.ok(exists('index.html'), 'index.html deve existir');
     const html = load('index.html');
     assert.ok(html.includes('<header'), 'deve ter header');
     assert.ok(html.includes('saiba-mais.html'), 'deve linkar para saiba-mais.html');
@@ -20,7 +29,7 @@ describe('Task 1: estrutura base', () => {
   });
 
   it('saiba-mais.html existe e linka de volta para home', () => {
-    assert.ok(existsSync('saiba-mais.html'), 'saiba-mais.html deve existir');
+    assert.ok(exists('saiba-mais.html'), 'saiba-mais.html deve existir');
     const html = load('saiba-mais.html');
     assert.ok(html.includes('<header'), 'deve ter header');
     assert.ok(html.includes('index.html') || html.includes('href="./"') || html.includes("href='./'"), 'deve linkar de volta para index.html');
@@ -28,14 +37,14 @@ describe('Task 1: estrutura base', () => {
   });
 
   it('css/style.css existe com variáveis CSS', () => {
-    assert.ok(existsSync('css/style.css'), 'css/style.css deve existir');
+    assert.ok(exists('css/style.css'), 'css/style.css deve existir');
     const css = load('css/style.css');
     assert.ok(css.includes('--color-'), 'deve declarar variáveis de cor');
     assert.ok(css.includes('--font-'), 'deve declarar variáveis de fonte');
   });
 
   it('js/main.js existe', () => {
-    assert.ok(existsSync('js/main.js'), 'js/main.js deve existir');
+    assert.ok(exists('js/main.js'), 'js/main.js deve existir');
   });
 });
 
@@ -116,39 +125,62 @@ describe('Task 3: estilo visual tech flat e responsivo', () => {
 });
 
 describe('Task 4: ilustração e recursos visuais', () => {
-  it('ilustração SVG existe e é referenciada na Home', () => {
-    assert.ok(existsSync('assets/hero-illustration.svg'), 'assets/hero-illustration.svg deve existir');
+  it('ilustração SVG existe e é usada na Home (inline ou como arquivo)', () => {
+    assert.ok(exists('assets/hero-illustration.svg'), 'assets/hero-illustration.svg deve existir');
     const html = load('index.html');
-    assert.ok(html.includes('assets/hero-illustration.svg'), 'Home deve referenciar a ilustração');
+    const hasInlineSvg = /<svg[\s\S]*?<\/svg>/.test(html);
+    const hasReference = html.includes('assets/hero-illustration.svg');
+    assert.ok(hasInlineSvg || hasReference, 'Home deve conter a ilustração SVG');
   });
 
   it('ilustração é SVG válido e usa cores da paleta', () => {
     const svg = load('assets/hero-illustration.svg');
     assert.ok(svg.startsWith('<svg'), 'deve começar com <svg');
     assert.ok(svg.includes('viewBox'), 'deve ter viewBox');
-    assert.ok(svg.includes('#2d62ff') || svg.includes('#1c1d21') || svg.includes('#f6f5f2'), 'deve usar cores da paleta');
+    assert.ok(svg.includes('#2d62ff') || svg.includes('var(--color-accent)'), 'deve usar a cor de destaque');
   });
 });
 
 describe('Task 5: comportamentos leves e finalização', () => {
   it('README existe com instruções de personalização e deploy', () => {
-    assert.ok(existsSync('README.md'), 'README.md deve existir');
+    assert.ok(exists('README.md'), 'README.md deve existir');
     const readme = load('README.md').toLowerCase();
     assert.ok(readme.includes('personalizar') || readme.includes('editar'), 'deve explicar como personalizar');
     assert.ok(readme.includes('github pages'), 'deve explicar deploy no GitHub Pages');
     assert.ok(readme.includes('whatsapp'), 'deve mencionar WhatsApp');
   });
 
-  it('script controla a faixa de personalização por scroll', () => {
+  it('script controla a faixa de personalização por scroll e reserva espaço', () => {
     const js = load('js/main.js');
     assert.ok(js.includes('personalizar'), 'deve referenciar elemento personalizar');
     assert.ok(js.includes('scroll') || js.includes('scrollY'), 'deve reagir a scroll');
     assert.ok(js.includes('hidden'), 'deve controlar visibilidade');
+    assert.ok(js.includes('paddingBottom') || js.includes('--strip-height'), 'deve reservar espaço para a faixa');
   });
 
   it('links de WhatsApp usam placeholders editáveis', () => {
     const html = load('index.html') + load('saiba-mais.html');
     assert.ok(html.includes('wa.me/'), 'deve ter links do WhatsApp');
     assert.ok(html.includes('5500000000000'), 'deve usar número placeholder');
+  });
+
+  it('testes não dependem do diretório de execução', () => {
+    const js = load('tests/site.test.js');
+    assert.ok(js.includes('import.meta.url') || js.includes('__dirname'), 'deve resolver caminhos a partir do arquivo de teste');
+    assert.ok(!/^const root = process\.cwd\(\)/m.test(js), 'não deve usar process.cwd() como root');
+  });
+
+  it('SVG inline usa variáveis CSS da paleta', () => {
+    const html = load('index.html');
+    const svgMatch = html.match(/<svg[\s\S]*?<\/svg>/);
+    assert.ok(svgMatch, 'SVG deve estar inline na Home');
+    assert.ok(svgMatch[0].includes('var(--color-accent)'), 'SVG deve usar var(--color-accent)');
+    assert.ok(svgMatch[0].includes('var(--color-ink)'), 'SVG deve usar var(--color-ink)');
+  });
+
+  it('hover dos links inline mantém underline, apenas botões e nav removem', () => {
+    const css = load('css/style.css');
+    assert.ok(!/\na:hover\s*\{[\s\S]*?text-decoration:\s*none;/.test(css), 'não deve remover underline de todos os links no hover');
+    assert.ok(/\.btn-primary:hover/.test(css), 'deve estilizar hover do botão');
   });
 });

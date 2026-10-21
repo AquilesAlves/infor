@@ -50,7 +50,15 @@ a {
   color: var(--color-accent);
 }
 
-a:hover {
+.site-header nav a,
+.btn-primary,
+.logo {
+  text-decoration: none;
+}
+
+.site-header nav a:hover,
+.btn-primary:hover,
+.logo:hover {
   text-decoration: none;
 }
 
