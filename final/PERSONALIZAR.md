@@ -9,6 +9,7 @@ Abra `index.html` e edite **só o bloco `const LOJA = { ... }`** no final do arq
 - `mapa`: deixe `""` para gerar o mapa pelo endereço, ou cole o link do Google Maps (Compartilhar > Incorporar um mapa, só o conteúdo de `src="..."`).
 - `horarios`: de domingo a sábado; `null` = fechado. O selo "Aberto agora / Fechado" é calculado automaticamente.
 - `cor`, `corEscuro`: cor de destaque nos modos claro e escuro.
+- `seletorCores`: mostra no topo um botão de paleta para testar outras cores de destaque (a escolha fica salva só no navegador de quem testou). Mude para `false` antes de entregar o site ao cliente.
 - `marcas`, `produtos`, `garantias`, `servicos`, `depoimentos`, `faq`: listas editáveis. Troque os depoimentos de exemplo pelos comentários reais dos clientes.
 - `cnpj`, `credito`: aparecem no rodapé quando preenchidos.
 

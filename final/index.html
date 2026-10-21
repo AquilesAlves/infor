@@ -23,7 +23,7 @@ try { const t = localStorage.getItem('tema'); if (t) document.documentElement.da
   --line:#C6CAC1;
   --accent:#B23B0B;
   --on-accent:#FFFFFF;
-  --accent-soft:rgba(178,59,11,.1);
+  --accent-soft:color-mix(in srgb,var(--accent) 11%,transparent);
   --ok:#15803D;
   --off:#9A3412;
   --board:#D3DAE3;
@@ -42,7 +42,7 @@ try { const t = localStorage.getItem('tema'); if (t) document.documentElement.da
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#10141B; --surface:#161B24; --surface-2:#1D2430; --ink:#EDF0F4; --muted:#9BA5B4; --line:#283041;
-    --accent:#FF8A50; --on-accent:#1B0D04; --accent-soft:rgba(255,138,80,.12);
+    --accent:#FF8A50; --on-accent:#1B0D04;
     --ok:#4ADE80; --off:#FDBA74;
     --board:#0A0F18; --board-2:#111827; --board-line:#26344C; --board-ink:#E9EDF3; --board-muted:#93A1B8;
     --shadow:0 1px 0 rgba(0,0,0,.2),0 16px 36px -20px rgba(0,0,0,.7);
@@ -51,7 +51,7 @@ try { const t = localStorage.getItem('tema'); if (t) document.documentElement.da
 }
 :root[data-theme="dark"]{
   --bg:#10141B; --surface:#161B24; --surface-2:#1D2430; --ink:#EDF0F4; --muted:#9BA5B4; --line:#283041;
-  --accent:#FF8A50; --on-accent:#1B0D04; --accent-soft:rgba(255,138,80,.12);
+  --accent:#FF8A50; --on-accent:#1B0D04;
   --ok:#4ADE80; --off:#FDBA74;
   --board:#0A0F18; --board-2:#111827; --board-line:#26344C; --board-ink:#E9EDF3; --board-muted:#93A1B8;
   --shadow:0 1px 0 rgba(0,0,0,.2),0 16px 36px -20px rgba(0,0,0,.7);
@@ -100,6 +100,15 @@ img{max-width:100%}
 .header-actions{display:flex;align-items:center;gap:8px}
 .icon-btn{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;flex:none}
 .icon-btn svg{width:20px;height:20px}
+.cor-wrap{position:relative}
+.cor-menu{position:absolute;top:calc(100% + 10px);right:0;z-index:60;width:220px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow)}
+.cor-menu small{display:block;font:500 11.5px/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.cor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cor-op{width:100%;aspect-ratio:1;padding:0;border-radius:50%;border:3px solid var(--surface);outline:2px solid transparent;background:var(--c-l);cursor:pointer;transition:transform .15s ease}
+.cor-op:hover{transform:scale(1.08)}
+.cor-op[aria-pressed="true"]{outline-color:var(--ink)}
+:root[data-theme="dark"] .cor-op{background:var(--c-d)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cor-op{background:var(--c-d)}}
 .menu-btn{display:none}
 .i-sun{display:none}
 :root[data-theme="dark"] .i-sun{display:block}
@@ -331,6 +340,15 @@ img{max-width:100%}
       <a href="#loja">Onde estamos</a>
     </nav>
     <div class="header-actions">
+      <div class="cor-wrap" id="corWrap">
+        <button class="icon-btn" id="corBtn" aria-label="Trocar cor de destaque" aria-expanded="false" aria-controls="corMenu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.8.7-1.5 1.5-1.5H16a5 5 0 0 0 5-5c0-4.3-4-7.8-9-7.8z"/><circle cx="7.5" cy="11.5" r="1.2"/><circle cx="10" cy="7.2" r="1.2"/><circle cx="14.8" cy="7.2" r="1.2"/></svg>
+        </button>
+        <div class="cor-menu" id="corMenu" hidden>
+          <small>Cor de destaque</small>
+          <div class="cor-grid" id="corGrid"></div>
+        </div>
+      </div>
       <button class="icon-btn" id="temaBtn" aria-label="Alternar modo claro/escuro">
         <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
         <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -636,6 +654,7 @@ const LOJA = {
   // Cores de destaque (tema claro e tema escuro)
   cor: "#B23B0B",
   corEscuro: "#FF8A50",
+  seletorCores: true,                // botão de paleta no topo para testar cores (false ao entregar ao cliente)
 
   titulo: 'Seu computador em <em>boas mãos</em>, do upgrade ao conserto.',
   subtitulo: "Notebooks, computadores, peças e acessórios, com assistência técnica própria. Conte o que você precisa e a gente indica a melhor opção.",
@@ -724,12 +743,46 @@ const wa = msg => `https://wa.me/${LOJA.whatsapp}?text=${encodeURIComponent(msg 
 const $ = id => document.getElementById(id);
 
 // Cores
+const estiloCor = document.createElement('style');
+document.head.appendChild(estiloCor);
+const aplicarCor = (cor, corEscuro) => {
+  estiloCor.textContent = `:root{--accent:${cor}}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:${corEscuro}}}
+  :root[data-theme="dark"]{--accent:${corEscuro}}`;
+};
+let corSalva = null;
+if (LOJA.seletorCores) { try { corSalva = JSON.parse(localStorage.getItem('cor')); } catch (e) {} }
+aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : LOJA.corEscuro);
+
+// Seletor de cores (para testes): cada opção tem a versão do tema claro e a do escuro
 (function(){
-  const st = document.createElement('style');
-  st.textContent = `:root{--accent:${LOJA.cor}}
-  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:${LOJA.corEscuro}}}
-  :root[data-theme="dark"]{--accent:${LOJA.corEscuro}}`;
-  document.head.appendChild(st);
+  const wrap = $('corWrap');
+  if (!LOJA.seletorCores) { wrap.hidden = true; return; }
+  const opcoes = [
+    { nome: 'Padrão da loja', cor: LOJA.cor, corEscuro: LOJA.corEscuro },
+    { nome: 'Laranja',  cor: '#B23B0B', corEscuro: '#FF8A50' },
+    { nome: 'Azul',     cor: '#1D4ED8', corEscuro: '#60A5FA' },
+    { nome: 'Verde',    cor: '#166534', corEscuro: '#4ADE80' },
+    { nome: 'Roxo',     cor: '#6D28D9', corEscuro: '#A78BFA' },
+    { nome: 'Vermelho', cor: '#B91C1C', corEscuro: '#F87171' },
+    { nome: 'Rosa',     cor: '#BE185D', corEscuro: '#F472B6' },
+    { nome: 'Ciano',    cor: '#155E75', corEscuro: '#22D3EE' },
+    { nome: 'Grafite',  cor: '#334155', corEscuro: '#CBD5E1' }
+  ].filter((o, i, a) => a.findIndex(x => x.cor.toLowerCase() === o.cor.toLowerCase()) === i);
+  const atual = (corSalva ? corSalva.cor : LOJA.cor).toLowerCase();
+  const btn = $('corBtn'), menu = $('corMenu'), grid = $('corGrid');
+  grid.innerHTML = opcoes.map((o, i) => `<button class="cor-op" data-i="${i}" title="${esc(o.nome)}" aria-label="${esc(o.nome)}" aria-pressed="${o.cor.toLowerCase() === atual}" style="--c-l:${o.cor};--c-d:${o.corEscuro}"></button>`).join('');
+  grid.addEventListener('click', e => {
+    const b = e.target.closest('.cor-op'); if (!b) return;
+    const o = opcoes[b.dataset.i];
+    aplicarCor(o.cor, o.corEscuro);
+    grid.querySelectorAll('.cor-op').forEach(x => x.setAttribute('aria-pressed', x === b));
+    try { b.dataset.i === '0' ? localStorage.removeItem('cor') : localStorage.setItem('cor', JSON.stringify(o)); } catch (e) {}
+  });
+  const abrir = v => { menu.hidden = !v; btn.setAttribute('aria-expanded', v); };
+  btn.addEventListener('click', () => abrir(menu.hidden));
+  document.addEventListener('click', e => { if (!wrap.contains(e.target)) abrir(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') abrir(false); });
 })();
 
 // Textos simples
