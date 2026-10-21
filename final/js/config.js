@@ -20,7 +20,7 @@ const LOJA = {
   credito: "",                       // ex.: "Site por Sua Agência"
 
   // Cores de destaque (tema claro e tema escuro)
-  cor: "#B23B0B",
+  cor: "#C2410C",
   corEscuro: "#FF8A50",
   seletorCores: true,                // botão de paleta no topo para testar cores (false ao entregar ao cliente)
 

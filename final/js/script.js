@@ -54,14 +54,14 @@ aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : L
   if (!LOJA.seletorCores) { seletor.hidden = true; return; }
   const opcoes = [
     { nome: 'Padrão da loja', cor: LOJA.cor, corEscuro: LOJA.corEscuro },
-    { nome: 'Laranja',  cor: '#B23B0B', corEscuro: '#FF8A50' },
-    { nome: 'Azul',     cor: '#1D4ED8', corEscuro: '#60A5FA' },
-    { nome: 'Verde',    cor: '#166534', corEscuro: '#4ADE80' },
-    { nome: 'Roxo',     cor: '#6D28D9', corEscuro: '#A78BFA' },
-    { nome: 'Vermelho', cor: '#B91C1C', corEscuro: '#F87171' },
-    { nome: 'Rosa',     cor: '#BE185D', corEscuro: '#F472B6' },
-    { nome: 'Ciano',    cor: '#155E75', corEscuro: '#22D3EE' },
-    { nome: 'Grafite',  cor: '#334155', corEscuro: '#CBD5E1' }
+    { nome: 'Laranja',  cor: '#C2410C', corEscuro: '#FF8A50' },
+    { nome: 'Azul',     cor: '#2563EB', corEscuro: '#60A5FA' },
+    { nome: 'Verde',    cor: '#15803D', corEscuro: '#4ADE80' },
+    { nome: 'Roxo',     cor: '#7C3AED', corEscuro: '#A78BFA' },
+    { nome: 'Vermelho', cor: '#DC2626', corEscuro: '#EF4444' },
+    { nome: 'Rosa',     cor: '#DB2777', corEscuro: '#F472B6' },
+    { nome: 'Ciano',    cor: '#0E7490', corEscuro: '#22D3EE' },
+    { nome: 'Grafite',  cor: '#475569', corEscuro: '#CBD5E1' }
   ].filter((opcao, posicao, lista) => lista.findIndex(outra => outra.cor.toLowerCase() === opcao.cor.toLowerCase()) === posicao);
 
   const corAtual = (corSalva ? corSalva.cor : LOJA.cor).toLowerCase();
