@@ -247,17 +247,17 @@ img{max-width:100%}
 .perguntas{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px}
 .perguntas-lista{display:flex;flex-direction:column;border-top:1px solid var(--linha);min-width:0}
 .pergunta{position:relative;padding-left:20px;border-bottom:1px solid var(--linha)}
-.pergunta::before{content:"";position:absolute;left:0;top:-1px;bottom:-1px;width:3px;background:var(--destaque);transform:scaleY(0);transform-origin:top;transition:transform .35s ease}
+.pergunta::before{content:"";position:absolute;left:0;top:-1px;bottom:-1px;width:3px;background:var(--destaque);transform:scaleY(0);transform-origin:top;transition:transform .25s ease}
 .pergunta.aberto::before{transform:scaleY(1)}
 .pergunta-numero{flex:none;font:500 13px/1 var(--fonte-mono);color:var(--destaque);letter-spacing:.06em}
-.pergunta-texto{flex:1;transition:color .35s ease}
+.pergunta-texto{flex:1;transition:color .25s ease}
 .pergunta-botao:hover .pergunta-texto,.pergunta.aberto .pergunta-texto{color:var(--destaque)}
 .pergunta-botao{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;justify-content:flex-start;gap:16px;align-items:center;padding:20px 0;font:600 15.5px/1.4 var(--fonte-texto);color:var(--texto)}
 .pergunta-botao:focus-visible{outline:2px solid var(--destaque);outline-offset:3px;border-radius:4px}
-.pergunta-botao span.mais{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid var(--destaque);color:var(--destaque);display:grid;place-items:center;transition:transform .35s ease,background .35s ease,color .35s ease,border-color .35s ease}
+.pergunta-botao span.mais{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid var(--destaque);color:var(--destaque);display:grid;place-items:center;transition:transform .25s ease,background .25s ease,color .25s ease,border-color .25s ease}
 .pergunta-botao span.mais svg{width:14px;height:14px}
 .pergunta.aberto span.mais{transform:rotate(45deg);background:var(--destaque);color:var(--sobre-destaque);border-color:var(--destaque)}
-.pergunta-resposta{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .4s ease,opacity .4s ease}
+.pergunta-resposta{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .25s ease,opacity .25s ease}
 .pergunta.aberto .pergunta-resposta{grid-template-rows:1fr;opacity:1}
 .pergunta-resposta > div{overflow:hidden}
 .pergunta-resposta p{padding:0 48px 22px 40px;color:var(--texto-suave);font-size:14.5px}

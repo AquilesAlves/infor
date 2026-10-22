@@ -186,12 +186,13 @@ document.querySelectorAll('.pergunta').forEach(pergunta => {
   pergunta.querySelector('.pergunta-botao').addEventListener('click', () => {
     mostrarPergunta(pergunta.classList.contains('aberto') ? null : pergunta);
   });
-  // Com mouse: abre ao passar por cima. A pequena espera evita que as perguntas
-  // fiquem abrindo e fechando em sequência enquanto o mouse só está atravessando a lista.
+  // Com mouse: abre na hora ao passar por cima. Usa "mousemove" (e não "mouseenter")
+  // para só reagir ao mouse se mexendo: quando uma pergunta abre e empurra as outras
+  // para baixo do cursor parado, nada acontece, e elas não abrem em cascata.
   if (!matchMedia('(hover: hover)').matches) return;
-  let espera;
-  pergunta.addEventListener('mouseenter', () => { espera = setTimeout(() => mostrarPergunta(pergunta), 150); });
-  pergunta.addEventListener('mouseleave', () => clearTimeout(espera));
+  pergunta.addEventListener('mousemove', () => {
+    if (!pergunta.classList.contains('aberto')) mostrarPergunta(pergunta);
+  });
 });
 
 /* ---------- Links do WhatsApp ---------- */
