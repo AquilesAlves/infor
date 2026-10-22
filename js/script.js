@@ -135,12 +135,12 @@ if (LOJA.marcas.length) {
 
 /* ---------- Produtos ---------- */
 pegar('listaProdutos').innerHTML = LOJA.produtos.map((produto, posicao) => `
-  <a class="categoria" data-whatsapp data-mensagem="${protegerTexto('Olá! Vim pelo site e quero saber sobre ' + produto.titulo.toLowerCase() + '.')}" href="#" target="_blank" rel="noopener">
+  <article class="categoria">
     <span class="categoria-codigo">CAT-${numeroComDoisDigitos(posicao + 1)}</span>
     <span class="categoria-icone">${desenharIcone(ICONES[produto.icone] || ICONES.componentes)}</span>
     <h3>${protegerTexto(produto.titulo)}</h3>
     <p>${protegerTexto(produto.texto)}</p>
-  </a>`).join('');
+  </article>`).join('');
 
 /* ---------- Assistência técnica ---------- */
 pegar('selos').innerHTML = LOJA.garantias.map(garantia => `<span>${ICONE_VISTO}${protegerTexto(garantia)}</span>`).join('');
