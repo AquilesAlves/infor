@@ -123,6 +123,8 @@ img{max-width:100%}
 /* Hero */
 /* No computador, a abertura + a faixa de marcas preenchem a primeira tela (até um limite) */
 .abertura{--afastar:40px;padding-block:88px 96px;position:relative;overflow:hidden;display:grid;align-items:center;min-height:min(820px,calc(100svh - 172px))}
+/* Fundo de bolinhas na abertura inteira, no mesmo padrão da bancada (ponto a cada 20px) */
+.abertura{background-image:radial-gradient(circle at 2px 2px,color-mix(in srgb,var(--placa-linha) 70%,transparent) 1.2px,transparent 1.6px);background-size:20px 20px}
 .abertura .conteudo{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;width:100%}
 /* Os 5 itens (selo, título, texto, botões, informações) ficam com espaços iguais entre si.
    O bloco avança --afastar para cima e para baixo sobre o espaço livre da seção (margens
