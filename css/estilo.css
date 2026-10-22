@@ -120,7 +120,15 @@ img{max-width:100%}
 /* Hero */
 /* No computador, a abertura + a faixa de marcas preenchem a primeira tela (até um limite) */
 .abertura{--afastar:40px;padding-block:88px 96px;position:relative;overflow:hidden;display:grid;align-items:center;min-height:min(820px,calc(100svh - 172px))}
-.abertura .conteudo{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;width:100%}
+.abertura .conteudo{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;width:100%;position:relative;z-index:1}
+/* Fundo de terminal: log de diagnóstico bem apagado, em colunas, no lado da bancada */
+.fundo-terminal{position:absolute;inset:0;margin:0;padding:28px clamp(24px,5vw,80px);overflow:hidden;pointer-events:none;user-select:none;
+  font:500 12.5px/2 var(--fonte-mono);color:var(--texto);opacity:.06;white-space:pre;column-width:340px;column-gap:56px;
+  /* some em direção ao texto (lado esquerdo) para não atrapalhar a leitura */
+  -webkit-mask-image:linear-gradient(90deg,transparent 38%,#000 72%);mask-image:linear-gradient(90deg,transparent 38%,#000 72%)}
+@media (max-width:900px){.fundo-terminal{display:none}}
+.fundo-terminal .ok{color:var(--aberto)}
+.fundo-terminal .cmd{color:var(--destaque)}
 /* Os 5 itens (selo, título, texto, botões, informações) ficam com espaços iguais entre si.
    O bloco avança --afastar para cima e para baixo sobre o espaço livre da seção (margens
    negativas), então ele fica mais alto que a bancada sem mudar a altura da seção. */
@@ -141,7 +149,7 @@ img{max-width:100%}
 .abertura-info svg{width:17px;height:17px;color:var(--destaque)}
 
 .placa-moldura{min-width:0;position:relative}
-.placa{width:100%;max-width:100%;height:auto;border-radius:var(--raio-g)}
+.placa{width:100%;max-width:100%;height:auto;border-radius:var(--raio-g);border:1px solid var(--linha)}
 /* Telas largas: a bancada acompanha a altura do bloco de texto ao lado (mesmo topo e mesma base).
    Abaixo disso a largura da coluna é que limita a bancada, então ela fica no tamanho natural. */
 @media (min-width:1340px){

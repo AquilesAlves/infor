@@ -214,6 +214,36 @@ document.querySelectorAll('.pergunta').forEach(pergunta => {
   document.fonts && document.fonts.ready.then(fixarAltura); // a fonte muda a altura do texto
 })();
 
+/* ---------- Fundo de terminal da abertura (decorativo) ---------- */
+(function () {
+  const linhas = [
+    '$ ./diagnostico --equipamento notebook',
+    '[ok] cpu ............ 42°C',
+    '[ok] memoria ........ 16GB DDR4',
+    '[!!] ssd ............ saude 61% -> trocar',
+    '[ok] bateria ........ 88%',
+    '$ orcamento --gerar',
+    '> peca: ssd nvme 512gb',
+    '> mao de obra: inclusa',
+    '> prazo: no mesmo dia',
+    '$ backup --origem ssd --destino nvme',
+    '[ok] 128.004 arquivos copiados',
+    '$ limpeza --pasta-termica',
+    '[ok] temperatura: 78°C -> 51°C',
+    '$ teste --estresse 30min',
+    '[ok] nenhum erro encontrado',
+    '$ git commit -m "equipamento pronto"',
+    '$ notificar --cliente whatsapp',
+    '[ok] mensagem enviada',
+    ''
+  ];
+  // Pinta "$ comando" e "[ok]" com cores próprias (o conjunto todo fica bem apagado no CSS)
+  const pintar = linha => protegerTexto(linha)
+    .replace(/^\$ .*/, trecho => `<span class="cmd">${trecho}</span>`)
+    .replace(/^\[ok\]/, '<span class="ok">[ok]</span>');
+  pegar('fundoTerminal').innerHTML = Array.from({ length: 6 }, () => linhas.map(pintar).join('\n')).join('\n');
+})();
+
 /* ---------- Links do WhatsApp ---------- */
 // Todo elemento com data-whatsapp vira link; data-mensagem define o texto já preenchido
 document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWhatsapp(link.dataset.mensagem));
