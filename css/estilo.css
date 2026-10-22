@@ -118,13 +118,14 @@ img{max-width:100%}
 }
 
 /* Hero */
-.abertura{padding-block:56px 72px;position:relative;overflow:hidden}
-.abertura .conteudo{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
+/* No computador, a abertura + a faixa de marcas preenchem a primeira tela (até um limite) */
+.abertura{padding-block:88px 96px;position:relative;overflow:hidden;display:grid;align-items:center;min-height:min(820px,calc(100svh - 172px))}
+.abertura .conteudo{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;width:100%}
 .abertura-conteudo{min-width:0;display:flex;flex-direction:column;gap:26px}
 .status{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;font:500 13px/1 var(--fonte-mono);padding:9px 14px 9px 12px;border-radius:999px;background:var(--superficie);border:1px solid var(--linha)}
 .status i{width:8px;height:8px;border-radius:50%;background:var(--aberto);box-shadow:0 0 0 4px color-mix(in srgb,var(--aberto) 20%,transparent)}
 .status.fechado i{background:var(--fechado);box-shadow:none}
-.abertura h1{font-size:clamp(28px,3.2vw,46px);font-weight:800;text-wrap:pretty}
+.abertura h1{font-size:clamp(28px,2.9vw,42px);font-weight:800;text-wrap:pretty}
 .abertura h1 em{font-style:normal;color:var(--destaque)}
 .abertura-texto{font-size:clamp(15px,1.4vw,17px);color:var(--texto-suave);max-width:56ch}
 .abertura-botoes{display:flex;flex-wrap:wrap;gap:12px}
@@ -150,11 +151,11 @@ img{max-width:100%}
 .placa .p-led-pisca{fill:var(--placa-destaque);animation:pisca 2s ease-in-out infinite}
 @keyframes fluxo{from{stroke-dashoffset:234}to{stroke-dashoffset:0}}
 @keyframes pisca{0%,100%{opacity:1}50%{opacity:.25}}
-@media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{padding-block:36px 56px}}
+@media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{padding-block:40px 64px;min-height:0}}
 
 
 /* Marcas */
-.marcas{border-block:1px solid var(--linha)}
+.marcas{background:var(--superficie);border-block:1px solid var(--linha)}
 .marcas .conteudo{display:flex;align-items:center;gap:16px 40px;padding-block:32px}
 .marcas-titulo{font:500 12px/1.5 var(--fonte-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--destaque);max-width:170px;flex:none}
 .marcas-trilho{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
