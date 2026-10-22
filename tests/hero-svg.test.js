@@ -1,8 +1,14 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.join(__dirname, '..');
+const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const css = fs.readFileSync(path.join(root, 'css', 'estilo.css'), 'utf8');
+const heroStart = html.indexOf('<section class="abertura">');
+const heroEnd = html.indexOf('</section>', heroStart);
+const hero = html.slice(heroStart, heroEnd);
 const { calcularLayoutPlaca, inicializar } = require(path.join(root, 'js', 'hero-circuito.js'));
 
 test('component layout preserves proportions and anchors to the desktop/mobile reserve', () => {
@@ -42,4 +48,35 @@ test('component layout preserves proportions and anchors to the desktop/mobile r
 
 test('helper expõe API de inicialização', () => {
   assert.equal(typeof inicializar, 'function');
+});
+
+test('hero uses one full-bleed SVG scene containing the existing PC components', () => {
+  assert.equal((hero.match(/class="placa-hero"/g) || []).length, 1);
+  assert.match(hero, /<svg class="placa-hero"[^>]*aria-hidden="true"/);
+  assert.match(hero, /<pattern[^>]*id="pontos-hero"/);
+  assert.match(hero, /<pattern[^>]*id="trilhas-hero"/);
+  assert.match(hero, /<g class="placa-hero__componentes" transform="translate\(/);
+  assert.match(hero, /class="p-cpu"/);
+  assert.match(hero, /MEMÓRIA RAM/);
+  assert.match(hero, /SSD NVMe/);
+  assert.match(hero, /REDE \/ WI-FI/);
+  assert.match(hero, /PLACA DE VÍDEO/);
+  assert.match(hero, /BANCADA · EM TESTE/);
+  assert.doesNotMatch(hero, /<svg class="placa"/);
+  assert.doesNotMatch(hero, /placa-moldura|placa-fundo/);
+  assert.doesNotMatch(hero, /<rect class="p-fundo" width="520"/);
+});
+
+test('hero SVG fills its section behind the text content', () => {
+  assert.match(css, /\.placa-hero\s*\{[^}]*position:\s*absolute[^}]*inset:\s*0[^}]*width:\s*100%[^}]*height:\s*100%/);
+  assert.match(css, /\.abertura \.conteudo\s*\{[^}]*z-index:\s*1/);
+  assert.doesNotMatch(css, /\.abertura::before/);
+  assert.doesNotMatch(css, /varredura/);
+  assert.match(css, /\.abertura-visual-reserva\s*\{[^}]*min-height:\s*clamp\(300px,\s*84vw,\s*360px\)/);
+  assert.match(css, /\.placa-hero \.p-fundo\{fill:var\(--placa\)\}/);
+});
+
+test('reduced motion global permanece', () => {
+  assert.match(css, /prefers-reduced-motion:\s*reduce/);
+  assert.match(css, /animation:\s*none\s*!important/);
 });

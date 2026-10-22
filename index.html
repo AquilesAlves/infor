@@ -53,6 +53,87 @@
 <main id="inicio">
   <!-- HERO com bancada de teste -->
   <section class="abertura">
+    <svg class="placa-hero" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <defs>
+        <pattern id="pontos-hero" width="20" height="20" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.2" class="p-ponto"/>
+        </pattern>
+        <pattern id="trilhas-hero" width="720" height="520" patternUnits="userSpaceOnUse">
+          <path class="p-trilha" d="M0 84 H132 V144 H304 V104 H512 V158 H720"/>
+          <path class="p-trilha" d="M76 0 V84 M304 144 V264 H420 V212 H592 V520"/>
+          <path class="p-trilha" d="M0 340 H156 V290 H304 M512 0 V74 H632 V158 H720"/>
+          <path class="p-trilha" d="M0 464 H164 V420 H356 V464 H520 V400 H720"/>
+          <path class="p-trilha" d="M596 264 V340 H720"/>
+          <path class="p-fluxo" d="M0 84 H132 V144 H304"/>
+          <path class="p-fluxo atraso2" d="M0 464 H164 V420 H356"/>
+        </pattern>
+      </defs>
+      <rect class="p-fundo" width="100%" height="100%"/>
+      <rect width="100%" height="100%" fill="url(#pontos-hero)" opacity=".38"/>
+      <rect class="placa-hero__trilhas" width="100%" height="100%" fill="url(#trilhas-hero)"/>
+      <g class="placa-hero__componentes" transform="translate(800 190) scale(0.96)">
+        <!-- trilhas -->
+        <path class="p-trilha" d="M260 150 V100 H372"/>
+        <path class="p-trilha" d="M320 210 H372"/>
+        <path class="p-trilha" d="M260 270 V318 H140"/>
+        <path class="p-trilha" d="M200 210 H120 V150"/>
+        <path class="p-trilha" d="M300 270 V330 H420"/>
+        <path class="p-fluxo" d="M260 150 V100 H372"/>
+        <path class="p-fluxo atraso2" d="M260 270 V318 H140"/>
+        <path class="p-fluxo atraso3" d="M200 210 H120 V150"/>
+
+        <!-- CPU -->
+        <g>
+          <path class="p-pino" d="M216 150v-8M232 150v-8M248 150v-8M264 150v-8M280 150v-8M296 150v-8M216 270v8M232 270v8M248 270v8M264 270v8M280 270v8M296 270v8M200 166h-8M200 182h-8M200 198h-8M200 214h-8M200 230h-8M200 246h-8M320 166h8M320 182h8M320 198h8M320 214h8M320 230h8M320 246h8"/>
+          <rect class="p-cpu" x="200" y="150" width="120" height="120" rx="10"/>
+          <rect class="p-peca" x="220" y="170" width="80" height="80" rx="6"/>
+          <text class="p-grande" x="260" y="217" text-anchor="middle">CPU</text>
+          <text class="p-suave" x="260" y="236" text-anchor="middle">DIAGNÓSTICO</text>
+      </g>
+
+                  <!-- RAM -->
+                  <g>
+                    <rect class="p-peca" x="372" y="72" width="18" height="160" rx="3"/>
+                    <rect class="p-peca" x="398" y="72" width="18" height="160" rx="3"/>
+                    <rect class="p-peca" x="424" y="72" width="18" height="160" rx="3"/>
+                    <rect class="p-peca" x="450" y="72" width="18" height="160" rx="3"/>
+                    <path class="p-pino" d="M376 92h10M376 112h10M376 132h10M402 92h10M402 112h10M402 132h10M428 92h10M428 112h10M428 132h10"/>
+                    <text class="p-suave" x="420" y="254" text-anchor="middle">MEMÓRIA RAM</text>
+                  </g>
+
+                  <!-- SSD M.2 -->
+                  <g>
+                    <rect class="p-peca" x="40" y="300" width="100" height="36" rx="5"/>
+                    <rect class="p-peca" x="52" y="308" width="30" height="20" rx="2"/>
+                    <rect class="p-peca" x="90" y="308" width="38" height="20" rx="2"/>
+                    <text class="p-suave" x="90" y="358" text-anchor="middle">SSD NVMe</text>
+                  </g>
+
+                  <!-- Wi-Fi / rede -->
+                  <g>
+                    <rect class="p-peca" x="70" y="100" width="100" height="50" rx="6"/>
+                    <path class="p-trilha" d="M100 130a20 20 0 0 1 40 0M108 134a12 12 0 0 1 24 0" style="stroke:var(--placa-suave)"/>
+                    <circle class="p-led" cx="120" cy="136" r="2.5"/>
+                    <text class="p-suave" x="120" y="88" text-anchor="middle">REDE / WI-FI</text>
+                  </g>
+
+                  <!-- Slot de vídeo -->
+                  <g>
+                    <rect class="p-peca" x="260" y="358" width="220" height="22" rx="4"/>
+                    <path class="p-pino" d="M274 369h192" style="stroke-dasharray:3 4"/>
+                    <text class="p-suave" x="370" y="404" text-anchor="middle">PLACA DE VÍDEO</text>
+                    <rect class="p-peca" x="404" y="318" width="34" height="24" rx="3"/>
+                  </g>
+
+                  <!-- etiqueta -->
+                  <g>
+                    <rect class="p-etiqueta" x="28" y="24" width="206" height="40" rx="8"/>
+                    <circle class="p-led-pisca" cx="48" cy="44" r="4"/>
+                    <text class="p-texto" x="62" y="48">BANCADA · EM TESTE</text>
+                  </g>
+                  <text class="p-suave" x="492" y="46" text-anchor="end">REV. A1</text>
+      </g>
+    </svg>
     <div class="conteudo">
       <div class="abertura-conteudo">
         <span class="status" id="status"><i></i><span id="statusTexto">Aberto agora</span></span>
@@ -71,76 +152,7 @@
         </div>
       </div>
 
-      <div class="placa-moldura" aria-hidden="true">
-        <svg class="placa" viewBox="0 0 520 440">
-          <defs>
-            <pattern id="pontos" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" class="p-ponto"/></pattern>
-          </defs>
-          <rect class="p-fundo" width="520" height="440" rx="5"/>
-          <rect width="520" height="440" rx="5" fill="url(#pontos)" opacity=".7"/>
-
-          <!-- trilhas -->
-          <path class="p-trilha" d="M260 150 V100 H372"/>
-          <path class="p-trilha" d="M320 210 H372"/>
-          <path class="p-trilha" d="M260 270 V318 H140"/>
-          <path class="p-trilha" d="M200 210 H120 V150"/>
-          <path class="p-trilha" d="M300 270 V330 H420"/>
-          <path class="p-fluxo" d="M260 150 V100 H372"/>
-          <path class="p-fluxo atraso2" d="M260 270 V318 H140"/>
-          <path class="p-fluxo atraso3" d="M200 210 H120 V150"/>
-
-          <!-- CPU -->
-          <g>
-            <path class="p-pino" d="M216 150v-8M232 150v-8M248 150v-8M264 150v-8M280 150v-8M296 150v-8M216 270v8M232 270v8M248 270v8M264 270v8M280 270v8M296 270v8M200 166h-8M200 182h-8M200 198h-8M200 214h-8M200 230h-8M200 246h-8M320 166h8M320 182h8M320 198h8M320 214h8M320 230h8M320 246h8"/>
-            <rect class="p-cpu" x="200" y="150" width="120" height="120" rx="10"/>
-            <rect class="p-peca" x="220" y="170" width="80" height="80" rx="6"/>
-            <text class="p-grande" x="260" y="217" text-anchor="middle">CPU</text>
-            <text class="p-suave" x="260" y="236" text-anchor="middle">DIAGNÓSTICO</text>
-          </g>
-
-          <!-- RAM -->
-          <g>
-            <rect class="p-peca" x="372" y="72" width="18" height="160" rx="3"/>
-            <rect class="p-peca" x="398" y="72" width="18" height="160" rx="3"/>
-            <rect class="p-peca" x="424" y="72" width="18" height="160" rx="3"/>
-            <rect class="p-peca" x="450" y="72" width="18" height="160" rx="3"/>
-            <path class="p-pino" d="M376 92h10M376 112h10M376 132h10M402 92h10M402 112h10M402 132h10M428 92h10M428 112h10M428 132h10"/>
-            <text class="p-suave" x="420" y="254" text-anchor="middle">MEMÓRIA RAM</text>
-          </g>
-
-          <!-- SSD M.2 -->
-          <g>
-            <rect class="p-peca" x="40" y="300" width="100" height="36" rx="5"/>
-            <rect class="p-peca" x="52" y="308" width="30" height="20" rx="2"/>
-            <rect class="p-peca" x="90" y="308" width="38" height="20" rx="2"/>
-            <text class="p-suave" x="90" y="358" text-anchor="middle">SSD NVMe</text>
-          </g>
-
-          <!-- Wi-Fi / rede -->
-          <g>
-            <rect class="p-peca" x="70" y="100" width="100" height="50" rx="6"/>
-            <path class="p-trilha" d="M100 130a20 20 0 0 1 40 0M108 134a12 12 0 0 1 24 0" style="stroke:var(--placa-suave)"/>
-            <circle class="p-led" cx="120" cy="136" r="2.5"/>
-            <text class="p-suave" x="120" y="88" text-anchor="middle">REDE / WI-FI</text>
-          </g>
-
-          <!-- Slot de vídeo -->
-          <g>
-            <rect class="p-peca" x="260" y="358" width="220" height="22" rx="4"/>
-            <path class="p-pino" d="M274 369h192" style="stroke-dasharray:3 4"/>
-            <text class="p-suave" x="370" y="404" text-anchor="middle">PLACA DE VÍDEO</text>
-            <rect class="p-peca" x="404" y="318" width="34" height="24" rx="3"/>
-          </g>
-
-          <!-- etiqueta -->
-          <g>
-            <rect class="p-etiqueta" x="28" y="24" width="206" height="40" rx="8"/>
-            <circle class="p-led-pisca" cx="48" cy="44" r="4"/>
-            <text class="p-texto" x="62" y="48">BANCADA · EM TESTE</text>
-          </g>
-          <text class="p-suave" x="492" y="46" text-anchor="end">REV. A1</text>
-        </svg>
-      </div>
+      <div class="abertura-visual-reserva" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -317,5 +329,6 @@
 <!-- Dados da loja (edite este arquivo para cada cliente) e funcionamento da página -->
 <script src="js/config.js"></script>
 <script src="js/script.js"></script>
+<script src="js/hero-circuito.js"></script>
 </body>
 </html>

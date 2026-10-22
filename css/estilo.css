@@ -130,15 +130,6 @@ img{max-width:100%}
 /* No computador, a abertura + a faixa de marcas preenchem a primeira tela (até um limite) */
 .abertura{--afastar:40px;padding-block:88px 96px;position:relative;overflow:hidden;display:grid;align-items:center;min-height:min(820px,calc(100svh - 172px))}
 .abertura .conteudo{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;width:100%;position:relative;z-index:1}
-/* Fundo com cara de terminal, na seção inteira: quadriculado fino e bem apagado (quadros de 40px)
-   e uma faixa de luz suave que desce devagar, como a varredura de um monitor antigo */
-.abertura::before,.abertura::after{content:"";position:absolute;inset:0;pointer-events:none}
-.abertura::before{--cor-grade:color-mix(in srgb,var(--texto) 2.5%,transparent);
-  background:linear-gradient(var(--cor-grade) 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,var(--cor-grade) 1px,transparent 1px) 0 0/40px 40px;
-  /* some aos poucos em direção às bordas, até ficar invisível nos cantos */
-  -webkit-mask-image:radial-gradient(ellipse at 50% 50%,#000 25%,transparent 100%);mask-image:radial-gradient(ellipse at 50% 50%,#000 25%,transparent 100%)}
-.abertura::after{background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--destaque) 5%,transparent) 50%,transparent);height:180px;inset:auto 0 auto 0;top:-180px;animation:varredura 9s linear infinite}
-@keyframes varredura{to{transform:translateY(calc(100% + 1200px))}}
 /* Os 5 itens (selo, título, texto, botões, informações) ficam com espaços iguais entre si.
    O bloco avança --afastar para cima e para baixo sobre o espaço livre da seção (margens
    negativas), então ele fica mais alto que a bancada sem mudar a altura da seção. */
@@ -158,31 +149,34 @@ img{max-width:100%}
 .abertura-info span{display:flex;align-items:center;gap:8px}
 .abertura-info svg{width:17px;height:17px;color:var(--destaque)}
 
-.placa-moldura{min-width:0;position:relative}
-.placa{width:100%;max-width:100%;height:auto;border-radius:var(--raio-g);border:1px solid var(--linha)}
-/* Telas largas: a bancada acompanha a altura do bloco de texto ao lado (mesmo topo e mesma base).
-   Abaixo disso a largura da coluna é que limita a bancada, então ela fica no tamanho natural. */
+/* Circuito full-bleed: um único SVG em tela cheia atrás do conteúdo.
+   O grupo de componentes é posicionado/escalado por js/hero-circuito.js. */
+.placa-hero{position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
+.placa-hero__trilhas{opacity:.2}
+.abertura-visual-reserva{min-width:0}
+/* Telas largas: o bloco de texto ocupa a altura da linha (mesmo comportamento de antes). */
 @media (min-width:1340px){
   .abertura .conteudo{align-items:stretch}
-  .placa{position:absolute;inset:0;margin:0 0 0 auto;width:auto;height:100%}
 }
-.placa .p-fundo{fill:var(--placa)}
-.placa .p-ponto{fill:var(--placa-linha)}
-.placa .p-peca{fill:var(--placa-2);stroke:var(--placa-linha);stroke-width:1.5}
-.placa .p-cpu{fill:var(--placa-2);stroke:var(--placa-destaque);stroke-width:1.5}
-.placa .p-pino{stroke:var(--placa-linha);stroke-width:2}
-.placa .p-trilha{fill:none;stroke:var(--placa-linha);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.placa .p-fluxo{fill:none;stroke:var(--placa-destaque);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:14 220;animation:fluxo 3.6s linear infinite}
-.placa .p-fluxo.atraso2{animation-delay:-1.2s}.placa .p-fluxo.atraso3{animation-delay:-2.4s}
-.placa .p-texto{fill:var(--placa-texto);font-family:var(--fonte-mono);font-size:12px;letter-spacing:.06em}
-.placa .p-suave{fill:var(--placa-suave);font-family:var(--fonte-mono);font-size:10.5px;letter-spacing:.08em}
-.placa .p-grande{fill:var(--placa-texto);font-family:var(--fonte-titulo);font-weight:800;font-size:24px}
-.placa .p-etiqueta{fill:var(--placa);stroke:var(--placa-linha);stroke-width:1.2}
-.placa .p-led{fill:var(--placa-destaque)}
-.placa .p-led-pisca{fill:var(--placa-destaque);animation:pisca 2s ease-in-out infinite}
+.placa-hero .p-fundo{fill:var(--placa)}
+.placa-hero .p-ponto{fill:var(--placa-linha)}
+.placa-hero .p-peca{fill:var(--placa-2);stroke:var(--placa-linha);stroke-width:1.5}
+.placa-hero .p-cpu{fill:var(--placa-2);stroke:var(--placa-destaque);stroke-width:1.5}
+.placa-hero .p-pino{stroke:var(--placa-linha);stroke-width:2}
+.placa-hero .p-trilha{fill:none;stroke:var(--placa-linha);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.placa-hero .p-fluxo{fill:none;stroke:var(--placa-destaque);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:14 220;animation:fluxo 3.6s linear infinite}
+.placa-hero .p-fluxo.atraso2{animation-delay:-1.2s}.placa-hero .p-fluxo.atraso3{animation-delay:-2.4s}
+.placa-hero .p-texto{fill:var(--placa-texto);font-family:var(--fonte-mono);font-size:12px;letter-spacing:.06em}
+.placa-hero .p-suave{fill:var(--placa-suave);font-family:var(--fonte-mono);font-size:10.5px;letter-spacing:.08em}
+.placa-hero .p-grande{fill:var(--placa-texto);font-family:var(--fonte-titulo);font-weight:800;font-size:24px}
+.placa-hero .p-etiqueta{fill:var(--placa);stroke:var(--placa-linha);stroke-width:1.2}
+.placa-hero .p-led{fill:var(--placa-destaque)}
+.placa-hero .p-led-pisca{fill:var(--placa-destaque);animation:pisca 2s ease-in-out infinite}
 @keyframes fluxo{from{stroke-dashoffset:234}to{stroke-dashoffset:0}}
 @keyframes pisca{0%,100%{opacity:1}50%{opacity:.25}}
-@media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{--afastar:16px;padding-block:40px 64px;min-height:0}.abertura-conteudo .status{transform:translateY(-4px)}}
+@media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{--afastar:16px;padding-block:40px 64px;min-height:0}.abertura-conteudo .status{transform:translateY(-4px)}.abertura-visual-reserva{min-height:clamp(300px,84vw,360px)}}
+@media (prefers-color-scheme: dark){:root:not([data-tema="claro"]) .placa-hero__trilhas{opacity:.32}}
+:root[data-tema="escuro"] .placa-hero__trilhas{opacity:.32}
 
 
 /* Marcas */
