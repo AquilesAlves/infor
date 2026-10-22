@@ -84,7 +84,7 @@ img{max-width:100%}
 .menu{display:flex;gap:4px;margin-left:auto}
 .menu a{text-decoration:none;font-size:14px;font-weight:500;color:var(--texto-suave);padding:8px 12px;border-radius:8px}
 .menu a{transition:color .2s ease,background .2s ease}
-.menu a:hover{color:var(--texto);background:var(--superficie-2)}
+.menu a:hover{color:var(--destaque);background:var(--destaque-suave)}
 .menu a.ativo{color:var(--destaque);background:var(--destaque-suave)}
 .cabecalho-acoes{display:flex;align-items:center;gap:8px}
 .botao-icone{width:42px;height:42px;border-radius:10px;border:1px solid var(--linha);background:var(--superficie);color:var(--texto);display:grid;place-items:center;cursor:pointer;flex:none}
@@ -119,12 +119,12 @@ img{max-width:100%}
 
 /* Hero */
 .abertura{padding-block:56px 72px;position:relative;overflow:hidden}
-.abertura .conteudo{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.abertura .conteudo{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
 .abertura-conteudo{min-width:0;display:flex;flex-direction:column;gap:26px}
 .status{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;font:500 13px/1 var(--fonte-mono);padding:9px 14px 9px 12px;border-radius:999px;background:var(--superficie);border:1px solid var(--linha)}
 .status i{width:8px;height:8px;border-radius:50%;background:var(--aberto);box-shadow:0 0 0 4px color-mix(in srgb,var(--aberto) 20%,transparent)}
 .status.fechado i{background:var(--fechado);box-shadow:none}
-.abertura h1{font-size:clamp(32px,4.6vw,60px);font-weight:800}
+.abertura h1{font-size:clamp(28px,3.2vw,46px);font-weight:800;text-wrap:pretty}
 .abertura h1 em{font-style:normal;color:var(--destaque)}
 .abertura-texto{font-size:clamp(15px,1.4vw,17px);color:var(--texto-suave);max-width:56ch}
 .abertura-botoes{display:flex;flex-wrap:wrap;gap:12px}
@@ -154,7 +154,7 @@ img{max-width:100%}
 
 
 /* Marcas */
-.marcas{border-bottom:1px solid var(--linha)}
+.marcas{border-block:1px solid var(--linha)}
 .marcas .conteudo{display:flex;align-items:center;gap:16px 40px;padding-block:32px}
 .marcas-titulo{font:500 12px/1.5 var(--fonte-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--destaque);max-width:170px;flex:none}
 .marcas-trilho{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
@@ -211,7 +211,7 @@ img{max-width:100%}
 
 /* Como funciona */
 .passos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.passo{padding:28px;border-radius:var(--raio-m);border:1px solid var(--linha);display:flex;flex-direction:column;gap:12px;min-width:0;transition:transform .2s ease,border-color .2s ease}
+.passo{padding:28px;border-radius:var(--raio-m);border:1px dashed var(--linha);display:flex;flex-direction:column;gap:12px;min-width:0;transition:transform .2s ease,border-color .2s ease}
 .passo:hover{transform:translateX(6px);border-color:var(--destaque)}
 .passo h3{transition:color .2s ease}
 .passo:hover h3{color:var(--destaque)}
@@ -223,7 +223,8 @@ img{max-width:100%}
 /* Depoimentos */
 .depoimentos-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:900px){.depoimentos-grade{grid-template-columns:1fr}}
-.depoimento{position:relative;display:flex;flex-direction:column;gap:18px;padding:28px;background:var(--fundo);border:1px solid var(--linha);border-radius:var(--raio-g);min-width:0}
+.depoimento{position:relative;display:flex;flex-direction:column;gap:18px;padding:28px;background:var(--fundo);border:1px solid var(--linha);border-radius:var(--raio-g);min-width:0;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.depoimento:hover{transform:translateY(-4px);border-color:var(--destaque);box-shadow:var(--sombra)}
 .depoimento::after{content:"\201C";position:absolute;top:10px;right:22px;font:800 76px/1 "Archivo","Arial Black",sans-serif;color:var(--destaque);opacity:.16}
 .estrelas{display:flex;gap:3px;color:var(--destaque)}
 .estrelas svg{width:17px;height:17px}
@@ -293,14 +294,14 @@ img{max-width:100%}
 .rodape a{text-decoration:none}
 .rodape li a:hover{color:var(--destaque)}
 .rodape li{overflow-wrap:anywhere}
-.rodape-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;padding-block:24px calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--linha);font-size:13.5px}
+.rodape-base{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding-block:24px calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--linha);font-size:13.5px}
 
 /* Botão flutuante */
 .flutuantes{position:fixed;z-index:70;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center}
 .botao-whatsapp{display:grid;place-items:center;width:56px;height:56px;border-radius:12px;background:var(--destaque);color:var(--sobre-destaque);text-decoration:none;box-shadow:0 14px 30px -10px rgba(0,0,0,.45);transition:transform .15s ease}
 .botao-whatsapp svg{width:28px;height:28px}
 .botao-whatsapp:hover{transform:translateY(-2px)}
-.botao-topo{width:48px;height:0;margin-top:0;border:0 solid var(--fundo);border-radius:50%;background:var(--texto);color:var(--fundo);display:grid;place-items:center;overflow:hidden;cursor:pointer;padding:0;box-shadow:0 10px 24px -12px rgba(0,0,0,.4);opacity:0;visibility:hidden;transition:height .3s ease,margin-top .3s ease,border-width .3s ease,opacity .3s ease,visibility .3s,background .15s ease}
+.botao-topo{width:48px;height:0;margin-top:0;border:0 solid var(--fundo);border-radius:12px;background:var(--texto);color:var(--fundo);display:grid;place-items:center;overflow:hidden;cursor:pointer;padding:0;box-shadow:0 10px 24px -12px rgba(0,0,0,.4);opacity:0;visibility:hidden;transition:height .3s ease,margin-top .3s ease,border-width .3s ease,opacity .3s ease,visibility .3s,background .15s ease}
 .botao-topo.visivel{height:48px;margin-top:10px;border-width:2px;opacity:1;visibility:visible}
 .botao-topo:hover{background:var(--destaque);color:var(--sobre-destaque)}
 .botao-topo svg{width:22px;height:22px}
