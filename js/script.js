@@ -329,12 +329,11 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWha
 /* ---------- Menu no celular ---------- */
 (function () {
   const botao = pegar('botaoMenu'), menu = pegar('menu');
-  botao.addEventListener('click', () => {
-    const aberto = menu.classList.toggle('aberto');
+  const mostrar = aberto => {
+    menu.classList.toggle('aberto', aberto);
     botao.setAttribute('aria-expanded', aberto);
-  });
-  menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-    menu.classList.remove('aberto');
-    botao.setAttribute('aria-expanded', false);
-  }));
+    botao.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+  };
+  botao.addEventListener('click', () => mostrar(!menu.classList.contains('aberto')));
+  menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mostrar(false)));
 })();
