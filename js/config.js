@@ -2,13 +2,13 @@
    CONFIGURAÇÃO DA LOJA — edite só este arquivo para cada cliente
    ===================================================================== */
 const LOJA = {
-  nome: "Nexo Informática",
-  sigla: "NX",                       // 2 letras no ícone do logo
+  nome: "Tech",
+  sigla: "TC",                       // 2 letras no ícone do logo
   whatsapp: "5511999990000",         // DDI + DDD + número, só dígitos
   whatsappExibicao: "(11) 99999-0000",
   mensagemPadrao: "Olá! Vim pelo site e gostaria de atendimento.",
-  email: "contato@nexoinformatica.com.br", // deixe "" para esconder
-  instagram: "@nexoinformatica",     // deixe "" para esconder
+  email: "contato@tech.com.br", // deixe "" para esconder
+  instagram: "@tech",               // deixe "" para esconder
   facebook: "",                      // link completo, ex.: "https://facebook.com/sualoja" ("" esconde)
   endereco: "Rua das Palmeiras, 240 · Centro",
   cidade: "Campinas - SP",
