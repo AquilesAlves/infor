@@ -175,25 +175,44 @@ pegar('listaPerguntas').innerHTML = LOJA.faq.map((item, posicao) => `
     <button class="pergunta-botao" aria-expanded="${posicao === 0}" aria-controls="resposta-${posicao}"><span class="pergunta-numero">${numeroComDoisDigitos(posicao + 1)}</span><span class="pergunta-texto">${protegerTexto(item.p)}</span><span class="mais">${ICONE_MAIS}</span></button>
     <div class="pergunta-resposta" id="resposta-${posicao}" role="region"><div><p>${protegerTexto(item.r)}</p></div></div>
   </div>`).join('');
-// Abre uma pergunta e fecha as outras (ou fecha todas, se "alvo" for null)
+// Abre uma pergunta e fecha as outras (sempre fica uma aberta)
 const mostrarPergunta = alvo => document.querySelectorAll('.pergunta').forEach(pergunta => {
   const ficaAberta = pergunta === alvo;
   pergunta.classList.toggle('aberto', ficaAberta);
   pergunta.querySelector('.pergunta-botao').setAttribute('aria-expanded', ficaAberta);
 });
+const temMouse = matchMedia('(hover: hover)').matches;
 document.querySelectorAll('.pergunta').forEach(pergunta => {
-  // Clique (e toque no celular): abre, ou fecha se já estiver aberta
-  pergunta.querySelector('.pergunta-botao').addEventListener('click', () => {
-    mostrarPergunta(pergunta.classList.contains('aberto') ? null : pergunta);
-  });
-  // Com mouse: abre na hora ao passar por cima. Usa "mousemove" (e não "mouseenter")
-  // para só reagir ao mouse se mexendo: quando uma pergunta abre e empurra as outras
-  // para baixo do cursor parado, nada acontece, e elas não abrem em cascata.
-  if (!matchMedia('(hover: hover)').matches) return;
-  pergunta.addEventListener('mousemove', () => {
-    if (!pergunta.classList.contains('aberto')) mostrarPergunta(pergunta);
-  });
+  const abrir = () => { if (!pergunta.classList.contains('aberto')) mostrarPergunta(pergunta); };
+  if (temMouse) {
+    // Com mouse: abre só ao passar por cima (sem clique). Usa "mousemove" (e não "mouseenter")
+    // para só reagir ao mouse se mexendo: quando uma pergunta abre e empurra as outras
+    // para baixo do cursor parado, nada acontece, e elas não abrem em cascata.
+    pergunta.addEventListener('mousemove', abrir);
+  } else {
+    // Celular e tablet não têm hover: o toque abre a pergunta
+    pergunta.querySelector('.pergunta-botao').addEventListener('click', abrir);
+  }
+  // Teclado: ao chegar na pergunta com Tab, ela abre
+  pergunta.querySelector('.pergunta-botao').addEventListener('focus', abrir);
 });
+
+// Altura fixa da lista: sempre a altura que ela tem com a resposta mais longa aberta.
+// Assim, abrir e fechar (inclusive durante a animação) não empurra a próxima seção.
+(function () {
+  const lista = pegar('listaPerguntas');
+  const fixarAltura = () => {
+    lista.style.minHeight = '';
+    const perguntas = [...lista.querySelectorAll('.pergunta')];
+    // Altura de tudo sem as respostas (descontando o quanto cada uma está aberta agora)
+    const semRespostas = lista.offsetHeight - perguntas.reduce((total, pergunta) => total + pergunta.querySelector('.pergunta-resposta').offsetHeight, 0);
+    const maiorResposta = Math.max(...perguntas.map(pergunta => pergunta.querySelector('.pergunta-resposta > div').scrollHeight));
+    lista.style.minHeight = Math.max(lista.offsetHeight, semRespostas + maiorResposta) + 'px';
+  };
+  fixarAltura();
+  addEventListener('resize', fixarAltura);
+  document.fonts && document.fonts.ready.then(fixarAltura); // a fonte muda a altura do texto
+})();
 
 /* ---------- Links do WhatsApp ---------- */
 // Todo elemento com data-whatsapp vira link; data-mensagem define o texto já preenchido
