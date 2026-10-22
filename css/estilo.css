@@ -76,17 +76,19 @@ img{max-width:100%}
 /* Cabeçalho */
 .cabecalho{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--superficie) 90%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--linha)}
 @supports not (background:color-mix(in srgb,red 50%,blue)){.cabecalho{background:var(--superficie)}}
-.cabecalho .conteudo{display:flex;align-items:center;gap:24px;height:68px}
+/* Logo à esquerda, menu no centro da página, botões à direita. Se faltar espaço, as laterais
+   não encolhem abaixo do próprio conteúdo (o nome da loja não é cortado) e o menu cede um pouco. */
+.cabecalho .conteudo{display:grid;grid-template-columns:minmax(max-content,1fr) auto minmax(max-content,1fr);align-items:center;gap:24px;height:68px}
 .logo{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0}
 .logo-icone{width:38px;height:38px;border-radius:10px;background:var(--texto);color:var(--fundo);display:grid;place-items:center;font:800 15px/1 var(--fonte-titulo);flex:none;position:relative}
 .logo-icone::after{content:"";position:absolute;right:-3px;bottom:-3px;width:10px;height:10px;border-radius:3px;background:var(--destaque);border:2px solid var(--fundo)}
 .logo-nome{font:700 16px/1.1 var(--fonte-titulo);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.menu{display:flex;gap:4px;margin-left:auto}
+.menu{display:flex;gap:4px;justify-self:center}
 .menu a{text-decoration:none;font-size:14px;font-weight:500;color:var(--texto-suave);padding:8px 12px;border-radius:8px}
 .menu a{transition:color .2s ease,background .2s ease}
 .menu a:hover{color:var(--destaque);background:var(--destaque-suave)}
 .menu a.ativo{color:var(--destaque);background:var(--destaque-suave)}
-.cabecalho-acoes{display:flex;align-items:center;gap:8px}
+.cabecalho-acoes{display:flex;align-items:center;gap:8px;justify-self:end}
 .botao-icone{width:42px;height:42px;border-radius:10px;border:1px solid var(--linha);background:var(--superficie);color:var(--texto);display:grid;place-items:center;cursor:pointer;flex:none}
 .botao-icone svg{width:20px;height:20px}
 .botao-icone{transition:color .2s ease,border-color .2s ease,background .2s ease}
@@ -113,7 +115,8 @@ img{max-width:100%}
   .menu.aberto{display:flex}
   .menu a{padding:14px 8px;font-size:16px;border-bottom:1px solid var(--linha);border-radius:0}
   .menu a.ativo{box-shadow:inset 3px 0 0 var(--destaque);padding-left:14px}
-  .cabecalho-acoes{margin-left:auto}
+  .cabecalho .conteudo{grid-template-columns:1fr auto}
+  .menu{justify-self:stretch}
   .botao-menu{display:grid}
 }
 
