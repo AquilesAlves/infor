@@ -53,6 +53,47 @@
 <main id="inicio">
   <!-- HERO com bancada de teste -->
   <section class="abertura">
+    <!-- Fundo da abertura: placa de circuito (pontos + trilhas com pulsos animados) -->
+    <svg class="fundo-placa" viewBox="0 0 1440 1040" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <defs>
+        <pattern id="pontos-fundo" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" class="p-ponto"/></pattern>
+      </defs>
+      <rect width="1440" height="1040" fill="url(#pontos-fundo)" opacity=".38"/>
+      <g class="fundo-placa-trilhas">
+        <g transform="translate(0 0)">
+          <path class="p-trilha" d="M0 84 H132 V144 H304 V104 H512 V158 H720"/>
+          <path class="p-trilha" d="M76 0 V84 M304 144 V264 H420 V212 H592 V520"/>
+          <path class="p-trilha" d="M0 340 H156 V290 H304 M512 0 V74 H632 V158 H720"/>
+          <path class="p-trilha" d="M0 464 H164 V420 H356 V464 H520 V400 H720"/>
+          <path class="p-trilha" d="M596 264 V340 H720"/>
+          <path class="p-fluxo" d="M0 84 H132 V144 H304"/>
+        </g>
+        <g transform="translate(720 0)">
+          <path class="p-trilha" d="M0 84 H132 V144 H304 V104 H512 V158 H720"/>
+          <path class="p-trilha" d="M76 0 V84 M304 144 V264 H420 V212 H592 V520"/>
+          <path class="p-trilha" d="M0 340 H156 V290 H304 M512 0 V74 H632 V158 H720"/>
+          <path class="p-trilha" d="M0 464 H164 V420 H356 V464 H520 V400 H720"/>
+          <path class="p-trilha" d="M596 264 V340 H720"/>
+          <path class="p-fluxo atraso2" d="M0 464 H164 V420 H356"/>
+        </g>
+        <g transform="translate(0 520)">
+          <path class="p-trilha" d="M0 84 H132 V144 H304 V104 H512 V158 H720"/>
+          <path class="p-trilha" d="M76 0 V84 M304 144 V264 H420 V212 H592 V520"/>
+          <path class="p-trilha" d="M0 340 H156 V290 H304 M512 0 V74 H632 V158 H720"/>
+          <path class="p-trilha" d="M0 464 H164 V420 H356 V464 H520 V400 H720"/>
+          <path class="p-trilha" d="M596 264 V340 H720"/>
+          <path class="p-fluxo" d="M0 84 H132 V144 H304"/>
+        </g>
+        <g transform="translate(720 520)">
+          <path class="p-trilha" d="M0 84 H132 V144 H304 V104 H512 V158 H720"/>
+          <path class="p-trilha" d="M76 0 V84 M304 144 V264 H420 V212 H592 V520"/>
+          <path class="p-trilha" d="M0 340 H156 V290 H304 M512 0 V74 H632 V158 H720"/>
+          <path class="p-trilha" d="M0 464 H164 V420 H356 V464 H520 V400 H720"/>
+          <path class="p-trilha" d="M596 264 V340 H720"/>
+          <path class="p-fluxo atraso2" d="M0 464 H164 V420 H356"/>
+        </g>
+      </g>
+    </svg>
     <div class="conteudo">
       <div class="abertura-conteudo">
         <span class="status" id="status"><i></i><span id="statusTexto">Aberto agora</span></span>
@@ -73,11 +114,6 @@
 
       <div class="placa-moldura" aria-hidden="true">
         <svg class="placa" viewBox="0 0 520 440">
-          <defs>
-            <pattern id="pontos" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" class="p-ponto"/></pattern>
-          </defs>
-          <rect class="p-fundo" width="520" height="440" rx="5"/>
-          <rect width="520" height="440" rx="5" fill="url(#pontos)" opacity=".7"/>
 
           <!-- trilhas -->
           <path class="p-trilha" d="M260 150 V100 H372"/>
