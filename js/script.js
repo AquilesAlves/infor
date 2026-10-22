@@ -23,6 +23,7 @@ const ICONES = {
 };
 const ICONE_SETA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const ICONE_RELOGIO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>';
+const ICONE_VISTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const ICONE_ESTRELA = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>';
 const ICONE_MAIS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
 
@@ -33,9 +34,6 @@ const protegerTexto = texto => String(texto).replace(/[&<>"]/g, caractere => ({ 
 const linkWhatsapp = mensagem => `https://wa.me/${LOJA.whatsapp}?text=${encodeURIComponent(mensagem || LOJA.mensagemPadrao)}`;
 const pegar = id => document.getElementById(id);
 const numeroComDoisDigitos = numero => String(numero).padStart(2, '0');
-// "Computadores e PC gamer" → "computadores-e-pc-gamer" (usado nos nomes de arquivo dos cards)
-const nomeDeArquivo = texto => texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-const movimentoReduzido = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- Cor de destaque ---------- */
 const estiloDaCor = document.createElement('style');
@@ -124,33 +122,6 @@ pegar('numeros').innerHTML = LOJA.destaques.map(destaque => {
   const valor = destaque.valor === 'auto' ? String(new Date().getFullYear() - LOJA.desde) : destaque.valor;
   return `<div class="numero"><b>${protegerTexto(valor)}</b><span>${protegerTexto(destaque.rotulo)}</span></div>`;
 }).join('');
-// Valores que começam com número ("14", "90 dias", "24h") sobem de 0 até o final ao aparecer na tela
-(function () {
-  if (movimentoReduzido) return;
-  const contar = elemento => {
-    const [, numero, resto] = elemento.dataset.final.match(/^(\d+)(.*)$/);
-    const inicio = performance.now(), duracao = 1200;
-    const quadro = agora => {
-      const progresso = Math.min(1, (agora - inicio) / duracao);
-      const suavizado = 1 - Math.pow(1 - progresso, 3); // desacelera no fim
-      elemento.textContent = Math.round(Number(numero) * suavizado) + resto;
-      if (progresso < 1) requestAnimationFrame(quadro);
-    };
-    requestAnimationFrame(quadro);
-  };
-  const observador = new IntersectionObserver(entradas => entradas.forEach(entrada => {
-    if (!entrada.isIntersecting) return;
-    observador.unobserve(entrada.target);
-    contar(entrada.target);
-  }), { threshold: 0.6 });
-  document.querySelectorAll('.numero b').forEach(elemento => {
-    const texto = elemento.textContent;
-    if (!/^\d+/.test(texto)) return;
-    elemento.dataset.final = texto;
-    elemento.textContent = texto.replace(/^\d+/, '0');
-    observador.observe(elemento);
-  });
-})();
 
 /* ---------- Marcas (carrossel) ---------- */
 // A lista é repetida até encher a faixa e depois duplicada,
@@ -172,7 +143,7 @@ if (LOJA.marcas.length) {
 /* ---------- Produtos ---------- */
 pegar('listaProdutos').innerHTML = LOJA.produtos.map((produto, posicao) => `
   <a class="categoria" data-whatsapp data-mensagem="${protegerTexto('Olá! Vim pelo site e quero saber sobre ' + produto.titulo.toLowerCase() + '.')}" href="#" target="_blank" rel="noopener">
-    <span class="arquivo"><b>&gt;</b>${nomeDeArquivo(produto.titulo)}/</span>
+    <span class="categoria-codigo">CAT-${numeroComDoisDigitos(posicao + 1)}</span>
     <span class="categoria-icone">${desenharIcone(ICONES[produto.icone] || ICONES.componentes)}</span>
     <h3>${protegerTexto(produto.titulo)}</h3>
     <p>${protegerTexto(produto.texto)}</p>
@@ -180,11 +151,13 @@ pegar('listaProdutos').innerHTML = LOJA.produtos.map((produto, posicao) => `
   </a>`).join('');
 
 /* ---------- Assistência técnica ---------- */
-pegar('selos').innerHTML = LOJA.garantias.map(garantia => `<li><b>[ok]</b>${protegerTexto(garantia)}</li>`).join('');
+pegar('selos').innerHTML = LOJA.garantias.map(garantia => `<span>${ICONE_VISTO}${protegerTexto(garantia)}</span>`).join('');
 pegar('listaServicos').innerHTML = LOJA.servicos.map((servico, posicao) => `
   <article class="servico">
-    <span class="arquivo"><b>&gt;</b>${nomeDeArquivo(servico.titulo)}.sh</span>
-    <span class="servico-icone">${desenharIcone(ICONES[servico.icone] || ICONES.montagem)}</span>
+    <div class="servico-topo">
+      <span class="servico-icone">${desenharIcone(ICONES[servico.icone] || ICONES.montagem)}</span>
+      <span class="servico-numero">${numeroComDoisDigitos(posicao + 1)}</span>
+    </div>
     <h3>${protegerTexto(servico.titulo)}</h3>
     <p>${protegerTexto(servico.texto)}</p>
     <div class="servico-rodape">
@@ -292,120 +265,46 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWha
   });
 })();
 
-/* ---------- Rolagem suave com velocidade constante ---------- */
-// Rola até "destino" em linha reta, sem acelerar nem frear.
-// A duração cresce com a distância, mas fica entre 0,35 s e 1,1 s.
-let rolagemAtual = 0;
-const rolarAte = destino => new Promise(terminar => {
-  const inicio = scrollY;
-  destino = Math.max(0, Math.min(destino, document.documentElement.scrollHeight - innerHeight));
-  const distancia = destino - inicio;
-  if (movimentoReduzido || Math.abs(distancia) < 2) { scrollTo(0, destino); terminar(); return; }
-  const duracao = Math.min(1100, Math.max(350, Math.abs(distancia) / 4));
-  const comeco = performance.now(), estaRolagem = ++rolagemAtual;
-  const quadro = agora => {
-    if (estaRolagem !== rolagemAtual) { terminar(); return; } // outra rolagem começou no meio
-    const progresso = Math.min(1, (agora - comeco) / duracao);
-    scrollTo(0, inicio + distancia * progresso);
-    if (progresso < 1) requestAnimationFrame(quadro); else terminar();
-  };
-  requestAnimationFrame(quadro);
-});
-// Posição da seção já descontando a altura do cabeçalho fixo (scroll-padding-top do CSS)
-const posicaoDaSecao = secao => secao.getBoundingClientRect().top + scrollY - (parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0);
-
-// Faz o ">" do prompt da seção pulsar
-const pulsarPrompt = id => {
-  const simbolo = id && document.querySelector(`#${CSS.escape(id)} .prompt b`);
-  if (!simbolo) return;
-  simbolo.classList.remove('pulsar');
-  void simbolo.offsetWidth; // reinicia a animação
-  simbolo.classList.add('pulsar');
-};
-
 /* ---------- Botão de voltar ao topo ---------- */
 (function () {
   const botao = pegar('botaoTopo');
-  const atualizar = () => botao.classList.toggle('visivel', scrollY > 400);
+  const atualizar = () => botao.classList.toggle('visivel', scrollY > 600);
   addEventListener('scroll', atualizar, { passive: true });
   atualizar();
-  botao.addEventListener('click', () => {
-    history.replaceState(null, '', location.pathname + location.search); // tira o "#secao" do endereço
-    rolarAte(0);
-  });
+  botao.addEventListener('click', () => scrollTo({ top: 0 }));
 })();
 
 /* ---------- Menu: destaca a seção que está na tela ---------- */
 (function () {
   const links = [...document.querySelectorAll('#menu a[href^="#"]')];
   const secoes = links.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
-  let idAtivo = null, rolandoPorClique = false, ultimoClique = 0;
-
-  const marcarAtivo = id => {
-    if (id === idAtivo) return;
-    idAtivo = id;
-    links.forEach(link => {
-      const ativo = link.getAttribute('href') === '#' + id;
-      link.classList.toggle('ativo', ativo);
-      if (ativo) link.setAttribute('aria-current', 'true'); else link.removeAttribute('aria-current');
-    });
-    if (!rolandoPorClique) pulsarPrompt(id); // chegou na seção rolando a página
-  };
-
-  // Links internos (menu, logo, "Ver o que temos"): rolagem com velocidade constante.
-  // No menu, o item clicado já fica marcado e as seções do caminho são ignoradas.
-  document.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', async evento => {
-    const id = link.getAttribute('href').slice(1);
-    const alvo = id && document.getElementById(id);
-    if (!alvo) return;
-    evento.preventDefault();
-    const esteClique = ++ultimoClique;
-    if (links.includes(link)) {
-      link.classList.remove('clicado');
-      void link.offsetWidth; // reinicia a animação do clique
-      link.classList.add('clicado');
-      rolandoPorClique = true;
-      marcarAtivo(id);
-    }
-    history.replaceState(null, '', '#' + id);
-    await rolarAte(id === 'inicio' ? 0 : posicaoDaSecao(alvo));
-    if (esteClique !== ultimoClique) return; // houve outro clique durante a rolagem
-    rolandoPorClique = false;
-    pulsarPrompt(id);
+  const marcarAtivo = id => links.forEach(link => {
+    const ativo = link.getAttribute('href') === '#' + id;
+    link.classList.toggle('ativo', ativo);
+    if (ativo) link.setAttribute('aria-current', 'true'); else link.removeAttribute('aria-current');
+  });
+  // Ao clicar, marca o link na hora e ignora as seções do caminho até a rolagem terminar
+  let rolandoPorClique = false, esperaRolagem;
+  const liberar = () => { rolandoPorClique = false; };
+  links.forEach(link => link.addEventListener('click', () => {
+    marcarAtivo(link.getAttribute('href').slice(1));
+    rolandoPorClique = true;
+    clearTimeout(esperaRolagem);
+    esperaRolagem = setTimeout(liberar, 1500); // para navegadores sem o evento "scrollend"
   }));
-
+  addEventListener('scrollend', liberar);
   // Considera ativa a seção que passa pelo meio da tela
   const observador = new IntersectionObserver(entradas => {
     if (rolandoPorClique) return;
     entradas.forEach(entrada => { if (entrada.isIntersecting) marcarAtivo(entrada.target.id); });
   }, { rootMargin: '-45% 0px -50% 0px' });
   secoes.forEach(secao => observador.observe(secao));
-
   // No topo da página (abertura) nenhum fica marcado; no fim, marca a última seção
   addEventListener('scroll', () => {
     if (rolandoPorClique) return;
     if (scrollY < 200) marcarAtivo('');
     else if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) marcarAtivo(secoes[secoes.length - 1].id);
   }, { passive: true });
-})();
-
-/* ---------- Elementos aparecem ao entrar na tela ---------- */
-// Esmaecimento + leve subida (animação no CSS: .revelar / .revelado)
-(function () {
-  if (movimentoReduzido) return;
-  const seletores = ['.secao-topo', '.categoria', '.selos', '.servico', '.passo', '.depoimento', '.pergunta', '.local-cartao', '.mapa-moldura', '.rodape-grade'];
-  const observador = new IntersectionObserver(entradas => entradas.forEach(entrada => {
-    if (!entrada.isIntersecting) return;
-    entrada.target.classList.add('revelado');
-    observador.unobserve(entrada.target);
-  }), { rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll(seletores.join(',')).forEach(elemento => {
-    // Itens da mesma grade entram um pouco depois do anterior
-    const posicao = [...elemento.parentElement.children].indexOf(elemento);
-    elemento.style.animationDelay = Math.min(posicao, 7) * 70 + 'ms';
-    elemento.classList.add('revelar');
-    observador.observe(elemento);
-  });
 })();
 
 /* ---------- Menu no celular ---------- */
