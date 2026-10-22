@@ -175,16 +175,24 @@ pegar('listaPerguntas').innerHTML = LOJA.faq.map((item, posicao) => `
     <button class="pergunta-botao" aria-expanded="${posicao === 0}" aria-controls="resposta-${posicao}"><span class="pergunta-numero">${numeroComDoisDigitos(posicao + 1)}</span><span class="pergunta-texto">${protegerTexto(item.p)}</span><span class="mais">${ICONE_MAIS}</span></button>
     <div class="pergunta-resposta" id="resposta-${posicao}" role="region"><div><p>${protegerTexto(item.r)}</p></div></div>
   </div>`).join('');
-// Abre uma pergunta e fecha as outras
-document.querySelectorAll('.pergunta-botao').forEach(botao => botao.addEventListener('click', () => {
-  const clicada = botao.parentElement;
-  const vaiAbrir = !clicada.classList.contains('aberto');
-  document.querySelectorAll('.pergunta').forEach(pergunta => {
-    const ficaAberta = vaiAbrir && pergunta === clicada;
-    pergunta.classList.toggle('aberto', ficaAberta);
-    pergunta.querySelector('.pergunta-botao').setAttribute('aria-expanded', ficaAberta);
+// Abre uma pergunta e fecha as outras (ou fecha todas, se "alvo" for null)
+const mostrarPergunta = alvo => document.querySelectorAll('.pergunta').forEach(pergunta => {
+  const ficaAberta = pergunta === alvo;
+  pergunta.classList.toggle('aberto', ficaAberta);
+  pergunta.querySelector('.pergunta-botao').setAttribute('aria-expanded', ficaAberta);
+});
+document.querySelectorAll('.pergunta').forEach(pergunta => {
+  // Clique (e toque no celular): abre, ou fecha se já estiver aberta
+  pergunta.querySelector('.pergunta-botao').addEventListener('click', () => {
+    mostrarPergunta(pergunta.classList.contains('aberto') ? null : pergunta);
   });
-}));
+  // Com mouse: abre ao passar por cima. A pequena espera evita que as perguntas
+  // fiquem abrindo e fechando em sequência enquanto o mouse só está atravessando a lista.
+  if (!matchMedia('(hover: hover)').matches) return;
+  let espera;
+  pergunta.addEventListener('mouseenter', () => { espera = setTimeout(() => mostrarPergunta(pergunta), 150); });
+  pergunta.addEventListener('mouseleave', () => clearTimeout(espera));
+});
 
 /* ---------- Links do WhatsApp ---------- */
 // Todo elemento com data-whatsapp vira link; data-mensagem define o texto já preenchido
