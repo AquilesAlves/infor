@@ -50,6 +50,11 @@
 .cortina-tema{position:fixed;inset:0;z-index:100;pointer-events:none;background:var(--fundo);opacity:0;transition:opacity .16s ease;will-change:opacity}
 .cortina-tema.visivel{opacity:1}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
+/* Zoom automático em telas de notebook/monitor menor (o mesmo que dar zoom no navegador):
+   85% de 1024px a 1399px de largura, 92% de 1400px a 1599px. Celular, tablet e telas
+   grandes ficam em 100%. --zoom é usado onde a conta depende da altura da tela. */
+@media (min-width:1024px) and (max-width:1399px){html{zoom:.85;--zoom:.85}}
+@media (min-width:1400px) and (max-width:1599px){html{zoom:.92;--zoom:.92}}
 body{margin:0;background:var(--fundo);color:var(--texto);font-family:var(--fonte-texto);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.03em}
@@ -128,7 +133,7 @@ img{max-width:100%}
 
 /* Hero */
 /* No computador, a abertura + a faixa de marcas preenchem a primeira tela (até um limite) */
-.abertura{--afastar:40px;padding-block:88px 96px;position:relative;overflow:hidden;display:grid;align-items:center;min-height:min(820px,calc(100svh - 172px))}
+.abertura{--afastar:40px;padding-block:88px 96px;position:relative;overflow:hidden;display:grid;align-items:center;min-height:min(820px,calc(100svh / var(--zoom, 1) - 172px))}
 .abertura .conteudo{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;width:100%;position:relative;z-index:1}
 /* Fundo da abertura: a seção inteira vira a placa de circuito (cor da placa, pontos e trilhas
    com pulsos animados). A bancada fica sem painel e sem borda, como parte da mesma placa. */
