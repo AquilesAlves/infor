@@ -208,11 +208,10 @@ img{max-width:100%}
 .selos{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
 .selos span{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--destaque-suave);color:var(--texto);font-size:14.5px;font-weight:500}
 .selos svg{width:16px;height:16px;color:var(--destaque)}
-/* Reflexo de luz atravessando cada selo, um depois do outro */
-.selos span{position:relative;overflow:hidden;isolation:isolate} /* isolation: o reflexo (z-index:-1) passa atrás do texto e na frente do fundo */
-.selos span::after{content:"";position:absolute;top:0;bottom:0;left:0;width:12%;background:linear-gradient(100deg,transparent,var(--brilho),transparent);transform:translateX(-150%) skewX(-20deg);animation:brilho-selo 6s ease-in-out infinite;pointer-events:none;z-index:-1}
-.selos span:nth-child(2)::after{animation-delay:.5s}
-.selos span:nth-child(3)::after{animation-delay:1s}
+/* Reflexo de luz atravessando os selos (horário da abertura e garantias da assistência).
+   Todos com a mesma animação e sem atraso: começam e terminam a passada juntos. */
+.status,.selos span{position:relative;overflow:hidden;isolation:isolate} /* isolation: o reflexo (z-index:-1) passa atrás do texto e na frente do fundo */
+.status::after,.selos span::after{content:"";position:absolute;top:0;bottom:0;left:0;width:12%;background:linear-gradient(100deg,transparent,var(--brilho),transparent);transform:translateX(-150%) skewX(-20deg);animation:brilho-selo 6s ease-in-out infinite;pointer-events:none;z-index:-1}
 @keyframes brilho-selo{0%{transform:translateX(-150%) skewX(-20deg)}40%,100%{transform:translateX(1000%) skewX(-20deg)}}
 .servicos-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:1020px){.servicos-grade{grid-template-columns:repeat(2,1fr)}}
