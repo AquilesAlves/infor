@@ -16,7 +16,6 @@ const LOJA = {
   // Google Maps > Compartilhar > Incorporar um mapa (só o que está dentro de src="...")
   mapa: "",
   cnpj: "",                          // ex.: "00.000.000/0001-00"
-  desde: 2012,                       // ano de abertura
   credito: "",                       // ex.: "Site por Sua Agência"
 
   // Cores de destaque (tema claro e tema escuro)
@@ -32,13 +31,6 @@ const LOJA = {
 
   // Horários: domingo a sábado. null = fechado
   horarios: [null, ["09:00","18:00"], ["09:00","18:00"], ["09:00","18:00"], ["09:00","18:00"], ["09:00","18:00"], ["09:00","13:00"]],
-
-  destaques: [
-    { valor: "auto", rotulo: "anos de loja" },   // "auto" calcula pelo ano de abertura
-    { valor: "90 dias", rotulo: "de garantia nos serviços" },
-    { valor: "24h", rotulo: "para o diagnóstico" },
-    { valor: "Entrega", rotulo: "ou retirada na loja" }
-  ],
 
   // Marcas: texto simples, ou { nome: "...", fino: true } para letra fina e espaçada. [] esconde a faixa
   marcas: ["intel.", "AMD", "Logitech", { nome: "SAMSUNG", fino: true }, "kingston"],

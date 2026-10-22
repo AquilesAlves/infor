@@ -152,14 +152,6 @@ img{max-width:100%}
 @keyframes pisca{0%,100%{opacity:1}50%{opacity:.25}}
 @media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{padding-block:36px 56px}}
 
-/* Faixa de números */
-.numeros{border-block:1px solid var(--linha);background:var(--superficie)}
-.numeros .conteudo{display:grid;grid-template-columns:repeat(4,1fr)}
-.numero{padding:26px 24px;display:flex;flex-direction:column;gap:4px;border-left:1px solid var(--linha);min-width:0}
-.numero:first-child{border-left:0;padding-left:0}
-.numero b{font:800 28px/1.1 var(--fonte-titulo);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.numero span{color:var(--texto-suave);font-size:13.5px}
-@media (max-width:820px){.numeros .conteudo{grid-template-columns:1fr 1fr}.numero{padding:22px 16px}.numero:nth-child(odd){border-left:0;padding-left:0}.numero:nth-child(-n+2){border-bottom:1px solid var(--linha)}}
 
 /* Marcas */
 .marcas{border-bottom:1px solid var(--linha)}
@@ -194,9 +186,6 @@ img{max-width:100%}
 .categoria-codigo{position:absolute;top:22px;right:22px;font:500 11.5px/1 var(--fonte-mono);color:var(--texto-suave);letter-spacing:.08em}
 .categoria h3{font-size:17px;font-weight:700;margin-top:6px}
 .categoria p{color:var(--texto-suave);font-size:14px;flex:1}
-.categoria-link{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13.5px;color:var(--destaque);padding-top:6px}
-.categoria-link svg{width:16px;height:16px;transition:transform .2s ease}
-.categoria:hover .categoria-link svg{transform:translateX(4px)}
 
 /* Assistência técnica */
 .selos{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
@@ -219,9 +208,6 @@ img{max-width:100%}
 .servico-rodape{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding-top:16px;margin-top:4px;border-top:1px dashed var(--linha)}
 .servico-prazo{display:inline-flex;align-items:center;gap:7px;font:500 12.5px/1 var(--fonte-mono);color:var(--texto);letter-spacing:.02em}
 .servico-prazo svg{width:15px;height:15px;color:var(--destaque)}
-.servico-link{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13.5px;color:var(--destaque);text-decoration:none}
-.servico-link svg{width:15px;height:15px;transition:transform .2s ease}
-.servico-link:hover svg{transform:translateX(3px)}
 
 /* Como funciona */
 .passos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -238,7 +224,7 @@ img{max-width:100%}
 .depoimentos-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:900px){.depoimentos-grade{grid-template-columns:1fr}}
 .depoimento{position:relative;display:flex;flex-direction:column;gap:18px;padding:28px;background:var(--fundo);border:1px solid var(--linha);border-radius:var(--raio-g);min-width:0}
-.depoimento::after{content:"\201C";position:absolute;top:10px;right:22px;font:800 76px/1 var(--fonte-titulo);color:var(--destaque);opacity:.16}
+.depoimento::after{content:"\201C";position:absolute;top:10px;right:22px;font:800 76px/1 "Archivo","Arial Black",sans-serif;color:var(--destaque);opacity:.16}
 .estrelas{display:flex;gap:3px;color:var(--destaque)}
 .estrelas svg{width:17px;height:17px}
 .estrelas .vazia{color:var(--linha)}
@@ -311,7 +297,7 @@ img{max-width:100%}
 
 /* Botão flutuante */
 .flutuantes{position:fixed;z-index:70;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center}
-.botao-whatsapp{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--destaque);color:var(--sobre-destaque);text-decoration:none;box-shadow:0 14px 30px -10px rgba(0,0,0,.45);transition:transform .15s ease}
+.botao-whatsapp{display:grid;place-items:center;width:56px;height:56px;border-radius:12px;background:var(--destaque);color:var(--sobre-destaque);text-decoration:none;box-shadow:0 14px 30px -10px rgba(0,0,0,.45);transition:transform .15s ease}
 .botao-whatsapp svg{width:28px;height:28px}
 .botao-whatsapp:hover{transform:translateY(-2px)}
 .botao-topo{width:48px;height:0;margin-top:0;border:0 solid var(--fundo);border-radius:50%;background:var(--texto);color:var(--fundo);display:grid;place-items:center;overflow:hidden;cursor:pointer;padding:0;box-shadow:0 10px 24px -12px rgba(0,0,0,.4);opacity:0;visibility:hidden;transition:height .3s ease,margin-top .3s ease,border-width .3s ease,opacity .3s ease,visibility .3s,background .15s ease}
