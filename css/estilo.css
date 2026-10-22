@@ -182,7 +182,14 @@ img{max-width:100%}
 .placa .p-led-pisca{fill:var(--placa-destaque);animation:pisca 2s ease-in-out infinite}
 @keyframes fluxo{from{stroke-dashoffset:234}to{stroke-dashoffset:0}}
 @keyframes pisca{0%,100%{opacity:1}50%{opacity:.25}}
-@media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{--afastar:16px;padding-block:40px 64px;min-height:0}.abertura-conteudo .status{transform:translateY(-4px)}}
+@media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{--afastar:16px;padding-block:40px 64px;min-height:0}.abertura-conteudo .status{transform:translateY(-4px);align-self:center}}
+/* Celular: os dois botões da abertura lado a lado, com letra menor para caber */
+@media (max-width:600px){
+  .abertura-botoes{flex-wrap:nowrap;gap:12px}
+  .abertura .botao{flex:1 1 0;min-width:0;padding:13px 8px;gap:6px;font-size:clamp(10px,2.9vw,13px)}
+  .abertura .botao svg{width:15px;height:15px}
+  .status{font-size:clamp(11px,3.4vw,13px);white-space:nowrap}
+}
 
 
 /* Marcas */
@@ -335,9 +342,9 @@ img{max-width:100%}
 
 /* Botão flutuante */
 .flutuantes{position:fixed;z-index:70;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center}
-.botao-whatsapp{display:grid;place-items:center;width:56px;height:56px;border-radius:12px;background:var(--destaque);color:var(--sobre-destaque);text-decoration:none;transition:transform .15s ease}
+.botao-whatsapp{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--destaque);color:var(--sobre-destaque);text-decoration:none;transition:transform .15s ease}
 .botao-whatsapp svg{width:28px;height:28px}
-.botao-topo{width:48px;height:0;margin-top:0;border:0 solid var(--fundo);border-radius:12px;background:var(--texto);color:var(--fundo);display:grid;place-items:center;overflow:hidden;cursor:pointer;padding:0;opacity:0;visibility:hidden;transition:height .3s ease,margin-top .3s ease,border-width .3s ease,opacity .3s ease,visibility .3s,background .15s ease}
+.botao-topo{width:48px;height:0;margin-top:0;border:0 solid var(--fundo);border-radius:50%;background:var(--texto);color:var(--fundo);display:grid;place-items:center;overflow:hidden;cursor:pointer;padding:0;opacity:0;visibility:hidden;transition:height .3s ease,margin-top .3s ease,border-width .3s ease,opacity .3s ease,visibility .3s,background .15s ease}
 .botao-topo.visivel{height:48px;margin-top:10px;border-width:2px;opacity:1;visibility:visible}
 .botao-topo:hover{background:var(--destaque);color:var(--sobre-destaque)}
 .botao-topo svg{width:22px;height:22px}
