@@ -125,7 +125,9 @@ img{max-width:100%}
    e uma faixa de luz suave que desce devagar, como a varredura de um monitor antigo */
 .abertura::before,.abertura::after{content:"";position:absolute;inset:0;pointer-events:none}
 .abertura::before{--cor-grade:color-mix(in srgb,var(--texto) 2.5%,transparent);
-  background:linear-gradient(var(--cor-grade) 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,var(--cor-grade) 1px,transparent 1px) 0 0/40px 40px}
+  background:linear-gradient(var(--cor-grade) 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,var(--cor-grade) 1px,transparent 1px) 0 0/40px 40px;
+  /* some aos poucos em direção às bordas, até ficar invisível nos cantos */
+  -webkit-mask-image:radial-gradient(ellipse at 50% 50%,#000 25%,transparent 100%);mask-image:radial-gradient(ellipse at 50% 50%,#000 25%,transparent 100%)}
 .abertura::after{background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--destaque) 5%,transparent) 50%,transparent);height:180px;inset:auto 0 auto 0;top:-180px;animation:varredura 9s linear infinite}
 @keyframes varredura{to{transform:translateY(calc(100% + 1200px))}}
 /* Os 5 itens (selo, título, texto, botões, informações) ficam com espaços iguais entre si.
