@@ -121,10 +121,10 @@ img{max-width:100%}
 /* No computador, a abertura + a faixa de marcas preenchem a primeira tela (até um limite) */
 .abertura{--afastar:40px;padding-block:88px 96px;position:relative;overflow:hidden;display:grid;align-items:center;min-height:min(820px,calc(100svh - 172px))}
 .abertura .conteudo{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;width:100%;position:relative;z-index:1}
-/* Fundo com cara de monitor de terminal, na seção inteira: linhas horizontais finas e bem
+/* Fundo com cara de monitor de terminal, na seção inteira: linhas horizontais finas, espaçadas e bem
    apagadas (como num monitor de tubo) e uma faixa de luz suave que desce devagar */
 .abertura::before,.abertura::after{content:"";position:absolute;inset:0;pointer-events:none}
-.abertura::before{background:repeating-linear-gradient(180deg,color-mix(in srgb,var(--texto) 5%,transparent) 0 1px,transparent 1px 4px)}
+.abertura::before{background:repeating-linear-gradient(180deg,color-mix(in srgb,var(--texto) 3%,transparent) 0 1px,transparent 1px 10px)}
 .abertura::after{background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--destaque) 5%,transparent) 50%,transparent);height:180px;inset:auto 0 auto 0;top:-180px;animation:varredura 9s linear infinite}
 @keyframes varredura{to{transform:translateY(calc(100% + 1200px))}}
 /* Os 5 itens (selo, título, texto, botões, informações) ficam com espaços iguais entre si.
