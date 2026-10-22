@@ -23,7 +23,7 @@ const LOJA = {
   corEscuro: "#FF8A50",
   seletorCores: true,                // botão de paleta no topo para testar cores (false ao entregar ao cliente)
 
-  titulo: 'Seu computador em <em>boas mãos</em>, do upgrade ao conserto.',
+  titulo: 'Seu computador em<br><em>boas mãos</em>, do upgrade<br>ao conserto.', // <br> = quebra de linha
   subtitulo: "Notebooks, computadores, peças e acessórios, com assistência técnica própria. Conte o que você precisa e a gente indica a melhor opção.",
   sobreTitulo: "Venha até a loja",
   sobreTexto: "Atendimento de especialista, perto de você.",
