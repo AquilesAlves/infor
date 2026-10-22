@@ -21,7 +21,6 @@ const ICONES = {
   montagem:'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>',
   dados:'<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/>'
 };
-const ICONE_SETA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const ICONE_RELOGIO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>';
 const ICONE_VISTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const ICONE_ESTRELA = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>';
@@ -117,12 +116,6 @@ const enderecoCompleto = `${LOJA.endereco}, ${LOJA.cidade}`;
 pegar('botaoMapa').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(`${LOJA.nome}, ${enderecoCompleto}`);
 pegar('mapa').src = LOJA.mapa || 'https://www.google.com/maps?q=' + encodeURIComponent(enderecoCompleto) + '&output=embed';
 
-/* ---------- Faixa de números (anos de loja, garantia...) ---------- */
-pegar('numeros').innerHTML = LOJA.destaques.map(destaque => {
-  const valor = destaque.valor === 'auto' ? String(new Date().getFullYear() - LOJA.desde) : destaque.valor;
-  return `<div class="numero"><b>${protegerTexto(valor)}</b><span>${protegerTexto(destaque.rotulo)}</span></div>`;
-}).join('');
-
 /* ---------- Marcas (carrossel) ---------- */
 // A lista é repetida até encher a faixa e depois duplicada,
 // assim a animação volta ao início sem "pulo"
@@ -142,13 +135,12 @@ if (LOJA.marcas.length) {
 
 /* ---------- Produtos ---------- */
 pegar('listaProdutos').innerHTML = LOJA.produtos.map((produto, posicao) => `
-  <a class="categoria" data-whatsapp data-mensagem="${protegerTexto('Olá! Vim pelo site e quero saber sobre ' + produto.titulo.toLowerCase() + '.')}" href="#" target="_blank" rel="noopener">
+  <article class="categoria">
     <span class="categoria-codigo">CAT-${numeroComDoisDigitos(posicao + 1)}</span>
     <span class="categoria-icone">${desenharIcone(ICONES[produto.icone] || ICONES.componentes)}</span>
     <h3>${protegerTexto(produto.titulo)}</h3>
     <p>${protegerTexto(produto.texto)}</p>
-    <span class="categoria-link">Consultar disponibilidade ${ICONE_SETA}</span>
-  </a>`).join('');
+  </article>`).join('');
 
 /* ---------- Assistência técnica ---------- */
 pegar('selos').innerHTML = LOJA.garantias.map(garantia => `<span>${ICONE_VISTO}${protegerTexto(garantia)}</span>`).join('');
@@ -162,7 +154,6 @@ pegar('listaServicos').innerHTML = LOJA.servicos.map((servico, posicao) => `
     <p>${protegerTexto(servico.texto)}</p>
     <div class="servico-rodape">
       <span class="servico-prazo">${ICONE_RELOGIO}${protegerTexto(servico.prazo)}</span>
-      <a class="servico-link" data-whatsapp data-mensagem="${protegerTexto('Olá! Quero um orçamento de ' + servico.titulo.toLowerCase() + '.')}" href="#" target="_blank" rel="noopener">Orçamento ${ICONE_SETA}</a>
     </div>
   </article>`).join('');
 
@@ -184,16 +175,44 @@ pegar('listaPerguntas').innerHTML = LOJA.faq.map((item, posicao) => `
     <button class="pergunta-botao" aria-expanded="${posicao === 0}" aria-controls="resposta-${posicao}"><span class="pergunta-numero">${numeroComDoisDigitos(posicao + 1)}</span><span class="pergunta-texto">${protegerTexto(item.p)}</span><span class="mais">${ICONE_MAIS}</span></button>
     <div class="pergunta-resposta" id="resposta-${posicao}" role="region"><div><p>${protegerTexto(item.r)}</p></div></div>
   </div>`).join('');
-// Abre uma pergunta e fecha as outras
-document.querySelectorAll('.pergunta-botao').forEach(botao => botao.addEventListener('click', () => {
-  const clicada = botao.parentElement;
-  const vaiAbrir = !clicada.classList.contains('aberto');
-  document.querySelectorAll('.pergunta').forEach(pergunta => {
-    const ficaAberta = vaiAbrir && pergunta === clicada;
-    pergunta.classList.toggle('aberto', ficaAberta);
-    pergunta.querySelector('.pergunta-botao').setAttribute('aria-expanded', ficaAberta);
-  });
-}));
+// Abre uma pergunta e fecha as outras (sempre fica uma aberta)
+const mostrarPergunta = alvo => document.querySelectorAll('.pergunta').forEach(pergunta => {
+  const ficaAberta = pergunta === alvo;
+  pergunta.classList.toggle('aberto', ficaAberta);
+  pergunta.querySelector('.pergunta-botao').setAttribute('aria-expanded', ficaAberta);
+});
+const temMouse = matchMedia('(hover: hover)').matches;
+document.querySelectorAll('.pergunta').forEach(pergunta => {
+  const abrir = () => { if (!pergunta.classList.contains('aberto')) mostrarPergunta(pergunta); };
+  if (temMouse) {
+    // Com mouse: abre só ao passar por cima (sem clique). Usa "mousemove" (e não "mouseenter")
+    // para só reagir ao mouse se mexendo: quando uma pergunta abre e empurra as outras
+    // para baixo do cursor parado, nada acontece, e elas não abrem em cascata.
+    pergunta.addEventListener('mousemove', abrir);
+  } else {
+    // Celular e tablet não têm hover: o toque abre a pergunta
+    pergunta.querySelector('.pergunta-botao').addEventListener('click', abrir);
+  }
+  // Teclado: ao chegar na pergunta com Tab, ela abre
+  pergunta.querySelector('.pergunta-botao').addEventListener('focus', abrir);
+});
+
+// Altura fixa da lista: sempre a altura que ela tem com a resposta mais longa aberta.
+// Assim, abrir e fechar (inclusive durante a animação) não empurra a próxima seção.
+(function () {
+  const lista = pegar('listaPerguntas');
+  const fixarAltura = () => {
+    lista.style.minHeight = '';
+    const perguntas = [...lista.querySelectorAll('.pergunta')];
+    // Altura de tudo sem as respostas (descontando o quanto cada uma está aberta agora)
+    const semRespostas = lista.offsetHeight - perguntas.reduce((total, pergunta) => total + pergunta.querySelector('.pergunta-resposta').offsetHeight, 0);
+    const maiorResposta = Math.max(...perguntas.map(pergunta => pergunta.querySelector('.pergunta-resposta > div').scrollHeight));
+    lista.style.minHeight = Math.max(lista.offsetHeight, semRespostas + maiorResposta) + 'px';
+  };
+  fixarAltura();
+  addEventListener('resize', fixarAltura);
+  document.fonts && document.fonts.ready.then(fixarAltura); // a fonte muda a altura do texto
+})();
 
 /* ---------- Links do WhatsApp ---------- */
 // Todo elemento com data-whatsapp vira link; data-mensagem define o texto já preenchido

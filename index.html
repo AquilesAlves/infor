@@ -7,7 +7,9 @@
 <meta name="description" content="Loja de informática: notebooks, computadores, periféricos e assistência técnica. Atendimento pelo WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap">
+<!-- Archivo só para as aspas decorativas dos depoimentos (baixa apenas esse caractere) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&text=%E2%80%9C&display=swap">
 <link rel="stylesheet" href="css/estilo.css">
 <!-- Aplica o tema salvo antes de desenhar a página (evita "piscar") -->
 <script src="js/tema-inicial.js"></script>
@@ -17,8 +19,8 @@
 <header class="cabecalho">
   <div class="conteudo">
     <a class="logo" href="#inicio" aria-label="Início">
-      <span class="logo-icone" data-loja="sigla">NX</span>
-      <span class="logo-nome" data-loja="nome">Nexo Informática</span>
+      <span class="logo-icone" data-loja="sigla">TC</span>
+      <span class="logo-nome" data-loja="nome">Tech Informática</span>
     </a>
     <nav class="menu" id="menu" aria-label="Principal">
       <a href="#produtos">Produtos</a>
@@ -54,7 +56,7 @@
     <div class="conteudo">
       <div class="abertura-conteudo">
         <span class="status" id="status"><i></i><span id="statusTexto">Aberto agora</span></span>
-        <h1 data-loja-html="titulo">Seu computador em <em>boas mãos</em>, do upgrade ao conserto.</h1>
+        <h1 data-loja-html="titulo">Seu computador em<br><em>boas mãos</em>, do upgrade<br>ao conserto.</h1>
         <p class="abertura-texto" data-loja="subtitulo">Notebooks, computadores, peças e acessórios, com assistência técnica própria.</p>
         <div class="abertura-botoes">
           <a class="botao botao-principal" data-whatsapp href="#" target="_blank" rel="noopener">
@@ -74,8 +76,8 @@
           <defs>
             <pattern id="pontos" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" class="p-ponto"/></pattern>
           </defs>
-          <rect class="p-fundo" width="520" height="440" rx="20"/>
-          <rect width="520" height="440" rx="20" fill="url(#pontos)" opacity=".7"/>
+          <rect class="p-fundo" width="520" height="440" rx="5"/>
+          <rect width="520" height="440" rx="5" fill="url(#pontos)" opacity=".7"/>
 
           <!-- trilhas -->
           <path class="p-trilha" d="M260 150 V100 H372"/>
@@ -142,10 +144,6 @@
     </div>
   </section>
 
-  <section class="numeros" aria-label="Destaques">
-    <div class="conteudo" id="numeros"></div>
-  </section>
-
   <!-- MARCAS -->
   <section class="marcas" id="secaoMarcas" aria-label="Marcas">
     <div class="conteudo">
@@ -177,7 +175,6 @@
           <h2>Bancada própria, técnico de verdade</h2>
           <p>Seu equipamento é avaliado aqui na loja. Você recebe o diagnóstico antes de qualquer serviço e só aprova se fizer sentido.</p>
         </div>
-        <a class="botao botao-contorno" data-whatsapp data-mensagem="Olá! Preciso de assistência técnica." href="#" target="_blank" rel="noopener">Pedir orçamento</a>
       </div>
       <div class="selos" id="selos"></div>
       <div class="servicos-grade" id="listaServicos"></div>
@@ -284,8 +281,8 @@
     <div class="rodape-grade">
       <div class="rodape-sobre">
         <a class="logo" href="#inicio">
-          <span class="logo-icone" data-loja="sigla">NX</span>
-          <span class="logo-nome" data-loja="nome">Nexo Informática</span>
+          <span class="logo-icone" data-loja="sigla">TC</span>
+          <span class="logo-nome" data-loja="nome">Tech Informática</span>
         </a>
         <p data-loja="rodapeTexto"></p>
         <div class="redes" data-se="facebook">
@@ -302,7 +299,7 @@
       </div>
     </div>
     <div class="rodape-base">
-      <span>© <span id="ano">2026</span> <span data-loja="nome">Nexo Informática</span>. Todos os direitos reservados.<span id="cnpj"></span></span>
+      <span>© <span id="ano">2026</span> <span data-loja="nome">Tech Informática</span>. Todos os direitos reservados.<span id="cnpj"></span></span>
       <span id="credito"></span>
     </div>
   </div>

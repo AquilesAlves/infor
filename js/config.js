@@ -2,13 +2,13 @@
    CONFIGURAÇÃO DA LOJA — edite só este arquivo para cada cliente
    ===================================================================== */
 const LOJA = {
-  nome: "Nexo Informática",
-  sigla: "NX",                       // 2 letras no ícone do logo
+  nome: "Tech Informática",
+  sigla: "TC",                       // 2 letras no ícone do logo
   whatsapp: "5511999990000",         // DDI + DDD + número, só dígitos
   whatsappExibicao: "(11) 99999-0000",
   mensagemPadrao: "Olá! Vim pelo site e gostaria de atendimento.",
-  email: "contato@nexoinformatica.com.br", // deixe "" para esconder
-  instagram: "@nexoinformatica",     // deixe "" para esconder
+  email: "contato@techinformatica.com.br", // deixe "" para esconder
+  instagram: "@techinformatica",    // deixe "" para esconder
   facebook: "",                      // link completo, ex.: "https://facebook.com/sualoja" ("" esconde)
   endereco: "Rua das Palmeiras, 240 · Centro",
   cidade: "Campinas - SP",
@@ -16,7 +16,6 @@ const LOJA = {
   // Google Maps > Compartilhar > Incorporar um mapa (só o que está dentro de src="...")
   mapa: "",
   cnpj: "",                          // ex.: "00.000.000/0001-00"
-  desde: 2012,                       // ano de abertura
   credito: "",                       // ex.: "Site por Sua Agência"
 
   // Cores de destaque (tema claro e tema escuro)
@@ -24,7 +23,7 @@ const LOJA = {
   corEscuro: "#FF8A50",
   seletorCores: true,                // botão de paleta no topo para testar cores (false ao entregar ao cliente)
 
-  titulo: 'Seu computador em <em>boas mãos</em>, do upgrade ao conserto.',
+  titulo: 'Seu computador em<br><em>boas mãos</em>, do upgrade<br>ao conserto.', // <br> = quebra de linha
   subtitulo: "Notebooks, computadores, peças e acessórios, com assistência técnica própria. Conte o que você precisa e a gente indica a melhor opção.",
   sobreTitulo: "Venha até a loja",
   sobreTexto: "Atendimento de especialista, perto de você.",
@@ -32,13 +31,6 @@ const LOJA = {
 
   // Horários: domingo a sábado. null = fechado
   horarios: [null, ["09:00","18:00"], ["09:00","18:00"], ["09:00","18:00"], ["09:00","18:00"], ["09:00","18:00"], ["09:00","13:00"]],
-
-  destaques: [
-    { valor: "auto", rotulo: "anos de loja" },   // "auto" calcula pelo ano de abertura
-    { valor: "90 dias", rotulo: "de garantia nos serviços" },
-    { valor: "24h", rotulo: "para o diagnóstico" },
-    { valor: "Entrega", rotulo: "ou retirada na loja" }
-  ],
 
   // Marcas: texto simples, ou { nome: "...", fino: true } para letra fina e espaçada. [] esconde a faixa
   marcas: ["intel.", "AMD", "Logitech", { nome: "SAMSUNG", fino: true }, "kingston"],
