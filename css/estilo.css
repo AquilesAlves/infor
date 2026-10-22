@@ -153,6 +153,7 @@ img{max-width:100%}
    O grupo de componentes é posicionado/escalado por js/hero-circuito.js. */
 .placa-hero{position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
 .placa-hero__trilhas{opacity:.2}
+.placa-hero__componentes{transform:translate(800px,190px) scale(.96)}
 .abertura-visual-reserva{min-width:0}
 /* Telas largas: o bloco de texto ocupa a altura da linha (mesmo comportamento de antes). */
 @media (min-width:1340px){
@@ -174,7 +175,7 @@ img{max-width:100%}
 .placa-hero .p-led-pisca{fill:var(--placa-destaque);animation:pisca 2s ease-in-out infinite}
 @keyframes fluxo{from{stroke-dashoffset:234}to{stroke-dashoffset:0}}
 @keyframes pisca{0%,100%{opacity:1}50%{opacity:.25}}
-@media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{--afastar:16px;padding-block:40px 64px;min-height:0}.abertura-conteudo .status{transform:translateY(-4px)}.abertura-visual-reserva{min-height:clamp(300px,84vw,360px)}}
+@media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{--afastar:16px;padding-block:40px 64px;min-height:0}.abertura-conteudo .status{transform:translateY(-4px)}.abertura-visual-reserva{min-height:clamp(300px,84vw,360px)}.placa-hero__componentes{transform:translate(16px,700px) scale(.65)}}
 @media (prefers-color-scheme: dark){:root:not([data-tema="claro"]) .placa-hero__trilhas{opacity:.32}}
 :root[data-tema="escuro"] .placa-hero__trilhas{opacity:.32}
 

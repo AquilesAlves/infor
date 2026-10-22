@@ -30,7 +30,7 @@
       x: posicaoX,
       y: posicaoY,
       viewBox: `0 0 ${arredondar(hero.width)} ${arredondar(hero.height)}`,
-      transform: `translate(${posicaoX} ${posicaoY}) scale(${escalaSvg})`
+      transform: `translate(${posicaoX}px, ${posicaoY}px) scale(${escalaSvg})`
     };
   }
 
@@ -52,7 +52,7 @@
         mobile: mediaMobile.matches
       });
       svg.setAttribute('viewBox', layout.viewBox);
-      componentes.setAttribute('transform', layout.transform);
+      componentes.style.transform = layout.transform;
     };
 
     desenhar();

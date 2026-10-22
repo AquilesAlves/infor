@@ -22,7 +22,7 @@ test('component layout preserves proportions and anchors to the desktop/mobile r
   assert.equal(desktop.x, 770);
   assert.equal(desktop.y, 178.46);
   assert.equal(desktop.viewBox, '0 0 1440 760');
-  assert.equal(desktop.transform, 'translate(770 178.46) scale(0.96154)');
+  assert.equal(desktop.transform, 'translate(770px, 178.46px) scale(0.96154)');
 
   const mobile = calcularLayoutPlaca({
     hero: { x: 0, y: 69, width: 390, height: 1000 },
@@ -34,7 +34,7 @@ test('component layout preserves proportions and anchors to the desktop/mobile r
   assert.equal(mobile.x, 16);
   assert.equal(mobile.y, 599.54);
   assert.equal(mobile.viewBox, '0 0 390 1000');
-  assert.equal(mobile.transform, 'translate(16 599.54) scale(0.68846)');
+  assert.equal(mobile.transform, 'translate(16px, 599.54px) scale(0.68846)');
 
   const estreito = calcularLayoutPlaca({
     hero: { x: 0, y: 0, width: 320, height: 900 },
@@ -55,7 +55,7 @@ test('hero uses one full-bleed SVG scene containing the existing PC components',
   assert.match(hero, /<svg class="placa-hero"[^>]*aria-hidden="true"/);
   assert.match(hero, /<pattern[^>]*id="pontos-hero"/);
   assert.match(hero, /<pattern[^>]*id="trilhas-hero"/);
-  assert.match(hero, /<g class="placa-hero__componentes" transform="translate\(/);
+  assert.match(hero, /<g class="placa-hero__componentes"/);
   assert.match(hero, /class="p-cpu"/);
   assert.match(hero, /MEMÓRIA RAM/);
   assert.match(hero, /SSD NVMe/);
@@ -70,6 +70,8 @@ test('hero uses one full-bleed SVG scene containing the existing PC components',
 test('hero SVG fills its section behind the text content', () => {
   assert.match(css, /\.placa-hero\s*\{[^}]*position:\s*absolute[^}]*inset:\s*0[^}]*width:\s*100%[^}]*height:\s*100%/);
   assert.match(css, /\.abertura \.conteudo\s*\{[^}]*z-index:\s*1/);
+  assert.match(css, /\.placa-hero__componentes\s*\{[^}]*transform:\s*translate\(/);
+  assert.ok(css.includes('.placa-hero__componentes{transform:translate(16px,700px) scale(.65)}'));
   assert.doesNotMatch(css, /\.abertura::before/);
   assert.doesNotMatch(css, /varredura/);
   assert.match(css, /\.abertura-visual-reserva\s*\{[^}]*min-height:\s*clamp\(300px,\s*84vw,\s*360px\)/);
