@@ -62,7 +62,7 @@ aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : L
     { nome: 'Vermelho', cor: '#DC2626', corEscuro: '#EF4444' },
     { nome: 'Rosa',     cor: '#C71D66', corEscuro: '#F472B6' },
     { nome: 'Ciano',    cor: '#0A5F78', corEscuro: '#22D3EE' },
-    { nome: 'Amarelo',  cor: '#A16A00', corEscuro: '#FACC15', textoSobre: '#1F1A05' }
+    { nome: 'Amarelo',  cor: '#A16A00', corEscuro: '#FACC15', textoSobre: '#FFFFFF' }
   ].filter((opcao, posicao, lista) => lista.findIndex(outra => outra.cor.toLowerCase() === opcao.cor.toLowerCase()) === posicao);
 
   const corAtual = (corSalva ? corSalva.cor : LOJA.cor).toLowerCase();
