@@ -134,10 +134,15 @@ if (LOJA.marcas.length) {
 }
 
 /* ---------- Produtos ---------- */
+// Fotos fora da primeira tela só carregam quando o visitante chega perto delas (lazy)
+const imagem = (caminho, descricao, classe = '') =>
+  `<img${classe ? ` class="${classe}"` : ''} src="${protegerTexto(caminho)}" alt="${protegerTexto(descricao)}" loading="lazy" decoding="async">`;
+
 pegar('listaProdutos').innerHTML = LOJA.produtos.map((produto, posicao) => `
-  <article class="categoria">
+  <article class="categoria${produto.foto ? ' com-foto' : ''}">
+    ${produto.foto ? imagem(produto.foto, produto.titulo, 'categoria-foto') : ''}
     <span class="categoria-codigo">CAT-${numeroComDoisDigitos(posicao + 1)}</span>
-    <span class="categoria-icone">${desenharIcone(ICONES[produto.icone] || ICONES.componentes)}</span>
+    ${produto.foto ? '' : `<span class="categoria-icone">${desenharIcone(ICONES[produto.icone] || ICONES.componentes)}</span>`}
     <h3>${protegerTexto(produto.titulo)}</h3>
     <p>${protegerTexto(produto.texto)}</p>
   </article>`).join('');

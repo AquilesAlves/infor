@@ -234,6 +234,13 @@ img{max-width:100%}
 @media (max-width:520px){.categorias{grid-template-columns:1fr}}
 .categoria{position:relative;display:flex;flex-direction:column;gap:12px;padding:24px;background:var(--superficie);border:1px solid var(--linha);border-radius:var(--raio-m);text-decoration:none;transition:border-color .2s ease;min-width:0}
 .categoria:hover{border-color:var(--destaque)}
+/* Card com foto (produto.foto): a foto ocupa o topo do card no lugar do ícone */
+.categoria.com-foto{overflow:hidden}
+.categoria-foto{display:block;width:calc(100% + 48px);max-width:none;margin:-24px -24px 4px;aspect-ratio:16/10;object-fit:cover;border-bottom:1px solid var(--linha)}
+.categoria.com-foto .categoria-codigo{top:12px;right:12px;padding:5px 8px;border-radius:999px;background:var(--superficie)}
+/* Modo escuro: fotos um pouco mais escuras para não ofuscar */
+:root[data-tema="escuro"] .categoria-foto{filter:brightness(.65) saturate(.9)}
+@media (prefers-color-scheme: dark){:root:not([data-tema="claro"]) .categoria-foto{filter:brightness(.65) saturate(.9)}}
 .categoria-icone{width:48px;height:48px;border-radius:12px;background:var(--destaque-suave);color:var(--destaque);display:grid;place-items:center}
 .categoria-icone svg{width:26px;height:26px}
 .categoria-codigo{position:absolute;top:22px;right:22px;font:500 11.5px/1 var(--fonte-mono);color:var(--texto-suave);letter-spacing:.08em}

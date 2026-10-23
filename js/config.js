@@ -35,16 +35,17 @@ const LOJA = {
   // Marcas: texto simples, ou { nome: "...", fino: true } para letra fina e espaçada. [] esconde a faixa
   marcas: ["intel.", "AMD", "Logitech", { nome: "SAMSUNG", fino: true }, "kingston"],
 
-  // Ícones disponíveis: notebook, desktop, monitor, perifericos, componentes, redes, impressora, acessorios
+  // Categorias. Ícones disponíveis: notebook, desktop, monitor, perifericos, componentes, redes, impressora, acessorios
+  // foto (opcional, proporção 16:10, ex.: 640×400 px): aparece no topo do card no lugar do ícone
   produtos: [
-    { icone: "notebook",    titulo: "Notebooks",               texto: "Para estudo, trabalho e jogos. Ajudamos a escolher pelo seu uso." },
-    { icone: "desktop",     titulo: "Computadores e PC gamer", texto: "Máquinas prontas ou montadas sob medida, testadas na bancada." },
-    { icone: "monitor",     titulo: "Monitores",               texto: "Do home office ao competitivo, com taxas de atualização de 60 a 240 Hz." },
-    { icone: "componentes", titulo: "Peças e upgrades",        texto: "SSD, memória RAM, placas de vídeo, fontes e processadores." },
-    { icone: "perifericos", titulo: "Periféricos",             texto: "Teclados, mouses, webcams e caixas de som para todo bolso." },
-    { icone: "redes",       titulo: "Redes e Wi-Fi",           texto: "Roteadores, repetidores, cabos e instalação de rede." },
-    { icone: "impressora",  titulo: "Impressoras",             texto: "Impressoras, cartuchos, toners e manutenção." },
-    { icone: "acessorios",  titulo: "Acessórios",              texto: "Headsets, carregadores, cabos, mochilas e suportes." }
+    { icone: "notebook",    titulo: "Notebooks", foto: "img/exemplos/produto-notebooks.jpg",               texto: "Para estudo, trabalho e jogos. Ajudamos a escolher pelo seu uso." },
+    { icone: "desktop",     titulo: "Computadores e PC gamer", foto: "img/exemplos/produto-computadores.jpg", texto: "Máquinas prontas ou montadas sob medida, testadas na bancada." },
+    { icone: "monitor",     titulo: "Monitores", foto: "img/exemplos/produto-monitores.jpg",               texto: "Do home office ao competitivo, com taxas de atualização de 60 a 240 Hz." },
+    { icone: "componentes", titulo: "Peças e upgrades", foto: "img/exemplos/produto-pecas.jpg",        texto: "SSD, memória RAM, placas de vídeo, fontes e processadores." },
+    { icone: "perifericos", titulo: "Periféricos", foto: "img/exemplos/produto-perifericos.jpg",             texto: "Teclados, mouses, webcams e caixas de som para todo bolso." },
+    { icone: "redes",       titulo: "Redes e Wi-Fi", foto: "img/exemplos/produto-redes.jpg",           texto: "Roteadores, repetidores, cabos e instalação de rede." },
+    { icone: "impressora",  titulo: "Impressoras", foto: "img/exemplos/produto-impressoras.jpg",             texto: "Impressoras, cartuchos, toners e manutenção." },
+    { icone: "acessorios",  titulo: "Acessórios", foto: "img/exemplos/produto-acessorios.jpg",              texto: "Headsets, carregadores, cabos, mochilas e suportes." }
   ],
 
   // Selos exibidos acima dos serviços
