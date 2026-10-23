@@ -3,9 +3,7 @@
    ===================================================================== */
 const LOJA = {
   nome: "Tech Informática",
-  sigla: "TC",                       // 2 letras no ícone do logo (usado quando "logo" está vazio)
-  logo: "img/exemplos/logo.svg",     // imagem do logo (quadrada: PNG, SVG ou JPG). "" usa a sigla
-
+  sigla: "TC",                       // 2 letras no ícone do logo
   whatsapp: "5511999990000",         // DDI + DDD + número, só dígitos
   whatsappExibicao: "(11) 99999-0000",
   mensagemPadrao: "Olá! Vim pelo site e gostaria de atendimento.",
@@ -37,28 +35,16 @@ const LOJA = {
   // Marcas: texto simples, ou { nome: "...", fino: true } para letra fina e espaçada. [] esconde a faixa
   marcas: ["intel.", "AMD", "Logitech", { nome: "SAMSUNG", fino: true }, "kingston"],
 
-  // Vitrine de destaques em slide, acima das categorias (fotos 4:3, ex.: 640×480 px). [] esconde
-  vitrineTitulo: "Em destaque",
-  vitrine: [
-    { foto: "img/exemplos/destaque-1.jpg", nome: "Notebook gamer",   preco: "a partir de R$ 4.599", etiqueta: "Novo" },
-    { foto: "img/exemplos/destaque-2.jpg", nome: "Monitor 27\" 165Hz", preco: "a partir de R$ 1.299" },
-    { foto: "img/exemplos/destaque-3.jpg", nome: "SSD NVMe 1TB",     preco: "a partir de R$ 389", etiqueta: "-15%" },
-    { foto: "img/exemplos/destaque-4.jpg", nome: "Teclado mecânico", preco: "a partir de R$ 249" },
-    { foto: "img/exemplos/destaque-5.jpg", nome: "Headset sem fio",  preco: "a partir de R$ 329" },
-    { foto: "img/exemplos/destaque-6.jpg", nome: "Roteador Wi-Fi 6", preco: "a partir de R$ 459" }
-  ],
-
-  // Categorias. Ícones disponíveis: notebook, desktop, monitor, perifericos, componentes, redes, impressora, acessorios
-  // foto (opcional, proporção 16:10, ex.: 640×400 px): aparece no topo do card no lugar do ícone
+  // Ícones disponíveis: notebook, desktop, monitor, perifericos, componentes, redes, impressora, acessorios
   produtos: [
-    { icone: "notebook",    titulo: "Notebooks", foto: "img/exemplos/produto-notebooks.jpg",               texto: "Para estudo, trabalho e jogos. Ajudamos a escolher pelo seu uso." },
-    { icone: "desktop",     titulo: "Computadores e PC gamer", foto: "img/exemplos/produto-computadores.jpg", texto: "Máquinas prontas ou montadas sob medida, testadas na bancada." },
-    { icone: "monitor",     titulo: "Monitores", foto: "img/exemplos/produto-monitores.jpg",               texto: "Do home office ao competitivo, com taxas de atualização de 60 a 240 Hz." },
-    { icone: "componentes", titulo: "Peças e upgrades", foto: "img/exemplos/produto-pecas.jpg",        texto: "SSD, memória RAM, placas de vídeo, fontes e processadores." },
-    { icone: "perifericos", titulo: "Periféricos", foto: "img/exemplos/produto-perifericos.jpg",             texto: "Teclados, mouses, webcams e caixas de som para todo bolso." },
-    { icone: "redes",       titulo: "Redes e Wi-Fi", foto: "img/exemplos/produto-redes.jpg",           texto: "Roteadores, repetidores, cabos e instalação de rede." },
-    { icone: "impressora",  titulo: "Impressoras", foto: "img/exemplos/produto-impressoras.jpg",             texto: "Impressoras, cartuchos, toners e manutenção." },
-    { icone: "acessorios",  titulo: "Acessórios", foto: "img/exemplos/produto-acessorios.jpg",              texto: "Headsets, carregadores, cabos, mochilas e suportes." }
+    { icone: "notebook",    titulo: "Notebooks",               texto: "Para estudo, trabalho e jogos. Ajudamos a escolher pelo seu uso." },
+    { icone: "desktop",     titulo: "Computadores e PC gamer", texto: "Máquinas prontas ou montadas sob medida, testadas na bancada." },
+    { icone: "monitor",     titulo: "Monitores",               texto: "Do home office ao competitivo, com taxas de atualização de 60 a 240 Hz." },
+    { icone: "componentes", titulo: "Peças e upgrades",        texto: "SSD, memória RAM, placas de vídeo, fontes e processadores." },
+    { icone: "perifericos", titulo: "Periféricos",             texto: "Teclados, mouses, webcams e caixas de som para todo bolso." },
+    { icone: "redes",       titulo: "Redes e Wi-Fi",           texto: "Roteadores, repetidores, cabos e instalação de rede." },
+    { icone: "impressora",  titulo: "Impressoras",             texto: "Impressoras, cartuchos, toners e manutenção." },
+    { icone: "acessorios",  titulo: "Acessórios",              texto: "Headsets, carregadores, cabos, mochilas e suportes." }
   ],
 
   // Selos exibidos acima dos serviços

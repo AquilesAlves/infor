@@ -133,57 +133,11 @@ if (LOJA.marcas.length) {
   pegar('secaoMarcas').hidden = true;
 }
 
-/* ---------- Imagens opcionais (logo, vitrine, fotos dos produtos) ---------- */
-// Imagens fora da primeira tela só carregam quando o visitante chega perto delas (lazy)
-const imagem = (caminho, descricao, classe = '', adiar = true) =>
-  `<img${classe ? ` class="${classe}"` : ''} src="${protegerTexto(caminho)}" alt="${protegerTexto(descricao)}"${adiar ? ' loading="lazy"' : ''} decoding="async">`;
-
-// Logo da empresa no lugar da sigla
-if (LOJA.logo) document.querySelectorAll('.logo-icone').forEach(icone => {
-  icone.classList.add('com-imagem');
-  icone.innerHTML = imagem(LOJA.logo, '', '', false); // o nome da loja já aparece ao lado
-});
-
-/* ---------- Vitrine de destaques (slide) ---------- */
-(function () {
-  const bloco = pegar('vitrine'), trilho = pegar('vitrineTrilho');
-  const itens = LOJA.vitrine || [];
-  if (!itens.length) { bloco.hidden = true; return; }
-  trilho.innerHTML = itens.map(item => `
-    <figure class="produto-destaque">
-      ${item.etiqueta ? `<span class="etiqueta">${protegerTexto(item.etiqueta)}</span>` : ''}
-      ${imagem(item.foto, item.nome)}
-      <figcaption><strong>${protegerTexto(item.nome)}</strong>${item.preco ? `<span class="preco">${protegerTexto(item.preco)}</span>` : ''}</figcaption>
-    </figure>`).join('');
-
-  // Anda um produto para o lado; no fim volta ao começo (e vice-versa)
-  const larguraDeUmItem = () => trilho.firstElementChild.offsetWidth + parseFloat(getComputedStyle(trilho).columnGap || 0);
-  const andar = direcao => {
-    const noFim = trilho.scrollLeft + trilho.clientWidth >= trilho.scrollWidth - 4;
-    const noInicio = trilho.scrollLeft <= 4;
-    if (direcao > 0 && noFim) trilho.scrollTo({ left: 0 });
-    else if (direcao < 0 && noInicio) trilho.scrollTo({ left: trilho.scrollWidth });
-    else trilho.scrollBy({ left: direcao * larguraDeUmItem() });
-  };
-  pegar('vitrineAnterior').addEventListener('click', () => andar(-1));
-  pegar('vitrineProxima').addEventListener('click', () => andar(1));
-
-  // Anda sozinha a cada 4,5 s, só quando está na tela; pausa com o mouse em cima ou depois de um toque
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let pausada = false, naTela = false, retomar;
-  bloco.addEventListener('mouseenter', () => { pausada = true; });
-  bloco.addEventListener('mouseleave', () => { pausada = false; });
-  trilho.addEventListener('pointerdown', () => { pausada = true; clearTimeout(retomar); retomar = setTimeout(() => { pausada = false; }, 8000); });
-  new IntersectionObserver(entradas => { naTela = entradas[0].isIntersecting; }).observe(bloco);
-  setInterval(() => { if (!pausada && naTela && !document.hidden) andar(1); }, 4500);
-})();
-
 /* ---------- Produtos ---------- */
 pegar('listaProdutos').innerHTML = LOJA.produtos.map((produto, posicao) => `
-  <article class="categoria${produto.foto ? ' com-foto' : ''}">
-    ${produto.foto ? imagem(produto.foto, produto.titulo, 'categoria-foto') : ''}
+  <article class="categoria">
     <span class="categoria-codigo">CAT-${numeroComDoisDigitos(posicao + 1)}</span>
-    ${produto.foto ? '' : `<span class="categoria-icone">${desenharIcone(ICONES[produto.icone] || ICONES.componentes)}</span>`}
+    <span class="categoria-icone">${desenharIcone(ICONES[produto.icone] || ICONES.componentes)}</span>
     <h3>${protegerTexto(produto.titulo)}</h3>
     <p>${protegerTexto(produto.texto)}</p>
   </article>`).join('');

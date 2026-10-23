@@ -27,16 +27,4 @@ Abra `js/config.js` e altere os campos do objeto `LOJA`. O resto da página é p
 - `marcas`, `produtos`, `garantias`, `servicos`, `depoimentos`, `faq`: listas editáveis. Troque os depoimentos de exemplo pelos comentários reais dos clientes.
 - `cnpj`, `credito`: aparecem no rodapé quando preenchidos.
 
-## Imagens da loja
-
-Coloque as fotos de cada cliente na pasta `img/` (as de `img/exemplos/` são só marcadores para teste) e aponte os caminhos no `config.js`. Todos os campos de imagem são opcionais: vazio (`""` ou `[]`) volta ao visual padrão.
-
-| Campo | Onde aparece | Tamanho sugerido |
-|---|---|---|
-| `logo` | Cabeçalho e rodapé, no lugar da sigla | quadrada, 128×128 ou SVG |
-| `vitrine` (`foto`, `nome`, `preco`, `etiqueta`) | Slide "Em destaque" acima das categorias | 640×480 (4:3) |
-| `produtos[].foto` | Topo de cada card de categoria, no lugar do ícone | 640×400 (16:10) |
-
-Dica: use JPG ou WebP com até ~200 KB por foto para o site continuar rápido.
-
 O botão no topo alterna entre os modos claro e escuro e guarda a escolha no navegador.
