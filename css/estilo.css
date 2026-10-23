@@ -1,21 +1,21 @@
 /* Layout: bancada técnica — hero com placa-mãe ilustrada, marcas, catálogo em grade, assistência em cards, depoimentos, FAQ, localização com mapa e rodapé completo */
 :root{
-  --fundo:#E9E9E4;
-  --superficie:#F6F6F3;
-  --superficie-2:#DDDDD6;
-  --texto:#0B0F16;
-  --texto-suave:#353D49;
-  --linha:#C4C4BB;
+  --fundo:#F2ECE2;
+  --superficie:#FBF8F3;
+  --superficie-2:#E8DFD0;
+  --texto:#1D1813;
+  --texto-suave:#4E443A;
+  --linha:#DCD1C0;
   --destaque:#C2410C;
   --sobre-destaque:#FFFFFF;
   --destaque-suave:color-mix(in srgb,var(--destaque) 11%,transparent);
   --aberto:#15803D;
   --fechado:#9A3412;
-  --placa:#E0E0D9;
-  --placa-2:#F3F3EF;
-  --placa-linha:#AFAFA5;
-  --placa-texto:#0B0F16;
-  --placa-suave:#454B53;
+  --placa:#EEE6D9;
+  --placa-2:#FBF8F3;
+  --placa-linha:#C8BAA4;
+  --placa-texto:#1D1813;
+  --placa-suave:#5C5045;
   --placa-destaque:var(--destaque);
   /* Uma fonte monoespaçada em todo o site */
   --fonte-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
