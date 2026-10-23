@@ -28,19 +28,19 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-tema="claro"]){
-    --fundo:color-mix(in srgb,var(--destaque) 5%,#0F1012); --superficie:color-mix(in srgb,var(--destaque) 6%,#16171A); --superficie-2:color-mix(in srgb,var(--destaque) 8%,#1E1F23); --texto:color-mix(in srgb,var(--destaque) 6%,#F0F0F0); --texto-suave:color-mix(in srgb,var(--destaque) 12%,#A6A6A6); --linha:color-mix(in srgb,var(--destaque) 14%,#2A2B2F);
+    --fundo:color-mix(in srgb,var(--destaque) 2.5%,#0F1012); --superficie:color-mix(in srgb,var(--destaque) 3%,#16171A); --superficie-2:color-mix(in srgb,var(--destaque) 4%,#1E1F23); --texto:color-mix(in srgb,var(--destaque) 3%,#F0F0F0); --texto-suave:color-mix(in srgb,var(--destaque) 6%,#A6A6A6); --linha:color-mix(in srgb,var(--destaque) 8%,#2A2B2F);
     --destaque:#FF8A50; --sobre-destaque:#1B0D04;
     --aberto:#4ADE80; --fechado:#FDBA74;
-    --placa:color-mix(in srgb,var(--destaque) 5%,#0A0B0D); --placa-2:color-mix(in srgb,var(--destaque) 7%,#131416); --placa-linha:color-mix(in srgb,var(--destaque) 20%,#2A2B2F); --placa-texto:var(--texto); --placa-suave:color-mix(in srgb,var(--destaque) 12%,#9C9C9C);
+    --placa:color-mix(in srgb,var(--destaque) 2.5%,#0A0B0D); --placa-2:color-mix(in srgb,var(--destaque) 3.5%,#131416); --placa-linha:color-mix(in srgb,var(--destaque) 12%,#2A2B2F); --placa-texto:var(--texto); --placa-suave:color-mix(in srgb,var(--destaque) 6%,#9C9C9C);
     --brilho:rgba(255,255,255,.22);
     color-scheme:dark;
   }
 }
 :root[data-tema="escuro"]{
-  --fundo:color-mix(in srgb,var(--destaque) 5%,#0F1012); --superficie:color-mix(in srgb,var(--destaque) 6%,#16171A); --superficie-2:color-mix(in srgb,var(--destaque) 8%,#1E1F23); --texto:color-mix(in srgb,var(--destaque) 6%,#F0F0F0); --texto-suave:color-mix(in srgb,var(--destaque) 12%,#A6A6A6); --linha:color-mix(in srgb,var(--destaque) 14%,#2A2B2F);
+  --fundo:color-mix(in srgb,var(--destaque) 2.5%,#0F1012); --superficie:color-mix(in srgb,var(--destaque) 3%,#16171A); --superficie-2:color-mix(in srgb,var(--destaque) 4%,#1E1F23); --texto:color-mix(in srgb,var(--destaque) 3%,#F0F0F0); --texto-suave:color-mix(in srgb,var(--destaque) 6%,#A6A6A6); --linha:color-mix(in srgb,var(--destaque) 8%,#2A2B2F);
   --destaque:#FF8A50; --sobre-destaque:#1B0D04;
   --aberto:#4ADE80; --fechado:#FDBA74;
-  --placa:color-mix(in srgb,var(--destaque) 5%,#0A0B0D); --placa-2:color-mix(in srgb,var(--destaque) 7%,#131416); --placa-linha:color-mix(in srgb,var(--destaque) 20%,#2A2B2F); --placa-texto:var(--texto); --placa-suave:color-mix(in srgb,var(--destaque) 12%,#9C9C9C);
+  --placa:color-mix(in srgb,var(--destaque) 2.5%,#0A0B0D); --placa-2:color-mix(in srgb,var(--destaque) 3.5%,#131416); --placa-linha:color-mix(in srgb,var(--destaque) 12%,#2A2B2F); --placa-texto:var(--texto); --placa-suave:color-mix(in srgb,var(--destaque) 6%,#9C9C9C);
   --brilho:rgba(255,255,255,.22);
   color-scheme:dark;
 }
