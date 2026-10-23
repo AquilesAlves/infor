@@ -336,9 +336,9 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWha
   }, { passive: true });
 })();
 
-/* ---------- Slide no celular (produtos e serviços) ---------- */
+/* ---------- Slide no celular (produtos, serviços e depoimentos) ---------- */
 // No celular o CSS deixa as listas roláveis de lado; aqui só entram os pontinhos de posição
-['listaProdutos', 'listaServicos'].forEach(id => {
+['listaProdutos', 'listaServicos', 'listaDepoimentos'].forEach(id => {
   const lista = pegar(id), cards = [...lista.children];
   if (cards.length < 2) return;
   const pontos = document.createElement('div');
