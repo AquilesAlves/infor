@@ -1,22 +1,22 @@
 /* Layout: bancada técnica — hero com placa-mãe ilustrada, marcas, catálogo em grade, assistência em cards, depoimentos, FAQ, localização com mapa e rodapé completo */
 :root{
   --destaque:#C2410C;
-  /* Neutros tingidos pela cor de destaque (nos dois modos): trocar a cor muda o tom do site inteiro */
-  --fundo:color-mix(in srgb,var(--destaque) 5%,#F3F3F1);
-  --superficie:color-mix(in srgb,var(--destaque) 4%,#FDFDFC);
-  --superficie-2:color-mix(in srgb,var(--destaque) 12%,#E6E6E3);
-  --texto:color-mix(in srgb,var(--destaque) 10%,#141414);
-  --texto-suave:color-mix(in srgb,var(--destaque) 14%,#3E3E3E);
-  --linha:color-mix(in srgb,var(--destaque) 15%,#D3D3CF);
+  /* Neutros fixos no modo claro: a cor de destaque não tingi fundos, textos ou bordas */
+  --fundo:#F6F7F5;
+  --superficie:#FFFFFF;
+  --superficie-2:#EBECEA;
+  --texto:#1A1A1A;
+  --texto-suave:#555555;
+  --linha:#D9DAD8;
   --sobre-destaque:#FFFFFF;
   --destaque-suave:color-mix(in srgb,var(--destaque) 11%,transparent);
   --aberto:#15803D;
   --fechado:#9A3412;
-  --placa:color-mix(in srgb,var(--destaque) 7%,#EFEFED);
+  --placa:#EFEFED;
   --placa-2:var(--superficie);
-  --placa-linha:color-mix(in srgb,var(--destaque) 22%,#B9B9B4);
+  --placa-linha:#B9B9B4;
   --placa-texto:var(--texto);
-  --placa-suave:color-mix(in srgb,var(--destaque) 14%,#4A4A4A);
+  --placa-suave:#4A4A4A;
   --placa-destaque:var(--destaque);
   /* Uma fonte monoespaçada em todo o site */
   --fonte-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
