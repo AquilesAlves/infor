@@ -16,7 +16,8 @@ const LOJA = {
   // Google Maps > Compartilhar > Incorporar um mapa (só o que está dentro de src="...")
   mapa: "",
   cnpj: "",                          // ex.: "00.000.000/0001-00"
-  credito: "",                       // ex.: "Site por Sua Agência"
+  // Crédito da agência no rodapé (link abre em nova aba). "" esconde a linha
+  credito: { texto: "Desenvolvido por", nome: "SHIFT", link: "https://aquilesalves.github.io/SHIFT/" },
 
   // Cores de destaque (tema claro e tema escuro)
   cor: "#C2410C",

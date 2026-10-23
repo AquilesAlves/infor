@@ -103,7 +103,12 @@ document.querySelectorAll('[data-loja-html]').forEach(elemento => {
 document.title = `${LOJA.nome} · Loja e assistência técnica`;
 pegar('ano').textContent = new Date().getFullYear();
 if (LOJA.cnpj) pegar('cnpj').textContent = ' CNPJ ' + LOJA.cnpj;
-if (LOJA.credito) pegar('credito').textContent = LOJA.credito;
+if (LOJA.credito) {
+  const { texto = '', nome = '', link = '' } = typeof LOJA.credito === 'string' ? { texto: LOJA.credito } : LOJA.credito;
+  pegar('credito').innerHTML = protegerTexto(texto) + (nome ? ' ' + (link
+    ? `<a href="${protegerTexto(link)}" target="_blank" rel="noopener">${protegerTexto(nome)}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>`
+    : protegerTexto(nome)) : '');
+}
 
 /* ---------- Itens opcionais: escondidos quando o campo estiver vazio ---------- */
 document.querySelectorAll('[data-se]').forEach(elemento => { if (!LOJA[elemento.dataset.se]) elemento.hidden = true; });
