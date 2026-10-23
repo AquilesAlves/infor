@@ -27,6 +27,7 @@ Abra `js/config.js` e altere os campos do objeto `LOJA`. O resto da página é p
 - `marcas`, `produtos`, `garantias`, `servicos`, `depoimentos`, `faq`: listas editáveis. Troque os depoimentos de exemplo pelos comentários reais dos clientes.
 - `cnpj`: aparece no rodapé quando preenchido.
 - `credito`: linha "Desenvolvido por SHIFT" no rodapé, com link (`texto`, `nome`, `link`). `""` esconde.
+
 ## Fotos dos produtos
 
 Cada item de `produtos` aceita o campo opcional `foto`, que aparece no topo do card no lugar do ícone (proporção 16:10, ex.: 640×400 px). Coloque as fotos do cliente na pasta `img/` (as de `img/exemplos/` são só marcadores para teste). Sem `foto`, o card mostra o ícone. Use JPG ou WebP com até ~200 KB por foto.
