@@ -265,6 +265,17 @@ img{max-width:100%}
 .servicos-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:1020px){.servicos-grade{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:620px){.servicos-grade{grid-template-columns:1fr}}
+/* Celular: produtos e serviços viram slide (um card por vez, arrasta para o lado) */
+.slide-pontos{display:none}
+@media (max-width:620px){
+  .categorias,.servicos-grade{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:100%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;margin-inline:calc(-1 * clamp(24px,5vw,80px));padding-inline:clamp(24px,5vw,80px);scroll-padding-inline:clamp(24px,5vw,80px)}
+  :is(.categorias,.servicos-grade)::-webkit-scrollbar{display:none}
+  :is(.categorias,.servicos-grade)>*{scroll-snap-align:start;scroll-snap-stop:always}
+  .slide-pontos{display:flex;justify-content:center;gap:4px;margin-top:14px}
+  .slide-pontos button{width:24px;height:24px;padding:0;border:0;background:none;display:grid;place-items:center;cursor:pointer}
+  .slide-pontos button::before{content:"";width:8px;height:8px;border-radius:999px;background:var(--linha);transition:width .25s ease,background .25s ease}
+  .slide-pontos button[aria-current="true"]::before{width:22px;background:var(--destaque)}
+}
 .servico{position:relative;display:flex;flex-direction:column;gap:14px;padding:26px;background:var(--fundo);border:1px solid var(--linha);border-radius:var(--raio-g);overflow:hidden;min-width:0;transition:border-color .2s ease}
 .servico::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--destaque);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
 .servico:hover{border-color:color-mix(in srgb,var(--destaque) 45%,var(--linha))}

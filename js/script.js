@@ -336,6 +336,26 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWha
   }, { passive: true });
 })();
 
+/* ---------- Slide no celular (produtos e serviços) ---------- */
+// No celular o CSS deixa as listas roláveis de lado; aqui só entram os pontinhos de posição
+['listaProdutos', 'listaServicos'].forEach(id => {
+  const lista = pegar(id), cards = [...lista.children];
+  if (cards.length < 2) return;
+  const pontos = document.createElement('div');
+  pontos.className = 'slide-pontos';
+  pontos.innerHTML = cards.map((card, posicao) => `<button type="button" aria-label="Ver item ${posicao + 1} de ${cards.length}"></button>`).join('');
+  lista.after(pontos);
+  const botoes = [...pontos.children];
+  const larguraDoPasso = () => cards[1].offsetLeft - cards[0].offsetLeft;
+  const marcar = () => {
+    const atual = Math.round(lista.scrollLeft / larguraDoPasso());
+    botoes.forEach((botao, posicao) => botao.setAttribute('aria-current', posicao === atual));
+  };
+  botoes.forEach((botao, posicao) => botao.addEventListener('click', () => lista.scrollTo({ left: posicao * larguraDoPasso(), behavior: 'smooth' })));
+  lista.addEventListener('scroll', marcar, { passive: true });
+  marcar();
+});
+
 /* ---------- Menu no celular ---------- */
 (function () {
   const botao = pegar('botaoMenu'), menu = pegar('menu');
