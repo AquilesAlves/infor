@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Ícone de exemplo da aba do navegador: troque pelo ícone do cliente (SVG ou PNG quadrado) -->
+  <rect width="64" height="64" rx="14" fill="#C2410C"/>
+  <text x="32" y="42" text-anchor="middle" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="27" font-weight="800" fill="#FFFFFF">TC</text>
+</svg>

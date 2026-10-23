@@ -32,4 +32,17 @@ Abra `js/config.js` e altere os campos do objeto `LOJA`. O resto da página é p
 
 Cada item de `produtos` aceita o campo opcional `foto`, que aparece no topo do card no lugar do ícone (proporção 16:10, ex.: 640×400 px). Coloque as fotos do cliente na pasta `img/` (as de `img/exemplos/` são fotos genéricas do Unsplash, de uso livre, só para teste). Sem `foto`, o card mostra o ícone. Use JPG ou WebP com até ~200 KB por foto.
 
+## Ícone e prévia do link (WhatsApp e redes)
+
+Ficam no topo do `index.html`, dentro do `<head>`. Esses campos não estão no `config.js` porque WhatsApp, Instagram e Facebook leem só o HTML da página, sem rodar o JavaScript.
+
+| Arquivo / campo | Para que serve | Tamanho |
+|---|---|---|
+| `favicon.svg` (`<link rel="icon">`) | ícone da aba do navegador | quadrado, SVG ou PNG 64×64 |
+| `icone-180.png` (`apple-touch-icon`) | ícone ao salvar o site na tela inicial do iPhone | PNG 180×180 |
+| `compartilhar.jpg` (`og:image`) | imagem que aparece quando mandam o link no WhatsApp | 1200×630, até ~300 KB |
+| `og:title`, `og:description`, `og:site_name` | título e texto da prévia | nome e frase curta da loja |
+
+Ao publicar, troque `og:url` e `og:image` pelo endereço completo (ex.: `https://lojadocliente.com.br/img/compartilhar.jpg`): o WhatsApp não acha a imagem com caminho relativo. Para conferir a prévia, use o depurador do Facebook (developers.facebook.com/tools/debug), que usa o mesmo padrão do WhatsApp.
+
 O botão no topo alterna entre os modos claro e escuro e guarda a escolha no navegador.
