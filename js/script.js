@@ -139,10 +139,15 @@ if (LOJA.marcas.length) {
 }
 
 /* ---------- Produtos ---------- */
+// Fotos fora da primeira tela só carregam quando o visitante chega perto delas (lazy)
+const imagem = (caminho, descricao, classe = '') =>
+  `<img${classe ? ` class="${classe}"` : ''} src="${protegerTexto(caminho)}" alt="${protegerTexto(descricao)}" loading="lazy" decoding="async">`;
+
 pegar('listaProdutos').innerHTML = LOJA.produtos.map((produto, posicao) => `
-  <article class="categoria">
+  <article class="categoria${produto.foto ? ' com-foto' : ''}">
+    ${produto.foto ? imagem(produto.foto, produto.titulo, 'categoria-foto') : ''}
     <span class="categoria-codigo">CAT-${numeroComDoisDigitos(posicao + 1)}</span>
-    <span class="categoria-icone">${desenharIcone(ICONES[produto.icone] || ICONES.componentes)}</span>
+    ${produto.foto ? '' : `<span class="categoria-icone">${desenharIcone(ICONES[produto.icone] || ICONES.componentes)}</span>`}
     <h3>${protegerTexto(produto.titulo)}</h3>
     <p>${protegerTexto(produto.texto)}</p>
   </article>`).join('');
@@ -330,6 +335,64 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWha
     else if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) marcarAtivo(secoes[secoes.length - 1].id);
   }, { passive: true });
 })();
+
+/* ---------- Slide no celular (produtos, serviços e depoimentos) ---------- */
+// No celular o CSS deixa as listas roláveis de lado; aqui entram os pontinhos de posição
+// e o avanço automático, que pausa ao tocar e retoma depois.
+['listaProdutos', 'listaServicos', 'listaDepoimentos'].forEach(id => {
+  const lista = pegar(id), cards = [...lista.children];
+  if (cards.length < 2) return;
+  const pontos = document.createElement('div');
+  pontos.className = 'slide-pontos';
+  pontos.innerHTML = cards.map((card, posicao) => `<button type="button" aria-label="Ver item ${posicao + 1} de ${cards.length}"></button>`).join('');
+  lista.after(pontos);
+  const botoes = [...pontos.children];
+  const larguraDoPasso = () => cards[1].offsetLeft - cards[0].offsetLeft || lista.clientWidth || lista.offsetWidth || innerWidth;
+  const marcar = () => {
+    const atual = Math.round(lista.scrollLeft / larguraDoPasso());
+    botoes.forEach((botao, posicao) => botao.setAttribute('aria-current', posicao === atual));
+  };
+  botoes.forEach((botao, posicao) => botao.addEventListener('click', () => lista.scrollTo({ left: posicao * larguraDoPasso(), behavior: 'smooth' })));
+  lista.addEventListener('scroll', marcar, { passive: true });
+  marcar();
+
+  // Avanço automático só no mobile, só quando visível e sem movimento reduzido
+  const mobile = matchMedia('(max-width: 620px)');
+  const movimentoReduzido = matchMedia('(prefers-reduced-motion: reduce)');
+  let timer = null;
+  let tocando = false;
+  let visivel = false;
+  const passo = () => {
+    if (tocando || movimentoReduzido.matches || !visivel) return;
+    const largura = larguraDoPasso();
+    if (!largura) return;
+    const atual = Math.round(lista.scrollLeft / largura);
+    const proximo = (atual + 1) % cards.length;
+    lista.scrollTo({ left: proximo * largura, behavior: 'smooth' });
+  };
+  const iniciar = () => {
+    parar();
+    if (mobile.matches && !movimentoReduzido.matches && !tocando && visivel) timer = setInterval(passo, 4000);
+  };
+  const parar = () => { clearInterval(timer); timer = null; };
+  const aoTocar = () => { tocando = true; parar(); };
+  const aoSoltar = () => { tocando = false; iniciar(); };
+  lista.addEventListener('pointerdown', aoTocar, { passive: true });
+  lista.addEventListener('pointerup', aoSoltar, { passive: true });
+  lista.addEventListener('pointercancel', aoSoltar, { passive: true });
+  addEventListener('visibilitychange', () => { if (document.hidden) parar(); else iniciar(); });
+  mobile.addEventListener('change', iniciar);
+  if ('IntersectionObserver' in window) {
+    const observador = new IntersectionObserver(entradas => {
+      visivel = entradas.some(entrada => entrada.isIntersecting);
+      if (visivel) iniciar(); else parar();
+    }, { threshold: 0 });
+    observador.observe(lista);
+  } else {
+    visivel = true;
+    iniciar();
+  }
+});
 
 /* ---------- Menu no celular ---------- */
 (function () {
