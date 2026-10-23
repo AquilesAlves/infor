@@ -81,7 +81,7 @@ img{max-width:100%}
 /* Efeito de bancada nos botões (o botão não sai do lugar):
    - cantoneiras de mira aparecem nos quatro cantos
    - o texto se "decodifica" como num terminal (js/script.js)
-   - principal: um tom mais forte sobe de baixo para cima e o ícone balança, como se estivesse chamando */
+   - a cor troca num esmaecer suave (sem bloco correndo); no principal o ícone balança, como se estivesse chamando */
 .botao::before{content:"";position:absolute;inset:5px;z-index:1;pointer-events:none;--canto:var(--destaque);
   background:
     linear-gradient(var(--canto),var(--canto)) top left/9px 1.5px no-repeat,linear-gradient(var(--canto),var(--canto)) top left/1.5px 9px no-repeat,
@@ -91,16 +91,16 @@ img{max-width:100%}
   opacity:0;transform:scale(1.12);transition:opacity .2s ease,transform .3s cubic-bezier(.34,1.56,.64,1)}
 .botao:hover::before,.botao:focus-visible::before{opacity:1;transform:scale(1)}
 .botao-principal::before{--canto:var(--sobre-destaque)}
-.botao-principal::after{content:"";position:absolute;inset:0;z-index:-1;background:color-mix(in srgb,var(--destaque) 78%,var(--texto));transform:scaleY(0);transform-origin:bottom;transition:transform .3s cubic-bezier(.65,0,.35,1);pointer-events:none}
-.botao-principal:hover::after{transform:scaleY(1)}
+.botao-principal::after{content:"";position:absolute;inset:0;z-index:-1;background:color-mix(in srgb,var(--destaque) 78%,var(--texto));opacity:0;transition:opacity .3s ease;pointer-events:none}
+.botao-principal:hover::after{opacity:1}
 .botao-principal:hover svg{animation:icone-chamando .6s ease}
 .botao-principal:active{filter:brightness(.9)}
 @keyframes icone-chamando{20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(4deg)}}
 .botao-texto{white-space:pre}
 @media (prefers-reduced-motion: reduce){.botao::before,.botao-principal::after{transition:none}.botao-principal:hover svg{animation:none}}
-/* Contorno: no hover, a cor de destaque preenche o botão da esquerda para a direita */
-.botao-contorno{border-color:var(--linha);color:var(--texto);background:linear-gradient(var(--destaque-suave),var(--destaque-suave)) no-repeat 0 0/0% 100%}
-.botao-contorno:hover{border-color:var(--destaque);color:var(--destaque);background-size:100% 100%}
+/* Contorno: no hover, o fundo ganha um tom suave da cor de destaque (esmaecendo, sem bloco correndo) */
+.botao-contorno{border-color:var(--linha);color:var(--texto);background-color:transparent;transition:background-color .3s ease,border-color .25s ease,color .25s ease}
+.botao-contorno:hover{border-color:var(--destaque);color:var(--destaque);background-color:var(--destaque-suave)}
 .botao-contorno:active{filter:brightness(.92)}
 
 /* Cabeçalho */
