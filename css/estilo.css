@@ -78,12 +78,26 @@ img{max-width:100%}
 .botao{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:var(--raio-p);font:600 15.5px/1 var(--fonte-texto);text-decoration:none;border:1.5px solid transparent;transition:background-size .35s ease,border-color .25s ease,color .25s ease,filter .15s ease;white-space:nowrap;cursor:pointer}
 .botao svg{width:19px;height:19px;flex:none}
 .botao-principal{background:var(--destaque);color:var(--sobre-destaque)}
-/* Principal: no hover, um reflexo de luz atravessa o botão e o ícone pulsa; ao clicar, escurece */
-.botao-principal::after{content:"";position:absolute;top:0;bottom:0;left:0;width:30%;z-index:-1;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-150%) skewX(-20deg);pointer-events:none}
-.botao-principal:hover::after{transition:transform .6s ease;transform:translateX(450%) skewX(-20deg)}
-.botao-principal:hover svg{animation:pulso-icone .5s ease}
+/* Efeito de bancada nos botões (o botão não sai do lugar):
+   - cantoneiras de mira aparecem nos quatro cantos
+   - o texto se "decodifica" como num terminal (js/script.js)
+   - principal: um tom mais forte sobe de baixo para cima e o ícone balança, como se estivesse chamando */
+.botao::before{content:"";position:absolute;inset:5px;z-index:1;pointer-events:none;--canto:var(--destaque);
+  background:
+    linear-gradient(var(--canto),var(--canto)) top left/9px 1.5px no-repeat,linear-gradient(var(--canto),var(--canto)) top left/1.5px 9px no-repeat,
+    linear-gradient(var(--canto),var(--canto)) top right/9px 1.5px no-repeat,linear-gradient(var(--canto),var(--canto)) top right/1.5px 9px no-repeat,
+    linear-gradient(var(--canto),var(--canto)) bottom left/9px 1.5px no-repeat,linear-gradient(var(--canto),var(--canto)) bottom left/1.5px 9px no-repeat,
+    linear-gradient(var(--canto),var(--canto)) bottom right/9px 1.5px no-repeat,linear-gradient(var(--canto),var(--canto)) bottom right/1.5px 9px no-repeat;
+  opacity:0;transform:scale(1.12);transition:opacity .2s ease,transform .3s cubic-bezier(.34,1.56,.64,1)}
+.botao:hover::before,.botao:focus-visible::before{opacity:1;transform:scale(1)}
+.botao-principal::before{--canto:var(--sobre-destaque)}
+.botao-principal::after{content:"";position:absolute;inset:0;z-index:-1;background:color-mix(in srgb,var(--destaque) 78%,var(--texto));transform:scaleY(0);transform-origin:bottom;transition:transform .3s cubic-bezier(.65,0,.35,1);pointer-events:none}
+.botao-principal:hover::after{transform:scaleY(1)}
+.botao-principal:hover svg{animation:icone-chamando .6s ease}
 .botao-principal:active{filter:brightness(.9)}
-@keyframes pulso-icone{40%{transform:scale(1.25)}}
+@keyframes icone-chamando{20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(4deg)}}
+.botao-texto{white-space:pre}
+@media (prefers-reduced-motion: reduce){.botao::before,.botao-principal::after{transition:none}.botao-principal:hover svg{animation:none}}
 /* Contorno: no hover, a cor de destaque preenche o botão da esquerda para a direita */
 .botao-contorno{border-color:var(--linha);color:var(--texto);background:linear-gradient(var(--destaque-suave),var(--destaque-suave)) no-repeat 0 0/0% 100%}
 .botao-contorno:hover{border-color:var(--destaque);color:var(--destaque);background-size:100% 100%}

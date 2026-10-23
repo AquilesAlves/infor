@@ -440,6 +440,36 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWha
   }
 });
 
+/* ---------- Texto dos botões "decodificando" no hover ---------- */
+// Os caracteres embaralham e vão se fixando da esquerda para a direita, como num terminal.
+// A fonte é monoespaçada, então o botão não muda de largura.
+(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const simbolos = '01<>/#_*+=';
+  document.querySelectorAll('.botao').forEach(botao => {
+    const noDeTexto = [...botao.childNodes].find(no => no.nodeType === 3 && no.textContent.trim());
+    if (!noDeTexto) return;
+    const original = noDeTexto.textContent.trim();
+    const texto = document.createElement('span');
+    texto.className = 'botao-texto';
+    texto.textContent = original;
+    noDeTexto.replaceWith(texto);
+    botao.setAttribute('aria-label', botao.getAttribute('aria-label') || original); // leitores de tela leem sempre o texto certo
+    let quadro = null;
+    botao.addEventListener('mouseenter', () => {
+      cancelAnimationFrame(quadro);
+      const inicio = performance.now(), duracao = 420;
+      const desenhar = agora => {
+        const fixos = Math.floor(Math.min(1, (agora - inicio) / duracao) * original.length);
+        texto.textContent = [...original].map((letra, posicao) =>
+          posicao < fixos || letra === ' ' ? letra : simbolos[Math.floor(Math.random() * simbolos.length)]).join('');
+        if (fixos < original.length) quadro = requestAnimationFrame(desenhar);
+      };
+      quadro = requestAnimationFrame(desenhar);
+    });
+  });
+})();
+
 /* ---------- Menu no celular ---------- */
 (function () {
   const botao = pegar('botaoMenu'), menu = pegar('menu');
