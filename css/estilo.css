@@ -71,12 +71,19 @@ img{max-width:100%}
 .sobretitulo::before{content:"";width:18px;height:1.5px;background:currentColor}
 
 /* Botões */
-.botao{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:var(--raio-p);font:600 14.5px/1 var(--fonte-texto);text-decoration:none;border:1.5px solid transparent;transition:transform .15s ease,background .15s ease,border-color .15s ease;white-space:nowrap;cursor:pointer}
+.botao{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:var(--raio-p);font:600 14.5px/1 var(--fonte-texto);text-decoration:none;border:1.5px solid transparent;transition:background-size .35s ease,border-color .25s ease,color .25s ease,filter .15s ease;white-space:nowrap;cursor:pointer}
 .botao svg{width:19px;height:19px;flex:none}
 .botao-principal{background:var(--destaque);color:var(--sobre-destaque)}
-.botao-principal:hover{filter:brightness(1.06)}
-.botao-contorno{border-color:var(--linha);color:var(--texto);background:transparent}
-.botao-contorno:hover{border-color:var(--texto)}
+/* Principal: no hover, um reflexo de luz atravessa o botão e o ícone pulsa; ao clicar, escurece */
+.botao-principal::after{content:"";position:absolute;top:0;bottom:0;left:0;width:30%;z-index:-1;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-150%) skewX(-20deg);pointer-events:none}
+.botao-principal:hover::after{transition:transform .6s ease;transform:translateX(450%) skewX(-20deg)}
+.botao-principal:hover svg{animation:pulso-icone .5s ease}
+.botao-principal:active{filter:brightness(.9)}
+@keyframes pulso-icone{40%{transform:scale(1.25)}}
+/* Contorno: no hover, a cor de destaque preenche o botão da esquerda para a direita */
+.botao-contorno{border-color:var(--linha);color:var(--texto);background:linear-gradient(var(--destaque-suave),var(--destaque-suave)) no-repeat 0 0/0% 100%}
+.botao-contorno:hover{border-color:var(--destaque);color:var(--destaque);background-size:100% 100%}
+.botao-contorno:active{filter:brightness(.92)}
 
 /* Cabeçalho */
 .cabecalho{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--superficie) 90%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--linha)}
@@ -153,9 +160,11 @@ img{max-width:100%}
 /* O selo de horário sobe mais um pouco (só visual, não mexe no resto): de 12px a 28px,
    mais em telas altas. */
 .abertura-conteudo .status{transform:translateY(calc(-1 * clamp(12px, (100svh - 700px) / 12, 28px)))}
-.status{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;font:500 13px/1 var(--fonte-mono);padding:9px 14px 9px 12px;border-radius:999px;background:var(--superficie);border:1px solid var(--linha)}
+.status{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;cursor:pointer;text-decoration:none;color:inherit;font:500 13px/1 var(--fonte-mono);padding:9px 14px 9px 12px;border-radius:999px;background:var(--superficie);border:1px solid var(--linha)}
 .status i{width:8px;height:8px;border-radius:50%;background:var(--aberto);box-shadow:0 0 0 4px color-mix(in srgb,var(--aberto) 20%,transparent)}
 .status.fechado i{background:var(--fechado);box-shadow:none}
+.status{transition:border-color .2s ease}
+.status:hover{border-color:var(--destaque)}
 .abertura h1{font-size:clamp(26px,3.4vw,48px);font-weight:800}
 .abertura h1 em{font-style:normal;color:var(--destaque)}
 .abertura-texto{font-size:clamp(15px,1.3vw,18px);color:var(--texto-suave);max-width:56ch}
@@ -235,6 +244,12 @@ img{max-width:100%}
 .selos{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
 .selos span{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--destaque-suave);color:var(--texto);font-size:14.5px;font-weight:500}
 .selos svg{width:16px;height:16px;color:var(--destaque)}
+/* Hover: fundo um pouco mais forte e o ✓ é traçado de novo, como se estivesse sendo marcado */
+.selos span{transition:background .25s ease}
+.selos span:hover{background:color-mix(in srgb,var(--destaque) 20%,transparent)}
+.selos svg path{stroke-dasharray:24;stroke-dashoffset:0}
+.selos span:hover svg path{animation:marcar .5s ease}
+@keyframes marcar{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
 /* Reflexo de luz atravessando os selos (horário da abertura e garantias da assistência).
    Todos com a mesma animação e sem atraso: começam e terminam a passada juntos. */
 .status,.selos span{position:relative;overflow:hidden;isolation:isolate} /* isolation: o reflexo (z-index:-1) passa atrás do texto e na frente do fundo */
@@ -349,9 +364,13 @@ img{max-width:100%}
 .flutuantes{position:fixed;z-index:70;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center}
 .botao-whatsapp{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--destaque);color:var(--sobre-destaque);text-decoration:none;transition:transform .15s ease}
 .botao-whatsapp svg{width:28px;height:28px}
-.botao-topo{width:48px;height:0;margin-top:0;border:0 solid var(--fundo);border-radius:50%;background:var(--texto);color:var(--fundo);display:grid;place-items:center;overflow:hidden;cursor:pointer;padding:0;opacity:0;visibility:hidden;transition:height .3s ease,margin-top .3s ease,border-width .3s ease,opacity .3s ease,visibility .3s,background .15s ease}
-.botao-topo.visivel{height:48px;margin-top:10px;border-width:2px;opacity:1;visibility:visible}
+/* Voltar ao topo: escondido, fica encolhido e sem ocupar espaço (margem negativa); ao aparecer,
+   cresce redondo a partir do centro enquanto o WhatsApp sobe para dar espaço */
+.botao-topo{width:48px;height:48px;margin-top:-48px;border:2px solid var(--fundo);border-radius:50%;background:var(--texto);color:var(--fundo);display:grid;place-items:center;cursor:pointer;padding:0;opacity:0;visibility:hidden;transform:scale(.3);transition:margin-top .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1),opacity .25s ease,visibility .35s,background .2s ease,color .2s ease}
+.botao-topo.visivel{margin-top:10px;opacity:1;visibility:visible;transform:scale(1)}
 .botao-topo:hover{background:var(--destaque);color:var(--sobre-destaque)}
+.botao-topo:hover svg{animation:seta-sobe .6s ease}
+@keyframes seta-sobe{0%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}60%{transform:translateY(-3px)}}
 .botao-topo svg{width:22px;height:22px}
 @media (max-width:520px){.rodape-base{padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))}}
 

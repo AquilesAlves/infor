@@ -11,7 +11,7 @@ const LOJA = {
   instagram: "@techinformatica",    // deixe "" para esconder
   facebook: "",                      // link completo, ex.: "https://facebook.com/sualoja" ("" esconde)
   endereco: "Rua das Palmeiras, 240 · Centro",
-  cidade: "Campinas - SP",
+  cidade: "São Paulo - SP",
   // Mapa: deixe "" para gerar pelo endereço acima, ou cole o link de
   // Google Maps > Compartilhar > Incorporar um mapa (só o que está dentro de src="...")
   mapa: "",
