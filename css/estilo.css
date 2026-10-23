@@ -93,6 +93,9 @@ img{max-width:100%}
 .cabecalho .conteudo{display:grid;grid-template-columns:minmax(max-content,1fr) auto minmax(max-content,1fr);align-items:center;gap:24px;height:68px}
 .logo{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0}
 .logo-icone{width:38px;height:38px;border-radius:10px;background:var(--texto);color:var(--fundo);display:grid;place-items:center;font:800 15px/1 var(--fonte-titulo);flex:none;position:relative}
+.logo-icone.com-imagem{background:none}
+.logo-icone.com-imagem::after{display:none}
+.logo-icone img{display:block;width:100%;height:100%;object-fit:contain;border-radius:inherit}
 .logo-icone::after{content:"";position:absolute;right:-3px;bottom:-3px;width:10px;height:10px;border-radius:3px;background:var(--destaque);border:2px solid var(--fundo)}
 .logo-nome{font:700 16px/1.1 var(--fonte-titulo);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .menu{display:flex;gap:4px;justify-self:center}
@@ -180,8 +183,13 @@ img{max-width:100%}
    Abaixo disso a largura da coluna é que limita a bancada, então ela fica no tamanho natural. */
 @media (min-width:1340px){
   .abertura .conteudo{align-items:stretch}
-  .placa{position:absolute;inset:0;margin:0 0 0 auto;width:auto;height:100%}
+  .placa,.foto-abertura{position:absolute;inset:0;margin:0 0 0 auto;width:auto;height:100%}
 }
+/* Foto da loja no lugar da bancada (LOJA.fotoAbertura): mesmo tamanho e proporção da bancada */
+.foto-abertura{position:relative;margin:0;width:100%;aspect-ratio:520/440;border-radius:var(--raio-g);overflow:hidden;border:1px solid var(--linha);background:var(--placa-2)}
+.foto-abertura img{display:block;width:100%;height:100%;object-fit:cover}
+.foto-abertura figcaption{position:absolute;left:16px;bottom:16px;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--superficie);border:1px solid var(--linha);font:500 12.5px/1 var(--fonte-mono);color:var(--texto)}
+.foto-abertura figcaption::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--destaque)}
 .placa .p-peca{fill:var(--placa-2);stroke:var(--placa-linha);stroke-width:1.5}
 .placa .p-cpu{fill:var(--placa-2);stroke:var(--placa-destaque);stroke-width:1.5}
 .placa .p-pino{stroke:var(--placa-linha);stroke-width:2}
@@ -234,6 +242,29 @@ img{max-width:100%}
 @media (max-width:520px){.categorias{grid-template-columns:1fr}}
 .categoria{position:relative;display:flex;flex-direction:column;gap:12px;padding:24px;background:var(--superficie);border:1px solid var(--linha);border-radius:var(--raio-m);text-decoration:none;transition:border-color .2s ease;min-width:0}
 .categoria:hover{border-color:var(--destaque)}
+/* Card com foto (produto.foto): a foto ocupa o topo do card no lugar do ícone */
+.categoria.com-foto{overflow:hidden}
+.categoria-foto{display:block;width:calc(100% + 48px);max-width:none;margin:-24px -24px 4px;aspect-ratio:16/10;object-fit:cover;border-bottom:1px solid var(--linha);transition:transform .5s ease}
+.categoria.com-foto:hover .categoria-foto{transform:scale(1.04)}
+.categoria.com-foto .categoria-codigo{top:12px;right:12px;padding:5px 8px;border-radius:999px;background:var(--superficie)}
+
+/* Vitrine de destaques em slide (LOJA.vitrine): rola de lado, encaixa em cada produto */
+.vitrine{margin-bottom:32px}
+.vitrine-topo{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px}
+.vitrine-titulo{font:500 12.5px/1.4 var(--fonte-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--destaque)}
+.vitrine-setas{display:flex;gap:8px}
+.vitrine-trilho{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3 * 14px) / 4);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none}
+.vitrine-trilho::-webkit-scrollbar{display:none}
+@media (max-width:1020px){.vitrine-trilho{grid-auto-columns:calc((100% - 14px) / 2.2)}}
+@media (max-width:520px){.vitrine-trilho{grid-auto-columns:82%}}
+.produto-destaque{position:relative;margin:0;scroll-snap-align:start;display:flex;flex-direction:column;background:var(--superficie);border:1px solid var(--linha);border-radius:var(--raio-m);overflow:hidden;transition:border-color .2s ease}
+.produto-destaque:hover{border-color:var(--destaque)}
+.produto-destaque img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .5s ease}
+.produto-destaque:hover img{transform:scale(1.05)}
+.produto-destaque figcaption{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-top:1px solid var(--linha);background:var(--superficie);position:relative}
+.produto-destaque strong{font-size:15px}
+.produto-destaque .preco{font-size:13.5px;font-weight:600;color:var(--destaque)}
+.produto-destaque .etiqueta{position:absolute;top:12px;left:12px;z-index:1;padding:5px 9px;border-radius:999px;background:var(--destaque);color:var(--sobre-destaque);font:600 11.5px/1 var(--fonte-mono)}
 .categoria-icone{width:48px;height:48px;border-radius:12px;background:var(--destaque-suave);color:var(--destaque);display:grid;place-items:center}
 .categoria-icone svg{width:26px;height:26px}
 .categoria-codigo{position:absolute;top:22px;right:22px;font:500 11.5px/1 var(--fonte-mono);color:var(--texto-suave);letter-spacing:.08em}
@@ -339,6 +370,16 @@ img{max-width:100%}
 .cartao-coluna{display:flex;flex-direction:column;gap:16px;min-width:0}
 .mapa-moldura{border:1px solid var(--linha);border-radius:var(--raio-g);overflow:hidden;min-height:300px;background:var(--superficie-2)}
 .mapa-moldura iframe{display:block;width:100%;height:100%;min-height:300px;border:0}
+/* Galeria "Por dentro da loja" (LOJA.galeria) */
+.galeria-bloco{margin-top:40px}
+.galeria-titulo{font-size:18px;font-weight:700;margin-bottom:16px}
+.galeria{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:900px){.galeria{grid-template-columns:repeat(2,1fr)}}
+.galeria figure{margin:0;border:1px solid var(--linha);border-radius:var(--raio-m);overflow:hidden;background:var(--fundo);transition:border-color .2s ease}
+.galeria figure:hover{border-color:var(--destaque)}
+.galeria img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .5s ease}
+.galeria figure:hover img{transform:scale(1.04)}
+.galeria figcaption{position:relative;padding:10px 14px;font-size:13.5px;color:var(--texto-suave);background:var(--fundo);border-top:1px solid var(--linha)}
 @media (max-width:1020px){.local-linha{grid-template-columns:1fr}.mapa-moldura,.mapa-moldura iframe{min-height:260px}}
 @media (max-width:600px){.local-cartao{grid-template-columns:1fr}}
 
