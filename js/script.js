@@ -121,6 +121,52 @@ const enderecoCompleto = `${LOJA.endereco}, ${LOJA.cidade}`;
 pegar('botaoMapa').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(`${LOJA.nome}, ${enderecoCompleto}`);
 pegar('mapa').src = LOJA.mapa || 'https://www.google.com/maps?q=' + encodeURIComponent(enderecoCompleto) + '&output=embed';
 
+/* ---------- Avaliações no Google ---------- */
+if (LOJA.avaliacoesGoogle) pegar('linkAvaliacoes').href = LOJA.avaliacoesGoogle;
+else pegar('blocoAvaliacoes').hidden = true;
+
+/* ---------- Dados para o Google (LocalBusiness) ---------- */
+// Bloco invisível que diz ao Google que isto é uma loja: nome, endereço, telefone e horários,
+// tudo tirado deste config. Ajuda a loja a aparecer nas buscas da região.
+(function () {
+  const [localidade, estado] = LOJA.cidade.split(/\s+-\s+/);
+  const nomesDosDias = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  // Junta os dias com o mesmo horário: [seg..sex 09-18], [sáb 09-13]
+  const grupos = {};
+  LOJA.horarios.forEach((horario, dia) => {
+    if (!horario) return;
+    const chave = horario.join('-');
+    (grupos[chave] = grupos[chave] || { opens: horario[0], closes: horario[1], dias: [] }).dias.push(nomesDosDias[dia]);
+  });
+  const enderecoDoSite = location.href.split('#')[0];
+  const dados = {
+    '@context': 'https://schema.org',
+    '@type': 'ComputerStore',
+    name: LOJA.nome,
+    description: LOJA.rodapeTexto,
+    url: enderecoDoSite,
+    image: new URL('img/exemplos/compartilhar.jpg', enderecoDoSite).href,
+    telephone: '+' + LOJA.whatsapp,
+    email: LOJA.email || undefined,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: LOJA.endereco.replace(/\s*·\s*/g, ', '),
+      addressLocality: localidade,
+      addressRegion: estado,
+      postalCode: LOJA.cep || undefined,
+      addressCountry: 'BR'
+    },
+    openingHoursSpecification: Object.values(grupos).map(grupo => ({
+      '@type': 'OpeningHoursSpecification', dayOfWeek: grupo.dias, opens: grupo.opens, closes: grupo.closes
+    })),
+    sameAs: [LOJA.instagram && 'https://instagram.com/' + LOJA.instagram.replace('@', ''), LOJA.facebook, LOJA.avaliacoesGoogle].filter(Boolean)
+  };
+  const bloco = document.createElement('script');
+  bloco.type = 'application/ld+json';
+  bloco.textContent = JSON.stringify(dados);
+  document.head.appendChild(bloco);
+})();
+
 /* ---------- Marcas (carrossel) ---------- */
 // A lista é repetida até encher a faixa e depois duplicada,
 // assim a animação volta ao início sem "pulo"
