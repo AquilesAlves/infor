@@ -356,7 +356,7 @@ img{max-width:100%}
 @media (max-width:600px){.local-cartao{grid-template-columns:1fr}}
 
 /* Rodapé */
-.rodape{background:var(--fundo);border-top:1px solid var(--linha);padding-top:64px;font-size:15px;color:var(--texto-suave)}
+.rodape{background:var(--superficie);border-top:1px solid var(--linha);padding-top:64px;font-size:15px;color:var(--texto-suave)}
 .rodape-grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:40px;padding-bottom:48px}
 @media (max-width:640px){.rodape-grade{grid-template-columns:1fr;gap:32px}}
 .rodape-sobre{display:flex;flex-direction:column;gap:16px;min-width:0}
