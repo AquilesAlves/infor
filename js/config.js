@@ -6,10 +6,6 @@ const LOJA = {
   sigla: "TC",                       // 2 letras no ícone do logo (usado quando "logo" está vazio)
   logo: "img/exemplos/logo.svg",     // imagem do logo (quadrada: PNG, SVG ou JPG). "" usa a sigla
 
-  // Foto da loja no lugar da bancada da abertura (proporção 520×440, ex.: 1040×880 px).
-  // "" mostra a bancada ilustrada. A legenda aparece num selo sobre a foto ("" esconde).
-  fotoAbertura: "img/exemplos/abertura.jpg",
-  fotoAberturaLegenda: "Nossa loja · São Paulo",
   whatsapp: "5511999990000",         // DDI + DDD + número, só dígitos
   whatsappExibicao: "(11) 99999-0000",
   mensagemPadrao: "Olá! Vim pelo site e gostaria de atendimento.",
@@ -33,14 +29,6 @@ const LOJA = {
   subtitulo: "Notebooks, computadores, peças e acessórios, com assistência técnica própria. Conte o que você precisa e a gente indica a melhor opção.",
   sobreTitulo: "Venha até a loja",
   sobreTexto: "Atendimento de especialista, perto de você.",
-  // Fotos da loja em "Onde estamos" (proporção 4:3, ex.: 800×600 px). [] esconde a galeria
-  galeriaTitulo: "Por dentro da loja",
-  galeria: [
-    { foto: "img/exemplos/loja-1.jpg", legenda: "Fachada" },
-    { foto: "img/exemplos/loja-2.jpg", legenda: "Balcão de atendimento" },
-    { foto: "img/exemplos/loja-3.jpg", legenda: "Bancada técnica" },
-    { foto: "img/exemplos/loja-4.jpg", legenda: "Nossa equipe" }
-  ],
   rodapeTexto: "Loja de informática e assistência técnica com diagnóstico transparente e garantia em todos os serviços.",
 
   // Horários: domingo a sábado. null = fechado

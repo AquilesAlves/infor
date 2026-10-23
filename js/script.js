@@ -133,7 +133,7 @@ if (LOJA.marcas.length) {
   pegar('secaoMarcas').hidden = true;
 }
 
-/* ---------- Imagens opcionais (logo, foto da abertura, galeria, vitrine, fotos dos produtos) ---------- */
+/* ---------- Imagens opcionais (logo, vitrine, fotos dos produtos) ---------- */
 // Imagens fora da primeira tela só carregam quando o visitante chega perto delas (lazy)
 const imagem = (caminho, descricao, classe = '', adiar = true) =>
   `<img${classe ? ` class="${classe}"` : ''} src="${protegerTexto(caminho)}" alt="${protegerTexto(descricao)}"${adiar ? ' loading="lazy"' : ''} decoding="async">`;
@@ -143,22 +143,6 @@ if (LOJA.logo) document.querySelectorAll('.logo-icone').forEach(icone => {
   icone.classList.add('com-imagem');
   icone.innerHTML = imagem(LOJA.logo, '', '', false); // o nome da loja já aparece ao lado
 });
-
-// Foto da loja no lugar da bancada
-if (LOJA.fotoAbertura) {
-  const moldura = document.querySelector('.placa-moldura');
-  const legenda = LOJA.fotoAberturaLegenda ? `<figcaption>${protegerTexto(LOJA.fotoAberturaLegenda)}</figcaption>` : '';
-  moldura.innerHTML = `<figure class="foto-abertura">${imagem(LOJA.fotoAbertura, LOJA.fotoAberturaLegenda || LOJA.nome, '', false)}${legenda}</figure>`;
-  moldura.removeAttribute('aria-hidden');
-}
-
-// Galeria "Por dentro da loja"
-if (LOJA.galeria && LOJA.galeria.length) {
-  pegar('galeria').innerHTML = LOJA.galeria.map(foto => `
-    <figure>${imagem(foto.foto, foto.legenda || '')}${foto.legenda ? `<figcaption>${protegerTexto(foto.legenda)}</figcaption>` : ''}</figure>`).join('');
-} else {
-  pegar('galeriaBloco').hidden = true;
-}
 
 /* ---------- Vitrine de destaques (slide) ---------- */
 (function () {

@@ -34,10 +34,8 @@ Coloque as fotos de cada cliente na pasta `img/` (as de `img/exemplos/` são só
 | Campo | Onde aparece | Tamanho sugerido |
 |---|---|---|
 | `logo` | Cabeçalho e rodapé, no lugar da sigla | quadrada, 128×128 ou SVG |
-| `fotoAbertura` + `fotoAberturaLegenda` | Abertura, no lugar da bancada ilustrada | 1040×880 (proporção 520:440) |
 | `vitrine` (`foto`, `nome`, `preco`, `etiqueta`) | Slide "Em destaque" acima das categorias | 640×480 (4:3) |
 | `produtos[].foto` | Topo de cada card de categoria, no lugar do ícone | 640×400 (16:10) |
-| `galeria` (`foto`, `legenda`) + `galeriaTitulo` | "Por dentro da loja", embaixo do mapa | 800×600 (4:3) |
 
 Dica: use JPG ou WebP com até ~200 KB por foto para o site continuar rápido.
 
