@@ -1,9 +1,9 @@
 /* Layout: bancada técnica — hero com placa-mãe ilustrada, marcas, catálogo em grade, assistência em cards, depoimentos, FAQ, localização com mapa e rodapé completo */
 :root{
   --destaque:#C2410C;
-  /* Neutros do modo claro tingidos pela cor de destaque: trocar a cor muda o tom do site junto */
+  /* Neutros tingidos pela cor de destaque (nos dois modos): trocar a cor muda o tom do site inteiro */
   --fundo:color-mix(in srgb,var(--destaque) 5%,#F3F3F1);
-  --superficie:color-mix(in srgb,var(--destaque) 2.5%,#FEFEFD);
+  --superficie:color-mix(in srgb,var(--destaque) 4%,#FDFDFC);
   --superficie-2:color-mix(in srgb,var(--destaque) 12%,#E6E6E3);
   --texto:color-mix(in srgb,var(--destaque) 10%,#141414);
   --texto-suave:color-mix(in srgb,var(--destaque) 14%,#3E3E3E);
@@ -28,19 +28,19 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-tema="claro"]){
-    --fundo:#10141B; --superficie:#161B24; --superficie-2:#1D2430; --texto:#EDF0F4; --texto-suave:#9BA5B4; --linha:#283041;
+    --fundo:color-mix(in srgb,var(--destaque) 5%,#0F1012); --superficie:color-mix(in srgb,var(--destaque) 6%,#16171A); --superficie-2:color-mix(in srgb,var(--destaque) 8%,#1E1F23); --texto:color-mix(in srgb,var(--destaque) 6%,#F0F0F0); --texto-suave:color-mix(in srgb,var(--destaque) 12%,#A6A6A6); --linha:color-mix(in srgb,var(--destaque) 14%,#2A2B2F);
     --destaque:#FF8A50; --sobre-destaque:#1B0D04;
     --aberto:#4ADE80; --fechado:#FDBA74;
-    --placa:#0A0F18; --placa-2:#111827; --placa-linha:#26344C; --placa-texto:#E9EDF3; --placa-suave:#93A1B8;
+    --placa:color-mix(in srgb,var(--destaque) 5%,#0A0B0D); --placa-2:color-mix(in srgb,var(--destaque) 7%,#131416); --placa-linha:color-mix(in srgb,var(--destaque) 20%,#2A2B2F); --placa-texto:var(--texto); --placa-suave:color-mix(in srgb,var(--destaque) 12%,#9C9C9C);
     --brilho:rgba(255,255,255,.22);
     color-scheme:dark;
   }
 }
 :root[data-tema="escuro"]{
-  --fundo:#10141B; --superficie:#161B24; --superficie-2:#1D2430; --texto:#EDF0F4; --texto-suave:#9BA5B4; --linha:#283041;
+  --fundo:color-mix(in srgb,var(--destaque) 5%,#0F1012); --superficie:color-mix(in srgb,var(--destaque) 6%,#16171A); --superficie-2:color-mix(in srgb,var(--destaque) 8%,#1E1F23); --texto:color-mix(in srgb,var(--destaque) 6%,#F0F0F0); --texto-suave:color-mix(in srgb,var(--destaque) 12%,#A6A6A6); --linha:color-mix(in srgb,var(--destaque) 14%,#2A2B2F);
   --destaque:#FF8A50; --sobre-destaque:#1B0D04;
   --aberto:#4ADE80; --fechado:#FDBA74;
-  --placa:#0A0F18; --placa-2:#111827; --placa-linha:#26344C; --placa-texto:#E9EDF3; --placa-suave:#93A1B8;
+  --placa:color-mix(in srgb,var(--destaque) 5%,#0A0B0D); --placa-2:color-mix(in srgb,var(--destaque) 7%,#131416); --placa-linha:color-mix(in srgb,var(--destaque) 20%,#2A2B2F); --placa-texto:var(--texto); --placa-suave:color-mix(in srgb,var(--destaque) 12%,#9C9C9C);
   --brilho:rgba(255,255,255,.22);
   color-scheme:dark;
 }
