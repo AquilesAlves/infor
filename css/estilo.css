@@ -1,21 +1,21 @@
 /* Layout: bancada técnica — hero com placa-mãe ilustrada, marcas, catálogo em grade, assistência em cards, depoimentos, FAQ, localização com mapa e rodapé completo */
 :root{
-  --fundo:#E4E6E1;
-  --superficie:#EFF0EC;
-  --superficie-2:#D8DBD4;
-  --texto:#121826;
-  --texto-suave:#4B5664;
-  --linha:#C6CAC1;
+  --fundo:#E9E9E4;
+  --superficie:#F6F6F3;
+  --superficie-2:#DDDDD6;
+  --texto:#0B0F16;
+  --texto-suave:#353D49;
+  --linha:#C4C4BB;
   --destaque:#C2410C;
   --sobre-destaque:#FFFFFF;
   --destaque-suave:color-mix(in srgb,var(--destaque) 11%,transparent);
   --aberto:#15803D;
   --fechado:#9A3412;
-  --placa:#D3DAE3;
-  --placa-2:#E9EDF2;
-  --placa-linha:#A6B2C1;
-  --placa-texto:#1A2433;
-  --placa-suave:#4F5C6E;
+  --placa:#E0E0D9;
+  --placa-2:#F3F3EF;
+  --placa-linha:#AFAFA5;
+  --placa-texto:#0B0F16;
+  --placa-suave:#454B53;
   --placa-destaque:var(--destaque);
   /* Uma fonte monoespaçada em todo o site */
   --fonte-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular","Cascadia Code",Menlo,Consolas,monospace;
@@ -55,7 +55,10 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
    grandes ficam em 100%. --zoom é usado onde a conta depende da altura da tela. */
 @media (min-width:1024px) and (max-width:1399px){html{zoom:.85;--zoom:.85}}
 @media (min-width:1400px) and (max-width:1599px){html{zoom:.92;--zoom:.92}}
-body{margin:0;background:var(--fundo);color:var(--texto);font-family:var(--fonte-texto);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+/* Letra mais fina só no modo escuro; no claro fica mais cheia e legível */
+:root[data-tema="escuro"] body{-webkit-font-smoothing:antialiased}
+@media (prefers-color-scheme: dark){:root:not([data-tema="claro"]) body{-webkit-font-smoothing:antialiased}}
+body{margin:0;background:var(--fundo);color:var(--texto);font-family:var(--fonte-texto);font-size:16px;line-height:1.7}
 a{color:inherit}
 h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.03em}
 p{margin:0}
