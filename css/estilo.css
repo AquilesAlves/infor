@@ -239,8 +239,7 @@ img{max-width:100%}
 .categoria:hover{border-color:var(--destaque)}
 /* Card com foto (produto.foto): a foto ocupa o topo do card no lugar do ícone */
 .categoria.com-foto{overflow:hidden}
-.categoria-foto{display:block;width:calc(100% + 48px);max-width:none;margin:-24px -24px 4px;aspect-ratio:16/10;object-fit:cover;border-bottom:1px solid var(--linha);transition:transform .5s ease}
-.categoria.com-foto:hover .categoria-foto{transform:scale(1.04)}
+.categoria-foto{display:block;width:calc(100% + 48px);max-width:none;margin:-24px -24px 4px;aspect-ratio:16/10;object-fit:cover;border-bottom:1px solid var(--linha)}
 .categoria.com-foto .categoria-codigo{top:12px;right:12px;padding:5px 8px;border-radius:999px;background:var(--superficie)}
 
 /* Vitrine de destaques em slide (LOJA.vitrine): rola de lado, encaixa em cada produto */
@@ -254,8 +253,7 @@ img{max-width:100%}
 @media (max-width:520px){.vitrine-trilho{grid-auto-columns:82%}}
 .produto-destaque{position:relative;margin:0;scroll-snap-align:start;display:flex;flex-direction:column;background:var(--superficie);border:1px solid var(--linha);border-radius:var(--raio-m);overflow:hidden;transition:border-color .2s ease}
 .produto-destaque:hover{border-color:var(--destaque)}
-.produto-destaque img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .5s ease}
-.produto-destaque:hover img{transform:scale(1.05)}
+.produto-destaque img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
 .produto-destaque figcaption{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-top:1px solid var(--linha);background:var(--superficie);position:relative}
 .produto-destaque strong{font-size:15px}
 .produto-destaque .preco{font-size:13.5px;font-weight:600;color:var(--destaque)}
