@@ -97,7 +97,7 @@ img{max-width:100%}
 .botao-principal:active{filter:brightness(.9)}
 @keyframes icone-chamando{20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(4deg)}}
 .botao-texto{white-space:pre}
-@media (prefers-reduced-motion: reduce){.botao::before,.botao-principal::after{transition:none}.botao-principal:hover svg,.categoria.com-foto:hover::after{animation:none}}
+@media (prefers-reduced-motion: reduce){.botao::before,.botao-principal::after{transition:none}.botao-principal:hover svg{animation:none}}
 /* Contorno: no hover, o fundo ganha um tom suave da cor de destaque (esmaecendo, sem bloco correndo) */
 .botao-contorno{border-color:var(--linha);color:var(--texto);background-color:transparent;transition:background-color .3s ease,border-color .25s ease,color .25s ease}
 .botao-contorno:hover{border-color:var(--destaque);color:var(--destaque);background-color:var(--destaque-suave)}
@@ -256,11 +256,6 @@ img{max-width:100%}
 .categoria h3,.servico h3{transition:color .25s ease}
 :is(.categoria,.servico,.depoimento):hover{background-color:color-mix(in srgb,var(--destaque) 5%,var(--superficie))}
 :is(.categoria,.servico):hover h3{color:var(--destaque)}
-/* Produto com foto: uma linha de "diagnóstico" varre a foto de cima para baixo, como um scanner */
-.categoria.com-foto::after{content:"";position:absolute;top:0;left:0;right:0;aspect-ratio:16/10;pointer-events:none;
-  background:linear-gradient(to bottom,transparent,color-mix(in srgb,var(--destaque) 35%,transparent) 46%,var(--destaque) 50%,transparent 52%) no-repeat 0 -60%/100% 60%;opacity:0}
-.categoria.com-foto:hover::after{animation:varredura .9s ease-out}
-@keyframes varredura{0%{opacity:1;background-position:0 -60%}85%{opacity:1}100%{opacity:0;background-position:0 160%}}
 .categoria-codigo{transition:background-color .25s ease,color .25s ease}
 .categoria:hover .categoria-codigo{color:var(--destaque)}
 .categoria.com-foto:hover .categoria-codigo{background:var(--destaque);color:var(--sobre-destaque)}
