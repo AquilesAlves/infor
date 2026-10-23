@@ -364,12 +364,15 @@ img{max-width:100%}
 .rodape ul{display:flex;flex-direction:column;gap:10px}
 .rodape a{text-decoration:none}
 .rodape li a:hover{color:var(--destaque)}
-#credito{color:var(--texto-suave)}
-#credito a{display:inline-flex;align-items:center;gap:3px;font-weight:700;color:var(--texto);transition:color .2s ease}
-#credito a:hover{color:var(--destaque)}
-#credito svg{width:13px;height:13px}
+/* Crédito da agência: ao lado do copyright, separado por um traço; no celular desce para baixo */
+#credito{display:inline-flex;align-items:center;gap:8px;color:var(--texto-suave)}
+#credito:not(:empty){padding-left:18px;border-left:1px solid var(--linha)}
+#credito a{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border:1px solid var(--linha);border-radius:var(--raio-p);background:var(--superficie);font:800 15px/1 var(--fonte-titulo);letter-spacing:.06em;color:var(--destaque);transition:border-color .2s ease,background .2s ease,color .2s ease}
+#credito a:hover{border-color:var(--destaque);background:var(--destaque);color:var(--sobre-destaque)}
+#credito svg{width:14px;height:14px}
+@media (max-width:760px){#credito:not(:empty){padding-left:0;border-left:0}}
 .rodape li{overflow-wrap:anywhere}
-.rodape-base{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding-block:24px calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--linha);font-size:13.5px}
+.rodape-base{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;text-align:center;gap:10px 18px;padding-block:24px calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--linha);font-size:13.5px}
 
 /* Botão flutuante */
 .flutuantes{position:fixed;z-index:70;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center}
