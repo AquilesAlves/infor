@@ -287,6 +287,8 @@ img{max-width:100%}
 /* Como funciona */
 
 /* Depoimentos */
+.depoimentos-rodape{display:flex;justify-content:center;margin-top:28px}
+.depoimentos-rodape svg{width:18px;height:18px}
 .depoimentos-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:900px){.depoimentos-grade{grid-template-columns:1fr}}
 .depoimento{position:relative;display:flex;flex-direction:column;gap:18px;padding:28px;background:var(--superficie);border:1px solid var(--linha);border-radius:var(--raio-g);min-width:0;transition:border-color .2s ease}

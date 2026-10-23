@@ -26,6 +26,12 @@ Abra `js/config.js` e altere os campos do objeto `LOJA`. O resto da página é p
 - `seletorCores`: mostra no topo um botão de paleta para testar outras cores de destaque (a escolha fica salva só no navegador de quem testou). Mude para `false` antes de entregar o site ao cliente.
 - `marcas`, `produtos`, `garantias`, `servicos`, `depoimentos`, `faq`: listas editáveis. Troque os depoimentos de exemplo pelos comentários reais dos clientes.
 - `cnpj`: aparece no rodapé quando preenchido.
+- `cep`: completa o endereço nos dados enviados ao Google.
+- `avaliacoesGoogle`: link das avaliações da loja no Google (perfil do Google Meu Negócio > Compartilhar). Mostra o botão "Ver avaliações no Google" embaixo dos depoimentos; `""` esconde.
+
+### Dados para o Google
+
+O site gera sozinho, a partir do `config.js`, um bloco invisível no padrão LocalBusiness (tipo `ComputerStore`) com nome, endereço, CEP, telefone, e-mail, horários e redes. É o que ajuda o Google a mostrar a loja nas buscas da região. Basta preencher os campos certos do cliente. Para conferir depois de publicar: search.google.com/test/rich-results.
 - `credito`: linha "Desenvolvido por SHIFT" no rodapé, com link (`texto`, `nome`, `link`). `""` esconde.
 
 ## Fotos dos produtos

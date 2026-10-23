@@ -16,6 +16,9 @@ const LOJA = {
   // Google Maps > Compartilhar > Incorporar um mapa (só o que está dentro de src="...")
   mapa: "",
   cnpj: "",                          // ex.: "00.000.000/0001-00"
+  cep: "01000-000",                  // usado nos dados para o Google ("" deixa de fora)
+  // Link das avaliações da loja no Google (perfil do Google Meu Negócio). "" esconde o botão
+  avaliacoesGoogle: "https://www.google.com/maps/search/?api=1&query=Tech+Inform%C3%A1tica+S%C3%A3o+Paulo",
   // Crédito da agência no rodapé (link abre em nova aba). "" esconde a linha
   credito: { texto: "Desenvolvido por", nome: "SHIFT", link: "https://aquilesalves.github.io/SHIFT/" },
 
