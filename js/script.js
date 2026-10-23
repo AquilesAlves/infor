@@ -55,14 +55,14 @@ aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : L
   if (!LOJA.seletorCores) { seletor.hidden = true; return; }
   const opcoes = [
     { nome: 'Padrão da loja', cor: LOJA.cor, corEscuro: LOJA.corEscuro },
-    { nome: 'Laranja',  cor: '#C2410C', corEscuro: '#FF8A50' },
+    { nome: 'Laranja',  cor: '#B5360B', corEscuro: '#FF8A50' },
     { nome: 'Azul',     cor: '#2F6FDE', corEscuro: '#4C8DF6' },
     { nome: 'Verde',    cor: '#15803D', corEscuro: '#4ADE80' },
     { nome: 'Roxo',     cor: '#7C3AED', corEscuro: '#A78BFA' },
     { nome: 'Vermelho', cor: '#DC2626', corEscuro: '#EF4444' },
-    { nome: 'Rosa',     cor: '#DB2777', corEscuro: '#F472B6' },
-    { nome: 'Ciano',    cor: '#0E7490', corEscuro: '#22D3EE' },
-    { nome: 'Amarelo',  cor: '#CA8A04', corEscuro: '#FACC15', textoSobre: '#1F1A05' }
+    { nome: 'Rosa',     cor: '#C71D66', corEscuro: '#F472B6' },
+    { nome: 'Ciano',    cor: '#0A5F78', corEscuro: '#22D3EE' },
+    { nome: 'Amarelo',  cor: '#A16A00', corEscuro: '#FACC15', textoSobre: '#FFFFFF' }
   ].filter((opcao, posicao, lista) => lista.findIndex(outra => outra.cor.toLowerCase() === opcao.cor.toLowerCase()) === posicao);
 
   const corAtual = (corSalva ? corSalva.cor : LOJA.cor).toLowerCase();
