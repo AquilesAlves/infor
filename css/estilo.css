@@ -257,8 +257,8 @@ img{max-width:100%}
 .categoria-foto{display:block;width:calc(100% + 48px);max-width:none;margin:-24px -24px 4px;aspect-ratio:16/10;object-fit:cover;border-bottom:1px solid var(--linha)}
 .categoria.com-foto .categoria-codigo{top:12px;right:12px;padding:5px 8px;border-radius:999px;background:var(--superficie)}
 /* Modo escuro: fotos um pouco mais escuras para não ofuscar */
-:root[data-tema="escuro"] .categoria-foto{filter:brightness(.65) saturate(.9)}
-@media (prefers-color-scheme: dark){:root:not([data-tema="claro"]) .categoria-foto{filter:brightness(.65) saturate(.9)}}
+:root[data-tema="escuro"] .categoria-foto{filter:brightness(.85)}
+@media (prefers-color-scheme: dark){:root:not([data-tema="claro"]) .categoria-foto{filter:brightness(.85)}}
 .categoria-icone{width:48px;height:48px;border-radius:12px;background:var(--destaque-suave);color:var(--destaque);display:grid;place-items:center}
 .categoria-icone svg{width:26px;height:26px}
 .categoria-codigo{position:absolute;top:22px;right:22px;font:500 12.5px/1 var(--fonte-mono);color:var(--texto-suave);letter-spacing:.08em}
