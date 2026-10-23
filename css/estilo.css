@@ -97,7 +97,7 @@ img{max-width:100%}
 .botao-principal:active{filter:brightness(.9)}
 @keyframes icone-chamando{20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(4deg)}}
 .botao-texto{white-space:pre}
-@media (prefers-reduced-motion: reduce){.botao::before,.botao-principal::after{transition:none}.botao-principal:hover svg{animation:none}}
+@media (prefers-reduced-motion: reduce){.botao::before,.botao-principal::after{transition:none}.botao-principal:hover svg,.categoria.com-foto:hover::after{animation:none}}
 /* Contorno: no hover, o fundo ganha um tom suave da cor de destaque (esmaecendo, sem bloco correndo) */
 .botao-contorno{border-color:var(--linha);color:var(--texto);background-color:transparent;transition:background-color .3s ease,border-color .25s ease,color .25s ease}
 .botao-contorno:hover{border-color:var(--destaque);color:var(--destaque);background-color:var(--destaque-suave)}
@@ -250,8 +250,22 @@ img{max-width:100%}
 .categorias{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 @media (max-width:1020px){.categorias{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.categorias{grid-template-columns:1fr}}
-.categoria{position:relative;display:flex;flex-direction:column;gap:12px;padding:24px;background:var(--superficie);border:1px solid var(--linha);border-radius:var(--raio-m);text-decoration:none;transition:border-color .2s ease;min-width:0}
+.categoria{position:relative;display:flex;flex-direction:column;gap:12px;padding:24px;background:var(--superficie);border:1px solid var(--linha);border-radius:var(--raio-m);text-decoration:none;transition:border-color .25s ease,background-color .25s ease;min-width:0}
 .categoria:hover{border-color:var(--destaque)}
+/* Hover dos cards (sem sair do lugar): fundo ganha um leve tom da cor de destaque e o título acende */
+.categoria h3,.servico h3{transition:color .25s ease}
+:is(.categoria,.servico,.depoimento):hover{background-color:color-mix(in srgb,var(--destaque) 5%,var(--superficie))}
+:is(.categoria,.servico):hover h3{color:var(--destaque)}
+/* Produto com foto: uma linha de "diagnóstico" varre a foto de cima para baixo, como um scanner */
+.categoria.com-foto::after{content:"";position:absolute;top:0;left:0;right:0;aspect-ratio:16/10;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,color-mix(in srgb,var(--destaque) 35%,transparent) 46%,var(--destaque) 50%,transparent 52%) no-repeat 0 -60%/100% 60%;opacity:0}
+.categoria.com-foto:hover::after{animation:varredura .9s ease-out}
+@keyframes varredura{0%{opacity:1;background-position:0 -60%}85%{opacity:1}100%{opacity:0;background-position:0 160%}}
+.categoria-codigo{transition:background-color .25s ease,color .25s ease}
+.categoria:hover .categoria-codigo{color:var(--destaque)}
+.categoria.com-foto:hover .categoria-codigo{background:var(--destaque);color:var(--sobre-destaque)}
+.categoria-icone{transition:background-color .25s ease,color .25s ease}
+.categoria:hover .categoria-icone{background:var(--destaque);color:var(--sobre-destaque)}
 /* Card com foto (produto.foto): a foto ocupa o topo do card no lugar do ícone */
 .categoria.com-foto{overflow:hidden}
 .categoria-foto{display:block;width:calc(100% + 48px);max-width:none;margin:-24px -24px 4px;aspect-ratio:16/10;object-fit:cover;border-bottom:1px solid var(--linha)}
@@ -283,7 +297,7 @@ img{max-width:100%}
 .servicos-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:1020px){.servicos-grade{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:620px){.servicos-grade{grid-template-columns:1fr}}
-.servico{position:relative;display:flex;flex-direction:column;gap:14px;padding:26px;background:var(--fundo);border:1px solid var(--linha);border-radius:var(--raio-g);overflow:hidden;min-width:0;transition:border-color .2s ease}
+.servico{position:relative;display:flex;flex-direction:column;gap:14px;padding:26px;background:var(--fundo);border:1px solid var(--linha);border-radius:var(--raio-g);overflow:hidden;min-width:0;transition:border-color .25s ease,background-color .25s ease}
 .servico::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--destaque);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
 .servico:hover{border-color:color-mix(in srgb,var(--destaque) 45%,var(--linha))}
 .servico:hover::before{transform:scaleX(1)}
@@ -291,6 +305,7 @@ img{max-width:100%}
 .servico-icone{width:52px;height:52px;border-radius:14px;background:var(--superficie);border:1px solid var(--linha);color:var(--destaque);display:grid;place-items:center;transition:background .2s ease,color .2s ease,border-color .2s ease}
 .servico-icone svg{width:26px;height:26px}
 .servico:hover .servico-icone{background:var(--destaque);color:var(--sobre-destaque);border-color:var(--destaque)}
+.servico:hover .servico-numero{color:var(--destaque)}
 .servico-numero{font:500 13px/1 var(--fonte-mono);color:var(--texto-suave);letter-spacing:.08em}
 .servico h3{font-size:17px;font-weight:700;margin-top:4px}
 .servico p{color:var(--texto-suave);font-size:15px;flex:1}
@@ -306,8 +321,13 @@ img{max-width:100%}
 .depoimentos-rodape svg{width:17px;height:17px;color:var(--destaque)}
 .depoimentos-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:900px){.depoimentos-grade{grid-template-columns:1fr}}
-.depoimento{position:relative;display:flex;flex-direction:column;gap:18px;padding:28px;background:var(--superficie);border:1px solid var(--linha);border-radius:var(--raio-g);min-width:0;transition:border-color .2s ease}
+.depoimento{position:relative;display:flex;flex-direction:column;gap:18px;padding:28px;background:var(--superficie);border:1px solid var(--linha);border-radius:var(--raio-g);min-width:0;transition:border-color .25s ease,background-color .25s ease}
 .depoimento:hover{border-color:var(--destaque)}
+/* Depoimento: as aspas ganham força e descem um pouco; o avatar ganha a cor de destaque */
+.depoimento::after{transition:opacity .3s ease,transform .3s ease}
+.depoimento:hover::after{opacity:.4;transform:translateY(4px)}
+.avatar{transition:background-color .25s ease,color .25s ease}
+.depoimento:hover .avatar{background:var(--destaque);color:var(--sobre-destaque)}
 .depoimento::after{content:"\201C";position:absolute;top:10px;right:22px;font:800 76px/1 "Archivo","Arial Black",sans-serif;color:var(--destaque);opacity:.16}
 .estrelas{display:flex;gap:3px;color:var(--destaque)}
 .estrelas svg{width:17px;height:17px}
