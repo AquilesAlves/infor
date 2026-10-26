@@ -55,7 +55,6 @@ aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : L
   if (!LOJA.seletorCores) { seletor.hidden = true; return; }
   const opcoes = [
     { nome: 'Padrão da loja', cor: LOJA.cor, corEscuro: LOJA.corEscuro },
-    { nome: 'Laranja',  cor: '#B5360B', corEscuro: '#FF8A50' },
     { nome: 'Azul',     cor: '#2F6FDE', corEscuro: '#4C8DF6' },
     { nome: 'Verde',    cor: '#15803D', corEscuro: '#4ADE80' },
     { nome: 'Roxo',     cor: '#7C3AED', corEscuro: '#A78BFA' },
