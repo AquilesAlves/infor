@@ -410,18 +410,14 @@ img{max-width:100%}
 @media (max-width:600px){.local-cartao{grid-template-columns:1fr}}
 
 /* Rodapé */
-/* Rodapé em uma faixa só, em três blocos separados por linhas: marca e direitos | frase | crédito da agência */
+/* Rodapé: dois blocos (marca e frase | crédito da agência) e, embaixo, os direitos centralizados */
 .rodape{background:var(--superficie);border-top:1px solid var(--linha);font-size:15px;color:var(--texto-suave)}
-.rodape-conteudo{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;padding-block:36px calc(36px + env(safe-area-inset-bottom,0px))}
-.rodape-conteudo>*{padding-inline:40px}
-.rodape-conteudo>:first-child{padding-left:0}
-.rodape-conteudo>:last-child{padding-right:0}
-.rodape-conteudo>*+*{border-left:1px solid var(--linha)}
-.rodape-marca{display:flex;flex-direction:column;gap:12px;min-width:0}
+.rodape-conteudo{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding-block:36px}
+.rodape-marca{display:flex;flex-direction:column;gap:12px;min-width:0;padding-right:48px}
 .rodape-marca .logo{color:var(--texto)}
-.rodape-direitos{font-size:14px}
-.rodape-frase{max-width:520px;margin:0 auto;text-align:center}
-.rodape-lado{display:flex;flex-direction:column;align-items:center;gap:14px}
+.rodape-frase{max-width:520px}
+.rodape-lado{display:flex;flex-direction:column;align-items:center;gap:14px;padding-left:48px;border-left:1px solid var(--linha);align-self:stretch;justify-content:center}
+.rodape-direitos{font-size:14px;text-align:center;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--linha)}
 .redes{display:flex;gap:10px}
 .redes a{width:40px;height:40px;border-radius:10px;border:1px solid var(--linha);display:grid;place-items:center;color:var(--texto);transition:color .2s ease,border-color .2s ease}
 .redes a:hover{color:var(--destaque);border-color:var(--destaque)}
@@ -448,12 +444,12 @@ img{max-width:100%}
 /* Celular e tablet: tudo empilhado e centralizado */
 @media (min-width:1024px) and (max-width:1299px){.rodape-conteudo{padding-right:72px}}
 @media (max-width:1023px){
-  .rodape-conteudo{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;padding-bottom:calc(60px + env(safe-area-inset-bottom,0px))}
-  .rodape-conteudo>*{padding-inline:0}
-  .rodape-conteudo>*+*{border-left:0}
-  /* Ordem: logo, frase, direitos e crédito; embaixo só linhas estreitas, que não chegam aos botões flutuantes */
-  .rodape-marca{display:contents}
-  .rodape-marca .logo{order:1}.rodape-frase{order:2}.rodape-direitos{order:3;max-width:250px}.rodape-lado{order:4}
+  /* Tudo centralizado; os direitos vêm antes do crédito, que é estreito e fica embaixo, livre dos botões flutuantes */
+  .rodape .conteudo{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .rodape-conteudo{display:contents}
+  .rodape-marca{order:1;align-items:center;padding:36px 0 0}
+  .rodape-direitos{order:2;max-width:250px;border-top:0;padding-block:22px}
+  .rodape-lado{order:3;padding:0 0 calc(50px + env(safe-area-inset-bottom,0px));border-left:0}
 }
 
 @media (prefers-reduced-motion:reduce){
