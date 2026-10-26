@@ -213,6 +213,16 @@ img{max-width:100%}
 .placa .p-grande{fill:var(--placa-texto);font-family:var(--fonte-titulo);font-weight:800;font-size:32px}
 .placa .p-etiqueta{fill:var(--placa);stroke:var(--placa-linha);stroke-width:1.2}
 .placa .p-led{fill:var(--placa-destaque)}
+/* Placa de vídeo */
+.placa .p-ventoinha{fill:var(--placa);stroke:var(--placa-linha);stroke-width:1.5}
+.placa .p-helice{fill:none;stroke:var(--placa-suave);stroke-width:2;stroke-linecap:round}
+.placa .p-cubo{fill:var(--placa-2);stroke:var(--placa-linha);stroke-width:1.5}
+.placa .p-led-gpu{stroke:var(--placa-destaque);stroke-width:3;stroke-linecap:round;animation:pisca 2s ease-in-out infinite}
+.placa .p-contato{stroke:var(--placa-destaque);stroke-width:4;opacity:.75}
+.placa .p-gira{transform-box:fill-box;transform-origin:center;animation:gira 2.4s linear infinite}
+.placa .p-gira.atraso{animation-duration:2.9s}
+@keyframes gira{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.placa .p-gira,.placa .p-led-gpu{animation:none}}
 .placa .p-led-pisca{fill:var(--placa-destaque);animation:pisca 2s ease-in-out infinite}
 @keyframes fluxo{from{stroke-dashoffset:234}to{stroke-dashoffset:0}}
 @keyframes pisca{0%,100%{opacity:1}50%{opacity:.25}}

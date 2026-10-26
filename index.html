@@ -136,7 +136,7 @@
           <path class="p-trilha" d="M320 210 H372"/>
           <path class="p-trilha" d="M260 270 V318 H140"/>
           <path class="p-trilha" d="M200 210 H120 V150"/>
-          <path class="p-trilha" d="M300 270 V330 H420"/>
+          <path class="p-trilha" d="M300 270 V318"/>
           <path class="p-fluxo" d="M260 150 V100 H372"/>
           <path class="p-fluxo atraso2" d="M260 270 V318 H140"/>
           <path class="p-fluxo atraso3" d="M200 210 H120 V150"/>
@@ -176,12 +176,29 @@
             <text class="p-suave" x="120" y="88" text-anchor="middle">REDE / WI-FI</text>
           </g>
 
-          <!-- Slot de vídeo -->
+          <!-- Placa de vídeo: espelho com saídas, corpo com duas ventoinhas girando, faixa de LED e contatos -->
           <g>
-            <rect class="p-peca" x="260" y="358" width="220" height="22" rx="4"/>
-            <path class="p-pino" d="M274 369h192" style="stroke-dasharray:3 4"/>
-            <text class="p-suave" x="370" y="404" text-anchor="middle">PLACA DE VÍDEO</text>
-            <rect class="p-peca" x="404" y="318" width="34" height="24" rx="3"/>
+            <defs>
+              <g id="helice">
+                <path class="p-helice" d="M0-6C6-9 9-15 5-20"/><path class="p-helice" d="M0-6C6-9 9-15 5-20" transform="rotate(60)"/>
+                <path class="p-helice" d="M0-6C6-9 9-15 5-20" transform="rotate(120)"/><path class="p-helice" d="M0-6C6-9 9-15 5-20" transform="rotate(180)"/>
+                <path class="p-helice" d="M0-6C6-9 9-15 5-20" transform="rotate(240)"/><path class="p-helice" d="M0-6C6-9 9-15 5-20" transform="rotate(300)"/>
+              </g>
+            </defs>
+            <rect class="p-peca" x="266" y="312" width="12" height="78" rx="2"/>
+            <path class="p-pino" d="M272 324v10M272 342v10M272 360v8" style="stroke-width:3;stroke-linecap:round"/>
+            <rect class="p-peca" x="278" y="318" width="194" height="62" rx="6"/>
+            <path class="p-led-gpu" d="M290 318h170"/>
+            <circle class="p-ventoinha" cx="324" cy="349" r="23"/>
+            <circle class="p-ventoinha" cx="388" cy="349" r="23"/>
+            <g class="p-gira"><use href="#helice" x="324" y="349"/></g>
+            <g class="p-gira atraso"><use href="#helice" x="388" y="349"/></g>
+            <circle class="p-cubo" cx="324" cy="349" r="5"/>
+            <circle class="p-cubo" cx="388" cy="349" r="5"/>
+            <path class="p-pino" d="M424 336h36M424 344h36M424 352h36M424 360h36"/>
+            <circle class="p-led" cx="456" cy="370" r="2.5"/>
+            <path class="p-contato" d="M318 380v7M326 380v7M334 380v7M342 380v7M350 380v7M358 380v7M374 380v7M382 380v7M390 380v7M398 380v7M406 380v7M414 380v7"/>
+            <text class="p-suave" x="370" y="408" text-anchor="middle">PLACA DE VÍDEO</text>
           </g>
 
           <!-- etiqueta -->
