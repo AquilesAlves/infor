@@ -469,6 +469,17 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWha
   });
 })();
 
+/* ---------- Bancada maior no celular ---------- */
+// Sem as legendas (escondidas no celular), sobra margem vazia no desenho; o recorte tira essa margem
+(function () {
+  const placa = document.querySelector('svg.placa');
+  if (!placa) return;
+  const celular = matchMedia('(max-width: 620px)'), original = placa.getAttribute('viewBox');
+  const ajustar = () => placa.setAttribute('viewBox', celular.matches ? '24 20 448 371' : original);
+  celular.addEventListener('change', ajustar);
+  ajustar();
+})();
+
 /* ---------- Cor e tema dentro do menu no celular ---------- */
 // No celular os dois botões saem do topo (o nome da loja cabe inteiro) e aparecem no fim do menu
 (function () {

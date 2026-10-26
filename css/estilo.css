@@ -221,7 +221,7 @@ img{max-width:100%}
 .placa .p-etiqueta{fill:var(--placa);stroke:var(--placa-linha);stroke-width:1.2}
 .placa .p-led{fill:var(--placa-destaque)}
 /* Celular: a bancada fica pequena e as legendas ficariam ilegíveis; mostra só o desenho */
-@media (max-width:620px){.placa .p-suave{display:none}}
+@media (max-width:620px){.placa .p-suave{display:none}.placa-moldura{margin-inline:-12px}}
 /* Placa de vídeo */
 .placa .p-ventoinha{fill:var(--placa);stroke:var(--placa-linha);stroke-width:1.5}
 /* Hélices: a cor vai por currentColor, porque alguns navegadores (Safari/Firefox) não aplicam o CSS dentro do <use> */
@@ -239,6 +239,7 @@ img{max-width:100%}
 @media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{--afastar:16px;padding-block:40px 64px;min-height:0}.abertura-conteudo .status{transform:translateY(-4px);align-self:center}}
 /* Celular: os dois botões da abertura lado a lado */
 @media (max-width:600px){
+  .abertura{padding-bottom:28px} /* menos vazio embaixo da bancada */
   .abertura-botoes{flex-wrap:nowrap;gap:12px}
   .abertura .botao{flex:1 1 0;min-width:0;padding:14px 6px;gap:8px;font-size:15.5px} /* mesmo tamanho de letra do "Como chegar" */
   .abertura .botao svg{width:18px;height:18px}
