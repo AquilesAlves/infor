@@ -216,7 +216,7 @@ img{max-width:100%}
 /* Placa de vídeo */
 .placa .p-ventoinha{fill:var(--placa);stroke:var(--placa-linha);stroke-width:1.5}
 /* Hélices: a cor vai por currentColor, porque alguns navegadores (Safari/Firefox) não aplicam o CSS dentro do <use> */
-.placa .p-gira{color:var(--placa-suave)}
+.placa .p-gira{color:var(--placa-linha)}
 .placa .p-cubo{fill:var(--placa-2);stroke:var(--placa-linha);stroke-width:1.5}
 .placa .p-led-gpu{stroke:var(--placa-destaque);stroke-width:3;stroke-linecap:round;animation:pisca 2s ease-in-out infinite}
 .placa .p-contato{stroke:var(--placa-destaque);stroke-width:4;opacity:.75}
