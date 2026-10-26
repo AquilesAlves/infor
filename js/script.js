@@ -504,4 +504,9 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWha
   };
   botao.addEventListener('click', () => mostrar(!menu.classList.contains('aberto')));
   menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mostrar(false)));
+  // Toque fora do menu (ou Esc) também fecha
+  document.addEventListener('click', evento => {
+    if (menu.classList.contains('aberto') && !menu.contains(evento.target) && !botao.contains(evento.target)) mostrar(false);
+  });
+  document.addEventListener('keydown', evento => { if (evento.key === 'Escape') mostrar(false); });
 })();
