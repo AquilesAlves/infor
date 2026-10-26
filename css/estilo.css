@@ -450,6 +450,8 @@ img{max-width:100%}
   .rodape-direitos{order:2;max-width:250px;border-top:0;padding-block:22px}
   .rodape-lado{order:3;padding:0 0 calc(50px + env(safe-area-inset-bottom,0px));border-left:0}
 }
+/* Celular: sem a frase, o rodapé fica curto (logo, direitos e crédito) */
+@media (max-width:620px){.rodape-frase{display:none}.rodape-marca{padding-top:28px}.rodape-direitos{font-size:13px;max-width:228px;padding-block:14px 18px}}
 
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
