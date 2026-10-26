@@ -237,13 +237,16 @@ img{max-width:100%}
 @keyframes fluxo{from{stroke-dashoffset:234}to{stroke-dashoffset:0}}
 @keyframes pisca{0%,100%{opacity:1}50%{opacity:.25}}
 @media (max-width:900px){.abertura .conteudo{grid-template-columns:1fr;gap:40px}.abertura{--afastar:16px;padding-block:40px 64px;min-height:0}.abertura-conteudo .status{transform:translateY(-4px);align-self:center}}
-/* Celular: os dois botões da abertura lado a lado, com letra menor para caber */
+/* Celular: os dois botões da abertura lado a lado */
 @media (max-width:600px){
   .abertura-botoes{flex-wrap:nowrap;gap:12px}
-  .abertura .botao{flex:1 1 0;min-width:0;padding:13px 8px;gap:6px;font-size:clamp(10px,2.9vw,13px)}
-  .abertura .botao svg{width:15px;height:15px}
+  .abertura .botao{flex:1 1 0;min-width:0;padding:14px 6px;gap:8px;font-size:15.5px} /* mesmo tamanho de letra do "Como chegar" */
+  .abertura .botao svg{width:18px;height:18px}
   .status{font-size:clamp(11px,3.4vw,13px);white-space:nowrap}
 }
+/* Telas bem estreitas: letras um pouco mais juntas para "Ver o que temos" caber sem diminuir a letra */
+@media (max-width:374px){.abertura .botao{padding-inline:4px;letter-spacing:-.03em}}
+@media (max-width:340px){.abertura .botao{font-size:14px}}
 
 
 /* Marcas */
