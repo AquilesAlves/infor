@@ -470,6 +470,20 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => link.href = linkWha
   });
 })();
 
+/* ---------- Cor e tema dentro do menu no celular ---------- */
+// No celular os dois botões saem do topo (o nome da loja cabe inteiro) e aparecem no fim do menu
+(function () {
+  const celular = matchMedia('(max-width: 980px)');
+  const acoes = document.querySelector('.cabecalho-acoes'), aparencia = pegar('menuAparencia');
+  const botoes = [pegar('seletorCor'), pegar('botaoTema')];
+  const posicionar = () => {
+    if (celular.matches) aparencia.append(...botoes);
+    else acoes.prepend(...botoes);
+  };
+  celular.addEventListener('change', posicionar);
+  posicionar();
+})();
+
 /* ---------- Menu no celular ---------- */
 (function () {
   const botao = pegar('botaoMenu'), menu = pegar('menu');

@@ -140,6 +140,7 @@ img{max-width:100%}
   :root:not([data-tema="claro"]) .icone-sol{display:block}
   :root:not([data-tema="claro"]) .icone-lua{display:none}
 }
+.menu-aparencia{display:none}
 @media (max-width:980px){
   /* Lista do menu: abre e fecha deslizando de cima para baixo (o recorte revela aos poucos) */
   .menu{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--superficie);border-bottom:1px solid var(--linha);padding:8px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px));visibility:hidden;opacity:0;clip-path:inset(0 0 100% 0);transition:clip-path .3s ease,opacity .3s ease,visibility .3s}
@@ -154,6 +155,12 @@ img{max-width:100%}
   .botao-menu[aria-expanded="true"] .linha-menu:nth-child(1){transform:rotate(45deg) translateY(5px)}
   .botao-menu[aria-expanded="true"] .linha-menu:nth-child(2){opacity:0}
   .botao-menu[aria-expanded="true"] .linha-menu:nth-child(3){transform:rotate(-45deg) translateY(-5px)}
+  /* Cor e tema saem do topo e ficam no fim do menu, assim o nome da loja cabe inteiro */
+  .menu-aparencia{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding-top:14px}
+  .menu-aparencia small{flex:1;font:500 13px/1.4 var(--fonte-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--texto-suave)}
+  .menu-aparencia .cor-seletor:not([hidden]){display:contents} /* botão e paleta viram itens da linha */
+  .menu-aparencia .cor-menu{position:static;order:3;flex-basis:100%;width:auto;margin-top:4px}
+  .menu-aparencia .cor-grade{grid-template-columns:repeat(auto-fill,34px);justify-content:space-between}
 }
 
 /* Hero */
@@ -213,6 +220,8 @@ img{max-width:100%}
 .placa .p-grande{fill:var(--placa-texto);font-family:var(--fonte-titulo);font-weight:800;font-size:32px}
 .placa .p-etiqueta{fill:var(--placa);stroke:var(--placa-linha);stroke-width:1.2}
 .placa .p-led{fill:var(--placa-destaque)}
+/* Celular: a bancada fica pequena e as legendas ficariam ilegíveis; mostra só o desenho */
+@media (max-width:620px){.placa .p-suave{display:none}}
 /* Placa de vídeo */
 .placa .p-ventoinha{fill:var(--placa);stroke:var(--placa-linha);stroke-width:1.5}
 /* Hélices: a cor vai por currentColor, porque alguns navegadores (Safari/Firefox) não aplicam o CSS dentro do <use> */
@@ -402,8 +411,7 @@ img{max-width:100%}
 
 /* Rodapé */
 .rodape{background:var(--superficie);border-top:1px solid var(--linha);padding-top:64px;font-size:15px;color:var(--texto-suave)}
-.rodape-grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:40px;padding-bottom:48px}
-@media (max-width:640px){.rodape-grade{grid-template-columns:1fr;gap:32px}}
+.rodape-grade{padding-bottom:48px}
 .rodape-sobre{display:flex;flex-direction:column;gap:16px;min-width:0}
 .rodape-sobre .logo{color:var(--texto)}
 .rodape-sobre p{max-width:300px}
@@ -411,10 +419,7 @@ img{max-width:100%}
 .redes a{width:40px;height:40px;border-radius:10px;border:1px solid var(--linha);display:grid;place-items:center;color:var(--texto);transition:color .2s ease,border-color .2s ease}
 .redes a:hover{color:var(--destaque);border-color:var(--destaque)}
 .redes svg{width:18px;height:18px}
-.rodape h4{font:500 13px/1.4 var(--fonte-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--destaque);margin-bottom:16px}
-.rodape ul{display:flex;flex-direction:column;gap:10px}
 .rodape a{text-decoration:none}
-.rodape li a:hover{color:var(--destaque)}
 /* Crédito da agência: ao lado do copyright, separado por um traço; no celular desce para baixo */
 #credito{display:inline-flex;align-items:center;gap:8px;color:var(--texto-suave)}
 #credito:not(:empty){padding-left:18px;border-left:1px solid var(--linha)}
@@ -422,7 +427,6 @@ img{max-width:100%}
 #credito a:hover{border-color:var(--destaque);background:var(--destaque);color:var(--sobre-destaque)}
 #credito svg{width:14px;height:14px}
 @media (max-width:760px){#credito:not(:empty){padding-left:0;border-left:0}}
-.rodape li{overflow-wrap:anywhere}
 .rodape-base{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;text-align:center;gap:10px 18px;padding-block:24px calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--linha);font-size:14.5px}
 
 /* Botão flutuante */

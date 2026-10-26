@@ -7,7 +7,7 @@ const LOJA = {
   whatsapp: "5511999990000",         // DDI + DDD + número, só dígitos
   whatsappExibicao: "(11) 99999-0000",
   mensagemPadrao: "Olá! Vim pelo site e gostaria de atendimento.",
-  email: "contato@techinformatica.com.br", // deixe "" para esconder
+  email: "techinfor@gmail.com", // deixe "" para esconder
   instagram: "@techinformatica",    // deixe "" para esconder
   facebook: "",                      // link completo, ex.: "https://facebook.com/sualoja" ("" esconde)
   endereco: "Rua das Palmeiras, 240 · Centro",
