@@ -51,4 +51,8 @@ Ficam no topo do `index.html`, dentro do `<head>`. Esses campos não estão no `
 
 Ao publicar, troque `og:url` e `og:image` pelo endereço completo (ex.: `https://lojadocliente.com.br/img/compartilhar.jpg`): o WhatsApp não acha a imagem com caminho relativo. Para conferir a prévia, use o depurador do Facebook (developers.facebook.com/tools/debug), que usa o mesmo padrão do WhatsApp.
 
+## Atualizando um site já publicado
+
+No `index.html`, os arquivos de estilo e script têm `?v=2` no fim (ex.: `css/estilo.css?v=2`). Sempre que mudar algo e publicar, troque o número nos quatro lugares (`?v=3`, `?v=4`...). Assim o navegador dos visitantes baixa os arquivos novos na hora, em vez de usar a cópia guardada (o GitHub Pages deixa guardar por 10 minutos, e celulares às vezes por mais tempo).
+
 O botão no topo alterna entre os modos claro e escuro e guarda a escolha no navegador.
