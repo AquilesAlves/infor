@@ -410,9 +410,9 @@ img{max-width:100%}
 @media (max-width:600px){.local-cartao{grid-template-columns:1fr}}
 
 /* Rodapé */
-/* Rodapé: dois blocos (marca e frase | crédito da agência) e, embaixo, os direitos centralizados */
+/* Rodapé: dois blocos lado a lado e centralizados (marca e frase | crédito da agência); embaixo, os direitos */
 .rodape{background:var(--superficie);border-top:1px solid var(--linha);font-size:15px;color:var(--texto-suave)}
-.rodape-conteudo{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding-block:36px}
+.rodape-conteudo{display:grid;grid-template-columns:auto auto;justify-content:center;align-items:center;padding-block:36px}
 .rodape-marca{display:flex;flex-direction:column;gap:12px;min-width:0;padding-right:48px}
 .rodape-marca .logo{color:var(--texto)}
 .rodape-frase{max-width:520px}
@@ -442,7 +442,6 @@ img{max-width:100%}
 @keyframes seta-sobe{0%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}60%{transform:translateY(-3px)}}
 .botao-topo svg{width:22px;height:22px}
 /* Celular e tablet: tudo empilhado e centralizado */
-@media (min-width:1024px) and (max-width:1299px){.rodape-conteudo{padding-right:72px}}
 @media (max-width:1023px){
   /* Tudo centralizado; os direitos vêm antes do crédito, que é estreito e fica embaixo, livre dos botões flutuantes */
   .rodape .conteudo{display:flex;flex-direction:column;align-items:center;text-align:center}
