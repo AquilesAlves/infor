@@ -416,18 +416,21 @@ img{max-width:100%}
 /* Rodapé */
 /* Rodapé: dois blocos lado a lado e centralizados (marca e frase | crédito da agência); embaixo, os direitos */
 .rodape{background:var(--superficie);border-top:1px solid var(--linha);font-size:15px;color:var(--texto-suave)}
-.rodape-conteudo{display:grid;grid-template-columns:auto auto auto;justify-content:center;align-items:center;padding-block:36px}
-.rodape-marca{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;min-width:0;padding-right:48px}
+/* Marca na esquerda, Navegue no meio da tela e crédito na direita (as colunas laterais têm a mesma largura) */
+.rodape-conteudo{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:40px;padding-block:36px;font-size:14px}
+.rodape-marca{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0;justify-self:start}
 .rodape-marca .logo{color:var(--texto)}
-.rodape-frase{max-width:520px;text-wrap:balance}
-.rodape-lado{display:flex;flex-direction:column;align-items:center;gap:14px;padding-left:48px;border-left:1px solid var(--linha);align-self:stretch;justify-content:center}
+.rodape-frase{max-width:400px;text-wrap:balance}
+.rodape-lado{display:flex;flex-direction:column;align-items:center;gap:12px;justify-self:end}
 /* Links das seções: duas colunas curtas, entre a marca e o crédito */
-.rodape-links{padding-inline:48px;border-left:1px solid var(--linha);align-self:stretch;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.rodape-links h4{font:500 13px/1.4 var(--fonte-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--destaque);margin-bottom:12px}
-.rodape-links ul{display:grid;grid-template-columns:repeat(2,auto);gap:8px 32px;list-style:none;margin:0;padding:0;text-align:center}
+.rodape-links{display:flex;flex-direction:column;align-items:center;text-align:center}
+.rodape-links h4{font:500 12.5px/1.4 var(--fonte-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--destaque);margin-bottom:10px}
+.rodape-links ul{display:grid;grid-template-columns:repeat(2,auto);gap:6px 28px;list-style:none;margin:0;padding:0;text-align:center}
+.rodape-links li:last-child:nth-child(odd){grid-column:1/-1} /* número ímpar de links: o último fica centralizado sozinho */
 .rodape-links a{color:var(--texto-suave);white-space:nowrap;transition:color .2s ease}
 .rodape-links a:hover{color:var(--destaque)}
-@media (min-width:1024px) and (max-width:1299px){.rodape-marca{padding-right:32px}.rodape-links{padding-inline:32px}.rodape-lado{padding-left:32px}.rodape-frase{max-width:420px}}
+/* Notebook menor: margem dos dois lados (o crédito fica longe dos botões flutuantes e o Navegue continua no meio) */
+@media (min-width:1024px) and (max-width:1299px){.rodape-conteudo{padding-inline:56px;gap:28px}.rodape-frase{max-width:300px}}
 .rodape-direitos{font-size:14px;text-align:center;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--linha)}
 .redes{display:flex;gap:10px}
 .redes a{width:40px;height:40px;border-radius:10px;border:1px solid var(--linha);display:grid;place-items:center;color:var(--texto);transition:color .2s ease,border-color .2s ease}
@@ -466,7 +469,7 @@ img{max-width:100%}
 @media (max-width:620px){
   .rodape-frase{display:none}
   .rodape .conteudo{display:block}
-  .rodape-conteudo{display:grid;grid-template-columns:auto auto;grid-template-areas:"marca lado" "links links";justify-content:center;align-items:center;padding-block:28px 22px;border-bottom:1px solid var(--linha)}
+  .rodape-conteudo{display:grid;grid-template-columns:auto auto;grid-template-areas:"marca lado" "links links";justify-content:center;align-items:center;gap:0;padding-block:28px 22px;border-bottom:1px solid var(--linha)}
   .rodape-marca{grid-area:marca}.rodape-lado{grid-area:lado}
   .rodape-links{grid-area:links;margin-top:20px;padding:18px 0 0;border-top:1px solid var(--linha)}
   .rodape-links ul{gap:8px 28px}
