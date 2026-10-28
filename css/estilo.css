@@ -479,9 +479,8 @@ img{max-width:100%}
   .rodape-marca .logo-nome{white-space:normal;line-height:1.25}
   .rodape-lado{padding:0 0 0 18px;border-left:1px solid var(--linha)}
   #credito a{font-size:18px;padding:7px 12px}
-  /* Direitos alinhados à esquerda: ficam longe dos botões flutuantes, que ficam à direita */
-  .rodape-direitos{font-size:13px;max-width:none;margin:0;text-align:left;padding:16px 0 calc(84px + env(safe-area-inset-bottom,0px));border-top:0}
-  .rodape-direitos{width:min(100%,232px)}
+  /* Direitos centralizados, sem espaço sobrando no fim da página */
+  .rodape-direitos{font-size:13px;max-width:228px;margin:0 auto;text-align:center;padding:16px 0 calc(20px + env(safe-area-inset-bottom,0px));border-top:0}
 }
 
 @media (prefers-reduced-motion:reduce){
