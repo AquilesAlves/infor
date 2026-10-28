@@ -416,11 +416,18 @@ img{max-width:100%}
 /* Rodapé */
 /* Rodapé: dois blocos lado a lado e centralizados (marca e frase | crédito da agência); embaixo, os direitos */
 .rodape{background:var(--superficie);border-top:1px solid var(--linha);font-size:15px;color:var(--texto-suave)}
-.rodape-conteudo{display:grid;grid-template-columns:auto auto;justify-content:center;align-items:center;padding-block:36px}
-.rodape-marca{display:flex;flex-direction:column;gap:12px;min-width:0;padding-right:48px}
+.rodape-conteudo{display:grid;grid-template-columns:auto auto auto;justify-content:center;align-items:center;padding-block:36px}
+.rodape-marca{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;min-width:0;padding-right:48px}
 .rodape-marca .logo{color:var(--texto)}
-.rodape-frase{max-width:520px}
+.rodape-frase{max-width:520px;text-wrap:balance}
 .rodape-lado{display:flex;flex-direction:column;align-items:center;gap:14px;padding-left:48px;border-left:1px solid var(--linha);align-self:stretch;justify-content:center}
+/* Links das seções: duas colunas curtas, entre a marca e o crédito */
+.rodape-links{padding-inline:48px;border-left:1px solid var(--linha);align-self:stretch;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.rodape-links h4{font:500 13px/1.4 var(--fonte-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--destaque);margin-bottom:12px}
+.rodape-links ul{display:grid;grid-template-columns:repeat(2,auto);gap:8px 32px;list-style:none;margin:0;padding:0;text-align:center}
+.rodape-links a{color:var(--texto-suave);white-space:nowrap;transition:color .2s ease}
+.rodape-links a:hover{color:var(--destaque)}
+@media (min-width:1024px) and (max-width:1299px){.rodape-marca{padding-right:32px}.rodape-links{padding-inline:32px}.rodape-lado{padding-left:32px}.rodape-frase{max-width:420px}}
 .rodape-direitos{font-size:14px;text-align:center;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--linha)}
 .redes{display:flex;gap:10px}
 .redes a{width:40px;height:40px;border-radius:10px;border:1px solid var(--linha);display:grid;place-items:center;color:var(--texto);transition:color .2s ease,border-color .2s ease}
@@ -451,14 +458,18 @@ img{max-width:100%}
   .rodape .conteudo{display:flex;flex-direction:column;align-items:center;text-align:center}
   .rodape-conteudo{display:contents}
   .rodape-marca{order:1;align-items:center;padding:36px 0 0}
-  .rodape-direitos{order:2;max-width:250px;border-top:0;padding-block:22px}
-  .rodape-lado{order:3;padding:0 0 calc(50px + env(safe-area-inset-bottom,0px));border-left:0}
+  .rodape-links{order:2;padding:24px 0 0;border-left:0}
+  .rodape-direitos{order:3;max-width:250px;border-top:0;padding-block:22px}
+  .rodape-lado{order:4;padding:0 0 calc(50px + env(safe-area-inset-bottom,0px));border-left:0}
 }
 /* Celular: sem a frase; logo e crédito lado a lado, separados por uma linha, e os direitos embaixo */
 @media (max-width:620px){
   .rodape-frase{display:none}
   .rodape .conteudo{display:block}
-  .rodape-conteudo{display:grid;grid-template-columns:auto auto;justify-content:center;align-items:center;padding-block:28px 22px;border-bottom:1px solid var(--linha)}
+  .rodape-conteudo{display:grid;grid-template-columns:auto auto;grid-template-areas:"marca lado" "links links";justify-content:center;align-items:center;padding-block:28px 22px;border-bottom:1px solid var(--linha)}
+  .rodape-marca{grid-area:marca}.rodape-lado{grid-area:lado}
+  .rodape-links{grid-area:links;margin-top:20px;padding:18px 0 0;border-top:1px solid var(--linha)}
+  .rodape-links ul{gap:8px 28px}
   .rodape-marca{padding:0 18px 0 0;align-items:flex-start;text-align:left}
   .rodape-marca .logo-nome{white-space:normal;line-height:1.25}
   .rodape-lado{padding:0 0 0 18px;border-left:1px solid var(--linha)}
