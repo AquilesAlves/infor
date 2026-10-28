@@ -39,30 +39,33 @@ const estiloDaCor = document.createElement('style');
 document.head.appendChild(estiloDaCor);
 // textoSobre (opcional): cor das letras em cima da cor de destaque no tema claro.
 // Cores claras como o amarelo precisam de letra escura; sem ele, a letra é branca.
-const aplicarCor = (corClara, corEscura, textoSobre) => {
-  estiloDaCor.textContent = `:root{--destaque:${corClara}${textoSobre ? `;--sobre-destaque:${textoSobre}` : ''}}
+// corTexto (opcional): versão mais escura para textos no modo claro, quando a cor é clara demais para texto
+const aplicarCor = (corClara, corEscura, textoSobre, corTexto) => {
+  estiloDaCor.textContent = `:root{--destaque:${corClara}${textoSobre ? `;--sobre-destaque:${textoSobre}` : ''}${corTexto ? `;--destaque-texto:${corTexto}` : ''}}
   @media (prefers-color-scheme: dark){:root:not([data-tema="claro"]){--destaque:${corEscura}}}
   :root[data-tema="escuro"]{--destaque:${corEscura}}`;
 };
+// Cores do seletor: versão para o tema claro (cor) e para o escuro (corEscuro)
+const OPCOES_DE_COR = [
+  { nome: 'Padrão da loja', cor: LOJA.cor, corEscuro: LOJA.corEscuro, textoSobre: LOJA.textoSobre, corTexto: LOJA.corTexto },
+  { nome: 'Azul',     cor: '#2F6FDE', corEscuro: '#4C8DF6' },
+  { nome: 'Verde',    cor: '#15803D', corEscuro: '#4ADE80' },
+  { nome: 'Roxo',     cor: '#7C3AED', corEscuro: '#A78BFA' },
+  { nome: 'Vermelho', cor: '#DC2626', corEscuro: '#EF4444' },
+  { nome: 'Rosa',     cor: '#C71D66', corEscuro: '#F472B6' },
+  { nome: 'Ciano',    cor: '#0A5F78', corEscuro: '#22D3EE' },
+  { nome: 'Amarelo',  cor: '#E2A90B', corEscuro: '#FACC15', textoSobre: '#2B1D00', corTexto: '#7A5800' }
+].filter((opcao, posicao, lista) => lista.findIndex(outra => outra.cor.toLowerCase() === opcao.cor.toLowerCase()) === posicao);
+// A escolha salva guarda só o nome; os valores vêm sempre da lista atual (assim um ajuste de tom chega a quem já tinha escolhido)
 let corSalva = null;
-if (LOJA.seletorCores) { try { corSalva = JSON.parse(localStorage.getItem('cor')); } catch (erro) {} }
-aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : LOJA.corEscuro, corSalva && corSalva.textoSobre);
+if (LOJA.seletorCores) { try { const salva = JSON.parse(localStorage.getItem('cor')); corSalva = salva && OPCOES_DE_COR.find(opcao => opcao.nome === salva.nome) || null; } catch (erro) {} }
+aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : LOJA.corEscuro, corSalva ? corSalva.textoSobre : LOJA.textoSobre, corSalva ? corSalva.corTexto : LOJA.corTexto);
 
 /* ---------- Seletor de cores (para testes) ---------- */
-// Cada opção tem a versão para o tema claro (cor) e para o escuro (corEscuro)
 (function () {
   const seletor = pegar('seletorCor');
   if (!LOJA.seletorCores) { seletor.hidden = true; return; }
-  const opcoes = [
-    { nome: 'Padrão da loja', cor: LOJA.cor, corEscuro: LOJA.corEscuro },
-    { nome: 'Azul',     cor: '#2F6FDE', corEscuro: '#4C8DF6' },
-    { nome: 'Verde',    cor: '#15803D', corEscuro: '#4ADE80' },
-    { nome: 'Roxo',     cor: '#7C3AED', corEscuro: '#A78BFA' },
-    { nome: 'Vermelho', cor: '#DC2626', corEscuro: '#EF4444' },
-    { nome: 'Rosa',     cor: '#C71D66', corEscuro: '#F472B6' },
-    { nome: 'Ciano',    cor: '#0A5F78', corEscuro: '#22D3EE' },
-    { nome: 'Amarelo',  cor: '#E2A90B', corEscuro: '#FACC15', textoSobre: '#1F1A05' }
-  ].filter((opcao, posicao, lista) => lista.findIndex(outra => outra.cor.toLowerCase() === opcao.cor.toLowerCase()) === posicao);
+  const opcoes = OPCOES_DE_COR;
 
   const corAtual = (corSalva ? corSalva.cor : LOJA.cor).toLowerCase();
   const botao = pegar('botaoCor'), menu = pegar('menuCor'), grade = pegar('opcoesCor');
@@ -74,11 +77,11 @@ aplicarCor(corSalva ? corSalva.cor : LOJA.cor, corSalva ? corSalva.corEscuro : L
     const escolhida = evento.target.closest('.cor-opcao');
     if (!escolhida) return;
     const opcao = opcoes[escolhida.dataset.posicao];
-    aplicarCor(opcao.cor, opcao.corEscuro, opcao.textoSobre);
+    aplicarCor(opcao.cor, opcao.corEscuro, opcao.textoSobre, opcao.corTexto);
     grade.querySelectorAll('.cor-opcao').forEach(outra => outra.setAttribute('aria-pressed', outra === escolhida));
     try {
       if (escolhida.dataset.posicao === '0') localStorage.removeItem('cor');
-      else localStorage.setItem('cor', JSON.stringify(opcao));
+      else localStorage.setItem('cor', JSON.stringify({ nome: opcao.nome }));
     } catch (erro) {}
   });
 

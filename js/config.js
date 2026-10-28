@@ -25,6 +25,9 @@ const LOJA = {
   // Cores de destaque (tema claro e tema escuro)
   cor: "#C2410C",
   corEscuro: "#FF8A50",
+  // Opcionais, para cores claras (ex.: amarelo #E2A90B): texto em cima dos botões e versão escura para textos
+  textoSobre: "",                    // ex.: "#2B1D00"
+  corTexto: "",                      // ex.: "#7A5800"
   seletorCores: true,                // botão de paleta no topo para testar cores (false ao entregar ao cliente)
 
   titulo: 'Seu computador em<br><em>boas mãos</em>, do upgrade<br>ao conserto.', // <br> = quebra de linha

@@ -23,6 +23,7 @@ Abra `js/config.js` e altere os campos do objeto `LOJA`. O resto da página é p
 - `mapa`: deixe `""` para gerar o mapa pelo endereço, ou cole o link do Google Maps (Compartilhar > Incorporar um mapa, só o conteúdo de `src="..."`).
 - `horarios`: de domingo a sábado; `null` = fechado. O selo "Aberto agora / Fechado" é calculado automaticamente.
 - `cor`, `corEscuro`: cor de destaque nos modos claro e escuro.
+- `textoSobre`, `corTexto` (opcionais, para cores claras como o amarelo `#E2A90B`): cor da letra em cima dos botões (ex.: `#2B1D00`) e versão mais escura da cor para textos e links no modo claro (ex.: `#7A5800`). Vazios, usam o branco e a própria cor de destaque.
 - `seletorCores`: mostra no topo um botão de paleta para testar outras cores de destaque (a escolha fica salva só no navegador de quem testou). Mude para `false` antes de entregar o site ao cliente.
 - `marcas`, `produtos`, `garantias`, `servicos`, `depoimentos`, `faq`: listas editáveis. Troque os depoimentos de exemplo pelos comentários reais dos clientes.
 - `cnpj`: aparece no rodapé quando preenchido.
